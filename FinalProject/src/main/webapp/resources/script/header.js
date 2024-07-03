@@ -5,7 +5,7 @@ window.onload = function() {
     const toggleBtn = document.querySelector('.nav_toggle_btn');
     
     toggleBtn.addEventListener('click', () => {
-      menu.classList.toggle('active');
+      menu.classList.toggle('active_menu');
     });
     
 };

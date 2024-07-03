@@ -63,7 +63,7 @@ aside {
 	}
 }
 
-.active{
+.active_menu{
     display: block;
     animation: side-ani 0.3s linear forwards;
 }

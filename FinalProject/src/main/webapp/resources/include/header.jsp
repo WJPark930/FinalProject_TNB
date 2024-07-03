@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>떠나봄</title>
+		<link rel="shortcut icon" href="#">
 	  	<link href="<%=request.getContextPath()%>/resources/css/header_footer.css" rel="stylesheet">
 		<script src="<%=request.getContextPath()%>/resources/script/header.js"></script>
  	</head>
