@@ -2,6 +2,28 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="shop.model.Shop">
  
+ <mapper namespace="shop.model.Shop">
+ 	<select id="search_shop" resultType="">
+ 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,CATEGORY_ID 
+		FROM (SELECT T11.SHOP_ID, SUM((ROOM_COUNT - CNT)) ABLE_ROOM
+		      FROM (SELECT SHOP_ID,ROOM_ID,COUNT(ROOM_ID) CNT
+		            FROM room_reservation
+		            WHERE room_checkout_date <![CDATA[>]]>=#{day1}
+		            AND room_checkin_date <![CDATA[<]]>=#{day2}
+		            GROUP BY SHOP_ID, ROOM_ID) T11
+		            LEFT OUTER JOIN
+		            (SELECT *
+		            FROM SHOP_ROOM) T12
+		            ON T12.SHOP_ID = T11.SHOP_ID 
+		            AND T12.ROOM_ID = T11.ROOM_ID
+		            WHERE MAX_PEOPLE <![CDATA[>]]>= #{people}
+		            GROUP BY T11.SHOP_ID) T10,
+		      SHOP T20
+		WHERE T10.SHOP_ID = T20.SHOP_ID 
+		AND ABLE_ROOM <![CDATA[>]]> 0 
+		AND (SHOP_NAME LIKE #{keyword}
+		    OR SHOP_ADDRESS LIKE #{keyword} 
+		    OR REGION  LIKE #{keyword}) 
+ 	</select>
  </mapper>

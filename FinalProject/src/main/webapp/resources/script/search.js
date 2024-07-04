@@ -26,6 +26,32 @@ function minus_people(){
     }
 }
 
+function check_search(){
+    let currentDate = new Date();
+    let keyword = document.querySelector('.search_travel');
+    let calender = document.querySelector('.search_calender');
+    let calender_word = calender.value.split('~');
+    let day1 = document.querySelector('input[name="day1"]');
+    let day2 = document.querySelector('input[name="day2"]');
+    let people = document.querySelector('.search_people');
+    let people_word = people.value.split(' ');
+    let people_input = document.querySelector('input[name="people"]');
+
+    if(keyword.value != ""){
+        day1.value = currentDate.getFullYear()+"-"+calender_word[0];
+        day2.value =  currentDate.getFullYear()+"-"+calender_word[1];
+        people_input.value = people_word[1];
+        //console.log(day1.value);
+        //console.log(day2.value);
+        //console.log(people_input.value);
+    }else{
+        alert("검색어를 입력해주세요");
+        //console.log("검색어없음");
+        return false;
+    }
+
+}
+
 window.addEventListener('load', function() {
     let currentDate = new Date();
     const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
@@ -34,14 +60,9 @@ window.addEventListener('load', function() {
     //console.log(formattedDate);
 
     $("#txtDate").daterangepicker({
-        showMonthAfterYear: true,
-        yearSuffix: '년',	
-    })
-
-    $("#txtDate").daterangepicker({
         locale:{
         "separator":"~", // 시작일시와 종료일시 구분자
-        "format":'MM.DD', // 일시 노출 포맷
+        "format":'MM-DD', // 일시 노출 포맷
         "applyLabel":"확인",// 확인 버튼 텍스트
         "daysOfWeek": ["일","월","화","수","목","금","토"],
         "monthNames": ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
@@ -57,26 +78,20 @@ window.addEventListener('load', function() {
         }
     });
 
-    const travel = document.querySelector('.search_travel');
+    /* const travel = document.querySelector('.search_travel');
 
     travel.addEventListener('keyup', () => {
-        //console.log(travel.value);
         $.ajax({
             url: 'search.sh',
             method: 'GET',
-            dataType:'json',
-            contentType: 'application/json',
-            data: { keyword: travel.value},
-            success: function(response) {
+            //dataType: 'json',
+            success: function(data) {
                 console.log(1);
-                //console.log("response.keyword:"+response.keyword);
-            },
-            error: function(error) {
-                console.error('Error:', error);
+                console.log('응답 데이터:', data);
             }
-        });
 
-      });
+        });
+    }); */
 
 });
 

@@ -7,12 +7,14 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+
+
 	<!-- 유효성 검사용 태그 추가 -->
 	<mvc:annotation-driven/>	 
 	
 	<!-- 요청후 실행될 파일의 경로 지정 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/shopl/" />
+		<property name="prefix" value="/WEB-INF/shop/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<context:component-scan base-package="shop"/>
