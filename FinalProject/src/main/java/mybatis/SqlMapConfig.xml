@@ -3,8 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-config.dtd">
 
+
 <configuration>
+  	<typeAliases>
+  		<typeAlias alias="myShop" type="shop.model.ShopBean"/>
+  		<typeAlias alias="service" type="shop.model.ServiceBean"/>
+  		<typeAlias alias="category" type="shop.model.CategoryBean"/>
+  	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/shop/shop.xml"/>
 	</mappers>
 </configuration>
+
