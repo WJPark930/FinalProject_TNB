@@ -54,9 +54,9 @@ function check_search(){
 
 window.addEventListener('load', function() {
     let currentDate = new Date();
-    const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    let formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
     currentDate.setDate(currentDate.getDate()+1)
-    const formattedDate_next = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    let formattedDate_next = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
     //console.log(formattedDate);
 
     $("#txtDate").daterangepicker({

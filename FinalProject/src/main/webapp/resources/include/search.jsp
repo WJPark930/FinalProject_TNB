@@ -8,8 +8,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script src="<%=request.getContextPath()%>/resources/script/search.js?after"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/shop/search.css?after">
 
-<form action="search.sh" method="post" id="search_form">
+<div id="search_form">
     <div>
         <input type="text" name="keyword" class="search_travel dropdown-toggle"  id="dropdown_search" data-bs-toggle="dropdown" aria-expanded="false" autocomplete='off'
         placeholder="여행지나 숙소를 입력해주세요" style="background-image: url('<%=request.getContextPath()%>/resources/assets/icon/home_icon.svg');">
@@ -51,4 +52,4 @@
     <div>
         <input type="submit" value="검색" class="search_btn " onclick="return check_search()">
     </div>
-</form>
+</div>

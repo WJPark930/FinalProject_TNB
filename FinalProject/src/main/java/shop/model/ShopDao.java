@@ -19,11 +19,23 @@ public class ShopDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<ShopBean> search_shop(Paging pageInfo, Map<String, String> map) {
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+	public List<ShopBean> search_shop(Paging pageInfo, Map<String, Object> map) {
+		//RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
 		List<ShopBean> lists = new ArrayList<ShopBean>();
-		lists = sqlSessionTemplate.selectList(namespace+".search_shop",map,rowBounds);
+		lists = sqlSessionTemplate.selectList(namespace+".search_shop",map);
 
+		return  lists;
+	}
+
+	public List<SearchBean> getServiceList() {
+		List<SearchBean> lists = new ArrayList<SearchBean>();
+		lists = sqlSessionTemplate.selectList(namespace+".getServiceList");
+		return  lists;
+	}
+
+	public List<CategoryBean> getCategoryList() {
+		List<CategoryBean> lists = new ArrayList<CategoryBean>();
+		lists = sqlSessionTemplate.selectList(namespace+".getCategoryList");
 		return  lists;
 	}
 	

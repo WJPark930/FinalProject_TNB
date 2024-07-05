@@ -17,7 +17,9 @@
 			<div class="container" id="search_area">
 				<div id="search_content_area" class="text-center">
 					<h2>여행지 검색</h2>
-					<%@include file="/resources/include/search.jsp" %>
+					<form action="search.sh" name="searchForm" method="get" >
+						<%@include file="/resources/include/search.jsp" %>
+					</form>
 				</div>
 			</div>			
 		</div>

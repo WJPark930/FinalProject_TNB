@@ -4,26 +4,66 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="shop.model.Shop">
- 	<select id="search_shop" resultType="">
- 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,CATEGORY_ID 
-		FROM (SELECT T11.SHOP_ID, SUM((ROOM_COUNT - CNT)) ABLE_ROOM
-		      FROM (SELECT SHOP_ID,ROOM_ID,COUNT(ROOM_ID) CNT
-		            FROM room_reservation
-		            WHERE room_checkout_date <![CDATA[>]]>=#{day1}
-		            AND room_checkin_date <![CDATA[<]]>=#{day2}
-		            GROUP BY SHOP_ID, ROOM_ID) T11
-		            LEFT OUTER JOIN
-		            (SELECT *
-		            FROM SHOP_ROOM) T12
+ 	<select id="search_shop" resultType="myShop">
+ 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,CATEGORY_ID,MIN_PRICE PRICE 
+		FROM (SELECT T12.SHOP_ID,MIN(PRICE) MIN_PRICE
+		 	      	FROM (SELECT SHOP_ID,ROOM_ID,COUNT(ROOM_ID) CNT
+					            FROM room_reservation
+					            WHERE room_checkout_date <![CDATA[>]]>=#{search.day1}
+					            AND room_checkin_date <![CDATA[<]]>=#{search.day2}
+					            GROUP BY SHOP_ID, ROOM_ID) T11
+            		RIGHT OUTER JOIN
+					            (SELECT *
+					            FROM SHOP_ROOM) T12
 		            ON T12.SHOP_ID = T11.SHOP_ID 
 		            AND T12.ROOM_ID = T11.ROOM_ID
-		            WHERE MAX_PEOPLE <![CDATA[>]]>= #{people}
-		            GROUP BY T11.SHOP_ID) T10,
-		      SHOP T20
+		            WHERE MAX_PEOPLE <![CDATA[>]]>= #{search.people}
+		            AND ROOM_COUNT <![CDATA[>]]> NVL(CNT,0)
+		            GROUP BY T12.SHOP_ID) T10,
+		      		SHOP T20
 		WHERE T10.SHOP_ID = T20.SHOP_ID 
-		AND ABLE_ROOM <![CDATA[>]]> 0 
-		AND (SHOP_NAME LIKE #{keyword}
-		    OR SHOP_ADDRESS LIKE #{keyword} 
-		    OR REGION  LIKE #{keyword}) 
+		AND (SHOP_NAME LIKE #{search.keyword}
+		    OR SHOP_ADDRESS LIKE #{search.keyword} 
+		    OR REGION  LIKE #{search.keyword})
+		<if test="search.max_price=='max'">
+			AND MIN_PRICE <![CDATA[>]]> #{search.min_price}
+		</if>
+		<if test="search.max_price!='max'">
+			AND MIN_PRICE BETWEEN #{search.min_price} AND #{search.max_price}
+		</if>
+		<if test="search.service != null">
+			<foreach item="service_id" collection="search.service_arr">
+				AND instr((select listagg(SERVICE_ID, ',') within group(order by SHOP_ID)
+		                    from SHOP_SERVICE WHERE SHOP_ID = T10.SHOP_ID),#{service_id}) <![CDATA[>]]> 0
+			</foreach>
+		</if>
+		<if test="whatColumn=='grade'">
+			ORDER BY GRADE DESC
+		</if>  
+		<if test="search.category_id!=null">
+			AND category_id = #{search.category_id}
+		</if>  
+		<if test="whatColumn=='review'">
+			ORDER BY REVIEW_COUNT DESC
+		</if>  
+		<if test="whatColumn=='min_price'">
+			ORDER BY PRICE
+		</if>  
+		<if test="whatColumn=='max_price'">
+			ORDER BY PRICE DESC
+		</if>  
  	</select>
+ 	
+ 	<select id="getServiceList" resultType="service">
+ 		SELECT * FROM SERVICE
+ 	</select>
+ 	
+ 	<select id="getCategoryList" resultType="category">
+ 		SELECT * FROM CATEGORY
+ 	</select>
+ 	
  </mapper>
+ 
+ 
+ 
+ 

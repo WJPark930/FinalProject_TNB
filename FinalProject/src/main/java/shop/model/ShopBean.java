@@ -11,6 +11,8 @@ public class ShopBean {
 	private int category_id;
 	private String shop_date;
 	
+	/* 최저가 */
+	private int price;
 	
 	public int getShop_id() {
 		return shop_id;
@@ -66,6 +68,14 @@ public class ShopBean {
 	public void setShop_date(String shop_date) {
 		this.shop_date = shop_date;
 	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	
 	
 	
 }
