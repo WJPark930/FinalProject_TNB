@@ -9,9 +9,17 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   		<typeAlias alias="myShop" type="shop.model.ShopBean"/>
   		<typeAlias alias="service" type="shop.model.ServiceBean"/>
   		<typeAlias alias="category" type="shop.model.CategoryBean"/>
+  		<typeAlias alias="guide" type="shop.model.GuideBean"/>
+  		<typeAlias alias="room" type="shop.model.ShopRoomBean"/>
+  		<typeAlias alias="review" type="shop.model.ReviewBean"/>
+  		
+  		<typeAlias alias="reservation" type="mypage.model.RoomReservationBean"/>
   	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/shop/shop.xml"/>
+		<mapper resource="mybatis/shop/review.xml"/>
+		<mapper resource="mybatis/mypage/reviewMy.xml"/>
+		<mapper resource="mybatis/mypage/shopMy.xml"/>
 	</mappers>
 </configuration>
 

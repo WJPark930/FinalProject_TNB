@@ -7,16 +7,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>떠나봄</title>
-		<link rel="shortcut icon" href="#">
+ 	</head>
 	  	<link href="<%=request.getContextPath()%>/resources/css/header_footer.css" rel="stylesheet">
 		<script src="<%=request.getContextPath()%>/resources/script/header.js"></script>
- 	</head>
 	<body class="d-flex flex-column min-vh-100">
 	<header>
 		<div class="container">
 			<div class="d-flex justify-content-between">
 				<div class="logo">
-					<a class="" href="<%=request.getContextPath()%>/main.jsp"><img src="<%=request.getContextPath()%>/resources/assets/logo/LOGO_MAIN.svg" ></a>
+					<a  href="<%=request.getContextPath()%>/main.jsp"><img src="<%=request.getContextPath()%>/resources/assets/logo/LOGO_MAIN.svg" ></a>
 				</div>
 				<div  class="nav_toggle_btn">
 					<img src="<%=request.getContextPath()%>/resources/assets/icon/list_icon.svg"/>
@@ -48,7 +47,7 @@
 				</div>
 				<div class="menu">
 					<p><a href="">예약내역</a></p>
-					<p><a href="">리뷰내역</a></p>
+					<p><a href="review_list.mp">리뷰내역</a></p>
 				</div>
 			</c:if>
 			<div class="line">

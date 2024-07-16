@@ -1,40 +1,32 @@
-const inputLeft = document.getElementById("input-left");
-const inputRight = document.getElementById("input-right");
+function searchPage(pageNumber){
+    document.querySelector('input[name="pageNumber"]').value = pageNumber;
+    document.querySelector('form[name="searchForm"]').submit();
+}
 
-const thumbLeft = document.querySelector(".thumb.left");
-const thumbRight = document.querySelector(".thumb.right");
 
-const range = document.querySelector(".range");
+window.addEventListener('load', function() {  
 
-const setLeftValue = e => {
-  const _this = e.target;
-  const { value, min, max } = _this;
+    const price_range = document.querySelector('input[name="price_range"]');
 
-  if (+inputRight.value - +value < 10) {
-    _this.value = +inputRight.value - 10;
-  }
+    $('input[name="category_id"]').click(function(e) {
+        document.querySelector('form[name="searchForm"]').submit();
+        });
 
-  const percent = ((+_this.value - +min) / (+max - +min)) * 100;
+    $('input[name="service"]').click(function(e) {
+        document.querySelector('form[name="searchForm"]').submit();
+        });
 
-  thumbLeft.style.left = `${percent}%`;
-  range.style.left = `${percent}%`;
-};
+    price_range.addEventListener("change", (e) => {
+        document.querySelector('form[name="searchForm"]').submit();
+    });
 
-const setRightValue = e => {
-  const _this = e.target;
-  const { value, min, max } = _this;
+    
+    
+})
 
-  if (+value - +inputLeft.value < 10) {
-    _this.value = +inputLeft.value + 10;
-  }
-
-  const percent = ((+_this.value - +min) / (+max - +min)) * 100;
-
-  thumbRight.style.right = `${100 - percent}%`;
-  range.style.right = `${100 - percent}%`;
-};
-
-if (inputLeft && inputRight) {
-  inputLeft.addEventListener("input", setLeftValue);
-  inputRight.addEventListener("input", setRightValue);
+function selectItem(column){
+    const whatColumn = document.querySelector('input[name="whatColumn"]');
+    whatColumn.value = column;
+    //console.log(whatColumn.value);
+    document.querySelector('form[name="searchForm"]').submit();
 }

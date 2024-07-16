@@ -1,18 +1,40 @@
 package shop.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class ShopBean {
 	private int shop_id;
 	private int user_id;
-	private String shop_name;
+	
+    @NotBlank(message = "시설명을 입력해주세요.")
+    @Length(max = 20, message = "시설명은 20자 이내로 입력해주세요")
+    private String shop_name;
+	
+	@NotEmpty(message = "지역을 선택하세요.")
 	private String region;
+	
+	@NotBlank(message = "주소를 입력해주세요.")
 	private String shop_address;
-	private int grade;
+	
+	@NotBlank(message = "시설소개를 입력해주세요.")
+	@Length(max = 100,message = "시설명은 20자 이내로 입력해주세요")
+	private String shop_info;
+	private double grade;
 	private int review_count;
+	
+	@NotNull(message = "하나 이상의 카테고리를 선택해주세요.")
 	private int category_id;
 	private String shop_date;
 	
-	/* 최저가 */
+	/* 최저가, 대표이미지, 카테고리, 서비스 */
 	private int price;
+	private String image;
+	private String category_name;
+	private int service_id;
 	
 	public int getShop_id() {
 		return shop_id;
@@ -44,10 +66,10 @@ public class ShopBean {
 	public void setShop_address(String shop_address) {
 		this.shop_address = shop_address;
 	}
-	public int getGrade() {
+	public double getGrade() {
 		return grade;
 	}
-	public void setGrade(int grade) {
+	public void setGrade(double grade) {
 		this.grade = grade;
 	}
 	public int getReview_count() {
@@ -74,8 +96,29 @@ public class ShopBean {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	
-	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getShop_info() {
+		return shop_info;
+	}
+	public void setShop_info(String shop_info) {
+		this.shop_info = shop_info;
+	}
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+	public int getService_id() {
+		return service_id;
+	}
+	public void setService_id(int service_id) {
+		this.service_id = service_id;
+	}
 	
 }

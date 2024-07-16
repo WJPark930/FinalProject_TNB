@@ -1,0 +1,37 @@
+@import '../default_style.css';
+
+#content_container {
+    margin-top: 75px;
+}
+
+#content_container .aside_mypage {
+    width: 25%;
+    min-width: 160px;
+    background-color: aliceblue;
+    height: 100%;
+}
+
+.aside_menu_mypage {
+    padding: 60px 20px;
+}
+
+#content_container .content_mypage {
+    background-color: antiquewhite;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#content_container .content_area {
+    width: 100%;
+    text-align: center;
+}
+
+#content_container .content_area table {
+    margin: 0 auto;
+}
+
+#content_container .content_area table td {
+    padding: 10px 20px;
+}
+
