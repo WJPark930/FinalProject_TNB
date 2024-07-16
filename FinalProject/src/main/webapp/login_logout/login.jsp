@@ -12,7 +12,9 @@
 				this.user_email = user_email;
 				this.user_name = user_name;
 			}
-			
+			public int getUser_id(){
+				return user_id;
+			}			
 			public String getUser_email(){
 				return user_email;
 			}
@@ -22,7 +24,7 @@
 		}
 	%>
 	<%
-		Member member = new Member(1,"user@naver.com","user");
+		Member member = new Member(1,"user@naver.com","admin");
 		//System.out.println(member.user_email);
 		session.setAttribute("loginInfo", member);
 		response.sendRedirect(request.getContextPath()+"/main.jsp");

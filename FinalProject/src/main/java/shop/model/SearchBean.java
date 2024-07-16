@@ -6,9 +6,9 @@ public class SearchBean {
 	private String day1;
 	private String day2;
 	private String people;
-	private String category_id;
-	private String min_price;
-	private String max_price;
+	private int category_id;
+	private int price;
+	private int price_range;
 	private String service;
 	private String[] service_arr;
 	
@@ -36,23 +36,17 @@ public class SearchBean {
 	public void setPeople(String people) {
 		this.people = people;
 	}
-	public String getCategory_id() {
+	public int getCategory_id() {
 		return category_id;
 	}
-	public void setCategory_id(String category_id) {
+	public void setCategory_id(int category_id) {
 		this.category_id = category_id;
 	}
-	public String getMin_price() {
-		return min_price;
+	public int getPrice() {
+		return price;
 	}
-	public void setMin_price(String min_price) {
-		this.min_price = min_price;
-	}
-	public String getMax_price() {
-		return max_price;
-	}
-	public void setMax_price(String max_price) {
-		this.max_price = max_price;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public String getService() {
 		return service;
@@ -65,6 +59,12 @@ public class SearchBean {
 	}
 	public void setService_arr(String[] service_arr) {
 		this.service_arr = service_arr;
+	}
+	public int getPrice_range() {
+		return price_range;
+	}
+	public void setPrice_range(int price_range) {
+		this.price_range = price_range;
 	}
 	
 	
