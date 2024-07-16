@@ -9,7 +9,10 @@
         <param-value>/WEB-INF/spring/root-context.xml</param-value>
     </context-param>
     
+<<<<<<< HEAD
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
+=======
+>>>>>>> branch 'master' of https://github.com/WJPark930/FinalProject.git
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -55,6 +58,10 @@
         </init-param>
         <async-supported>true</async-supported> <!-- 비동기 지원 추가 -->
     </filter>
+<<<<<<< HEAD
+=======
+   
+>>>>>>> branch 'master' of https://github.com/WJPark930/FinalProject.git
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
