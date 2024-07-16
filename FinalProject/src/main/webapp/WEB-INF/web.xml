@@ -9,10 +9,6 @@
         <param-value>/WEB-INF/spring/root-context.xml</param-value>
     </context-param>
     
-<<<<<<< HEAD
-=======
-    <!-- Creates the Spring Container shared by all Servlets and Filters -->
->>>>>>> refs/heads/master
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -58,7 +54,7 @@
         </init-param>
         <async-supported>true</async-supported> <!-- 비동기 지원 추가 -->
     </filter>
-<<<<<<< HEAD
+
    
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -95,13 +91,5 @@
 		<url-pattern>*.mb</url-pattern>
 	</servlet-mapping>
 	
-	
-	
-=======
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
->>>>>>> refs/heads/master
 
 </web-app>
