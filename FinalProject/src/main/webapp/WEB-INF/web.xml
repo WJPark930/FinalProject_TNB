@@ -10,13 +10,9 @@
     </context-param>
     
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/WJPark930/FinalProject.git
-=======
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
->>>>>>> refs/heads/master
->>>>>>> refs/remotes/origin/wjpark
+=======
+>>>>>>> branch 'master' of https://github.com/WJPark930/FinalProject.git
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -63,53 +59,12 @@
         <async-supported>true</async-supported> <!-- 비동기 지원 추가 -->
     </filter>
 <<<<<<< HEAD
+=======
    
-<<<<<<< HEAD
 >>>>>>> branch 'master' of https://github.com/WJPark930/FinalProject.git
-=======
->>>>>>> refs/remotes/origin/wjpark
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
-    <servlet>
-		<servlet-name>board</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/board-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>board</servlet-name>
-		<url-pattern>*.bd</url-pattern>
-	</servlet-mapping>
-	
-		<servlet>
-		<servlet-name>member</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/member-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>member</servlet-name>
-		<url-pattern>*.mb</url-pattern>
-	</servlet-mapping>
-	
-	
-	
-=======
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
->>>>>>> refs/heads/master
 
 </web-app>
