@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+ 
+<configuration>
+
+   <typeAliases>
+        <typeAlias type="community.model.BoardBean" alias="BoardBean" />
+  		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
+    </typeAliases>
+
+	<mappers>		
+		<mapper resource="mybatis/board.xml"/>	
+		<mapper resource="mybatis/member.xml"/>	
+		<mapper resource="mybatis/comment.xml"/>	
+		<mapper resource="mybatis/Nested_CommentMapper.xml"/>	
+	</mappers>
+	
+	
+</configuration>
