@@ -99,6 +99,7 @@ where user_id=#{user_id}
 	<select id="getMemberByEmail" resultType = "MyMember">
 		select * from member where user_email = #{ user_emaiil }
 	</select>
+<<<<<<< HEAD
 	
 	<select id="getMemberByUser_id" resultType = "MyMember">
 		select * from member where user_id = #{ user_id }
@@ -111,4 +112,6 @@ where user_id=#{user_id}
 	 <update id="decreasePoint">
 	 	update member set user_point = user_point - #{ point_amount } where user_id = #{ user_id }
 	 </update>
+=======
+>>>>>>> branch 'leeyewon' of https://github.com/WJPark930/FinalProject.git
 </mapper> 

@@ -99,16 +99,4 @@ where user_id=#{user_id}
 	<select id="getMemberByEmail" resultType = "MyMember">
 		select * from member where user_email = #{ user_emaiil }
 	</select>
-	
-	<select id="getMemberByUser_id" resultType = "MyMember">
-		select * from member where user_id = #{ user_id }
-	</select>
-	 
-	 <update id="getPoint">
-	 	update member set user_point = user_point + #{ user_point } where user_id = #{ user_id }	 
-	 </update>
-	 
-	 <update id="decreasePoint">
-	 	update member set user_point = user_point - #{ point_amount } where user_id = #{ user_id }
-	 </update>
 </mapper> 
