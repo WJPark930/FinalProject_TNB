@@ -8,3 +8,6 @@
 
 접속자 아이디 : ${sessionScope.loginInfo.user_email}<br>
 접속자 일련번호 : ${sessionScope.loginInfo.user_id}<br>
+
+<a href="main2.jsp">시작페이지</a><br>
+<a href="logout.jsp">로그아웃</a><br>

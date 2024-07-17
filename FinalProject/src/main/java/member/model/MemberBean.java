@@ -1,6 +1,5 @@
 package member.model;
 
-import java.sql.Date;
 
 import javax.validation.constraints.NotNull;
 
@@ -25,7 +24,7 @@ private String user_nickname;
 @NotEmpty(message="휴대전화번호"+message)
 private String user_phone;
 
-//@NotEmpty(message="이름"+message)
+@NotEmpty(message="이름"+message)
 private String user_name;
 
 @NotNull(message="성별 선택 필수")
@@ -70,8 +69,15 @@ private String user_type;
 		if(this.upload != null) {
 			System.out.println(upload.getName()); // upload
 			System.out.println(upload.getOriginalFilename()); // 남자시계.jpg
+			
+			//이미지 선택 안하면 
+			if(upload.getOriginalFilename().isEmpty()) {
+				System.out.println("dao 이미지 선택 안함");
+			} else {
+
 			user_image = upload.getOriginalFilename(); // image = 남자시계.jpg
 		}
+	}
 	}
 	public String getUpload2() {
 		return upload2;
