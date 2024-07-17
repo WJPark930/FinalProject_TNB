@@ -34,7 +34,7 @@ public class ReviewDao {
 		cnt += sqlSessionTemplate.insert(namespace+".reviewLike",map);
 		cnt += sqlSessionTemplate.update(namespace+".reviewRecommendUp",map);
 		if(cnt>0) {
-			System.out.println("己傍");
+			System.out.println("靹标车");
 		}
 	}
 
@@ -43,7 +43,7 @@ public class ReviewDao {
 		cnt = sqlSessionTemplate.delete(namespace+".reviewUnlike",map);
 		cnt += sqlSessionTemplate.update(namespace+".reviewRecommendDown",map);
 		if(cnt>0) {
-			System.out.println("己傍");
+			System.out.println("靹标车");
 		}
 	}
 

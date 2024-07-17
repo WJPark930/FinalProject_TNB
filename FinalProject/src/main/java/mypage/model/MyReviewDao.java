@@ -24,13 +24,13 @@ public class MyReviewDao {
 
 	public int insertReview(ReviewBean review) {
 		int cnt = -1;
-		// ¸®ºä Å×ÀÌºí »ı¼º
+		// ë¦¬ë·° í…Œì´ë¸” ìƒì„±
 		cnt = sqlSessionTemplate.insert(namespace+".insertReview",review);
-		// ¸®ºä ÀÌ¹ÌÁö¿¡ ³ÖÀ» ¹æ±İ »ı¼ºÇÑ ¸®ºä Å×ÀÌºí ¾ÆÀÌµğ
+		// ë¦¬ë·° ì´ë¯¸ì§€ì— ë„£ì„ ë°©ê¸ˆ ìƒì„±í•œ ë¦¬ë·° í…Œì´ë¸” ì•„ì´ë””
 		int review_id = sqlSessionTemplate.selectOne(namespace+".getReviewId",review);
 		int review_img_id = sqlSessionTemplate.selectOne(namespace+".getReviewImageId",review_id);
 		
-		// ¸®ºä ÀÌ¹ÌÁö Å×ÀÌºí ´ÙÁß»ı¼º
+		// ë¦¬ë·° ì´ë¯¸ì§€ í…Œì´ë¸” ë‹¤ì¤‘ìƒì„±
 		List<ReviewBean> list = new ArrayList<ReviewBean>();
 		String[] review_arr = review.getImage().split(" /-/ ");
 		for(String review_img : review_arr) {
@@ -45,7 +45,7 @@ public class MyReviewDao {
 			review_img_id++;
 		}
 		sqlSessionTemplate.insert(namespace+".insertReviewImage",list);
-		// shop Å×ÀÌºíÀÇ ¸®ºä¼ö ¿Í ÆòÁ¡ Á¶Àı
+		// shop í…Œì´ë¸”ì˜ ë¦¬ë·°ìˆ˜ ì™€ í‰ì  ì¡°ì ˆ
 		sqlSessionTemplate.update(namespace+".updateShopReviewUp",review);
 		return cnt;
 	}
@@ -61,7 +61,7 @@ public class MyReviewDao {
 		ReviewBean rb = sqlSessionTemplate.selectOne(namespace+".getReviewById",review_id);
 		cnt = sqlSessionTemplate.delete(namespace+".deleteReview",review_id);		
 		if(cnt<=0) {
-			System.out.println("»èÁ¦½ÇÆĞ");
+			System.out.println("ì‚­ì œì‹¤íŒ¨");
 		}else {			
 			sqlSessionTemplate.update(namespace+".updateShopReviewDown",rb.getShop_id());
 		}
@@ -78,7 +78,7 @@ public class MyReviewDao {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.delete(namespace+".deleteReviewImage",image);
 		if(cnt<=0) {
-			System.out.println("»èÁ¦½ÇÆĞ");
+			System.out.println("ì‚­ì œì‹¤íŒ¨");
 		}
 		
 	}
@@ -108,3 +108,4 @@ public class MyReviewDao {
 	
 	
 }
+

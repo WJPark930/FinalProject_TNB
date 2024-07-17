@@ -13,18 +13,18 @@ public class ReviewBean {
 	private int user_id;
 	private int reservation_id;
 	
-	@NotBlank(message = "¸®ºä ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
-	@Size(max = 300, message = "¸®ºä ³»¿ëÀº 300ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotBlank(message = "ë¦¬ë·° ë‚´ìš©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”.")
+	@Size(max = 300, message = "ë¦¬ë·° ë‚´ìš©ì€ 300ìž ì´ë‚´ë¡œ ìž…ë ¥í•´ì£¼ì„¸ìš”.")
 	private String review_content;
 	
 	private double grade;
 	private int recommend;
 	private String review_date;
 	
-	/* ÀÌ¹ÌÁö ¹× ¸®ºä ¿ä¼Ò */
+	/* ì´ë¯¸ì§€ ë° ë¦¬ë·° ìš”ì†Œ */
 	private int review_img_id;
 	
-	@NotBlank(message = "ÃÖ¼Ò ÇÑ°³ÀÇ ÀÌ¹ÌÁö¸¦ Ãß°¡ÇØÁÖ¼¼¿ä.")
+	@NotBlank(message = "ìµœì†Œ í•œê°œì˜ ì´ë¯¸ì§€ë¥¼ ì¶”ê°€í•´ì£¼ì„¸ìš”.")
 	private String image;
 	
 	private String save_image;
@@ -45,7 +45,7 @@ public class ReviewBean {
 		if (this.upload.length > 0 ) {
 			image = "";
 			for(int i=0;i<upload.length;i++) {
-				//System.out.println("###upload.getOriginalFilename():"+upload[i].getOriginalFilename()); // ÀÌ¹ÌÁö¸í
+				//System.out.println("###upload.getOriginalFilename():"+upload[i].getOriginalFilename()); // ì´ë¯¸ì§€ëª…
 				image += upload[i].getOriginalFilename();
 				if(i!=upload.length-1) {
 					image += " /-/ ";

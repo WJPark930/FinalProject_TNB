@@ -12,7 +12,7 @@ public class ShopRoomBean {
 	private String check_out;
 	private String room_count;
 	
-	// Ã¹ÀÌ¹ÌÁö ¹× ·ëÀÌ¹ÌÁö Å×ÀÌºíÀÌ¿ë
+	// ì²«ì´ë¯¸ì§€ ë° ë£¸ì´ë¯¸ì§€ í…Œì´ë¸”ì´ìš©
 	private String image;
 	
 	public int getShop_id() {

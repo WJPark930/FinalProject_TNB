@@ -70,7 +70,7 @@ public class ReviewUpdateController {
 		mav.addObject("review_img_list", review_img_list);
 		
 		if (result.hasErrors()) {
-			System.out.println("¿¡·¯");
+			System.out.println("ì—ëŸ¬");
 			mav.setViewName(getPage);
 			return mav;
 		}
@@ -83,7 +83,7 @@ public class ReviewUpdateController {
 		int cnt = -1;
 		cnt = mypageReviewDao.updateReview(review);
 		if(cnt>0) {
-			// ½Å±Ô Ãß°¡ ÀÌ¹ÌÁö
+			// ì‹ ê·œ ì¶”ê°€ ì´ë¯¸ì§€
 			if(review.getUpload()!=null) {
 				for(MultipartFile upload : review.getUpload()) {
 					MultipartFile multi = upload;
@@ -104,23 +104,23 @@ public class ReviewUpdateController {
 					review.setSave_image("");
 				}
 				if(!review.getSave_image().contains(image.getImage())) {
-					System.out.println("»èÁ¦µÈ ÀÌ¹ÌÁö:"+image.getImage()+" & "+image.getReview_img_id());
+					System.out.println("ì‚­ì œëœ ì´ë¯¸ì§€:"+image.getImage()+" & "+image.getReview_img_id());
 					
-					// µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀÌ¹ÌÁö Å×ÀÌºí »èÁ¦
+					// ë°ì´í„°ë² ì´ìŠ¤ì— ì´ë¯¸ì§€ í…Œì´ë¸” ì‚­ì œ
 					mypageReviewDao.deleteReviewImage(image);
 					
-					// ÀÌ¹ÌÁö Æú´õ³» ÆÄÀÏ »èÁ¦
+					// ì´ë¯¸ì§€ í´ë”ë‚´ íŒŒì¼ ì‚­ì œ
 					String fullPath = uploadPath+File.separator+image.getImage();
 					
 					File file = new File(fullPath);
 					if(file.exists()){
 						if(file.delete()){
-							System.out.println("ÆÄÀÏ »èÁ¦");
+							System.out.println("íŒŒì¼ ì‚­ì œ");
 						}else{
-							System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
+							System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
 						}
 					}else{
-						System.out.println("ÆÄÀÏ¾øÀ½");
+						System.out.println("íŒŒì¼ì—†ìŒ");
 					}
 				}
 			
