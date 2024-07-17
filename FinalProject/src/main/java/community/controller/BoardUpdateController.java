@@ -70,7 +70,7 @@ public class BoardUpdateController {
 	        model.addAttribute("pageInfo", pageInfo);
 			
 			BoardBean bb = bdao.getArticle(bid);
-//			System.out.println("ÄÁÆ®·Ñ·¯·Î ³Ñ¾î¿À´Â Ä«Å×°í¸® : " + bb.getCate_id());
+//			System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ë¡œ ë„˜ì–´ì˜¤ëŠ” ì¹´í…Œê³ ë¦¬ : " + bb.getCate_id());
 			model.addAttribute("board",bb);
 			model.addAttribute("pageNumber",pageNumber);
 			return getPage;
@@ -104,4 +104,3 @@ public class BoardUpdateController {
 			return mav;
 		}
 	}
-

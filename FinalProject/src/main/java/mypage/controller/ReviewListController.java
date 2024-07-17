@@ -29,8 +29,6 @@ public class ReviewListController {
 			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
-		// member 테이블 추가후 수정 해야 하는 부분
-		// member bean 이 있어야 아이디 가져올수있음
 		if(session.getAttribute("loginInfo")!=null) {			
 		}
 		List<ReviewBean> review_list = reviewDao.getMyReview("1");

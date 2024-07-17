@@ -3,10 +3,10 @@ package community.model;
 import java.util.Date;
 
 public class Nested_CommentBean {
-	private int id; //´ë´ñ±Û ÀÏ·Ã¹øÈ£
-	private int comment_id; //´ñ±Û ÀÏ·Ã¹øÈ£
-	private int user_id;//»ç¿ëÀÚ ÀÏ·Ã¹øÈ£
-	private String user_email; //»ç¿ëÀÚ ÀÌ¸ŞÀÏ
+	private int id; //ëŒ€ëŒ“ê¸€ ì¼ë ¨ë²ˆí˜¸
+	private int comment_id; //ëŒ“ê¸€ ì¼ë ¨ë²ˆí˜¸
+	private int user_id;//ì‚¬ìš©ì ì¼ë ¨ë²ˆí˜¸
+	private String user_email; //ì‚¬ìš©ì ì´ë©”ì¼
 	private String content;
 	private Date created_at;
 	private Date updated_at;

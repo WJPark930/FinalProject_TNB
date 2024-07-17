@@ -1,5 +1,6 @@
 package shop.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -17,7 +18,7 @@ public class ShopBean {
 	@NotEmpty(message = "지역을 선택하세요.")
 	private String region;
 	
-	@NotBlank(message = "주소를 입력해주세요.")
+	@NotBlank(message = "주소를 지정해주세요.")
 	private String shop_address;
 	
 	@NotBlank(message = "시설소개를 입력해주세요.")
@@ -26,7 +27,7 @@ public class ShopBean {
 	private double grade;
 	private int review_count;
 	
-	@NotNull(message = "하나 이상의 카테고리를 선택해주세요.")
+	@Min(value = 1, message = "하나 이상의 카테고리를 선택해주세요.")
 	private int category_id;
 	private String shop_date;
 	

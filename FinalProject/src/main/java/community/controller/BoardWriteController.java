@@ -77,7 +77,7 @@ public class BoardWriteController {
 			return mav;
 		}
 
-		// ÆÄÀÏ ¾÷·Îµå ¹× ÀúÀå ·ÎÁ÷
+		// íŒŒì¼ ì—…ë¡œë“œ ë° ì €ì¥ ë¡œì§
 		MultipartFile multi = board.getUpload();
 		if (multi != null && !multi.isEmpty()) {
 			String uploadPath = servletContext.getRealPath("/") + "resources/BoardImage/";
@@ -85,7 +85,7 @@ public class BoardWriteController {
 			try {
 				multi.transferTo(destination);
 				board.setImageFilename(multi.getOriginalFilename());
-				System.out.println("ÆÄÀÏ ¾÷·Îµå ¼º°ø: " + destination.getAbsolutePath());
+				System.out.println("íŒŒì¼ ì—…ë¡œë“œ ì„±ê³µ: " + destination.getAbsolutePath());
 				System.out.println("Image Filename: " + board.getImageFilename());
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -96,12 +96,12 @@ public class BoardWriteController {
 
 		int cnt = bdao.insertArticle(board);
 		if (cnt != -1) {
-			System.out.println("°Ô½Ã¹° ÀúÀå ¼º°ø");
+			System.out.println("ê²Œì‹œë¬¼ ì €ì¥ ì„±ê³µ");
 			System.out.println("Image Filename: " + board.getImageFilename());
 			System.out.println("Content: " + board.getContent());
 			mav.setViewName(gotoPage);
 		} else {
-			System.out.println("°Ô½Ã¹° ÀúÀå ½ÇÆĞ");
+			System.out.println("ê²Œì‹œë¬¼ ì €ì¥ ì‹¤íŒ¨");
 			mav.setViewName(getPage);
 		}
 		return mav;

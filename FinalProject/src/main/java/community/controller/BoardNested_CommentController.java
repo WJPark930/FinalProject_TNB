@@ -38,7 +38,7 @@ public class BoardNested_CommentController {
         Logger logger = LoggerFactory.getLogger(this.getClass());
         MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
         if (loginInfo == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         Nested_CommentBean nestedComment = new Nested_CommentBean();
@@ -50,10 +50,10 @@ public class BoardNested_CommentController {
 
         try {
             nestedCommentDao.insertNestedComment(nestedComment);
-            return ResponseEntity.ok("´ë´ñ±ÛÀÌ ¼º°øÀûÀ¸·Î ÀÛ¼ºµÇ¾ú½À´Ï´Ù.");
+            return ResponseEntity.ok("ëŒ€ëŒ“ê¸€ì´ ì„±ê³µì ìœ¼ë¡œ ì‘ì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
         } catch (Exception e) {
-            logger.error("´ë´ñ±Û ÀÛ¼º Áß ¿À·ù ¹ß»ı: ", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("´ë´ñ±Û ÀÛ¼º¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+            logger.error("ëŒ€ëŒ“ê¸€ ì‘ì„± ì¤‘ ì˜¤ë¥˜ ë°œìƒ: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ëŒ€ëŒ“ê¸€ ì‘ì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -65,40 +65,40 @@ public class BoardNested_CommentController {
             List<Nested_CommentBean> nestedComments = nestedCommentDao.selectNestedCommentsByCommentId(parent_id);
             return ResponseEntity.ok(nestedComments);
         } catch (Exception e) {
-            logger.error("´ë´ñ±Û ¸ñ·Ï Á¶È¸ Áß ¿À·ù ¹ß»ı: ", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("´ë´ñ±Û ¸ñ·Ï Á¶È¸¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+            logger.error("ëŒ€ëŒ“ê¸€ ëª©ë¡ ì¡°íšŒ ì¤‘ ì˜¤ë¥˜ ë°œìƒ: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ëŒ€ëŒ“ê¸€ ëª©ë¡ ì¡°íšŒì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
         }
     }
     
     
-    @PostMapping("/delete.bd") //deleteMapping »ç¿ë!
+    @PostMapping("/delete.bd") //deleteMapping ì‚¬ìš©!
     @ResponseBody
     public ResponseEntity<String> deleteComment(@RequestParam("commentId") int commentId,
                                                 HttpSession session) {
-//      System.out.println("³Ñ¾î¿À´Â ´ë´ñ±Û id : " + commentId);
-        // ·Î±×ÀÎ Á¤º¸ °¡Á®¿À±â
+//      System.out.println("ë„˜ì–´ì˜¤ëŠ” ëŒ€ëŒ“ê¸€ id : " + commentId);
+        // ë¡œê·¸ì¸ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
         MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
         if (loginInfo == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // ´ë´ñ±Û ÀÛ¼ºÀÚÀÇ user_id °¡Á®¿À±â
+        // ëŒ€ëŒ“ê¸€ ì‘ì„±ìì˜ user_id ê°€ì ¸ì˜¤ê¸°
         int NestedCommentUserId = nestedCommentDao.getNestedCommentUserId(commentId);
 
-        // ÇöÀç ·Î±×ÀÎÇÑ »ç¿ëÀÚÀÇ user_id
+        // í˜„ì¬ ë¡œê·¸ì¸í•œ ì‚¬ìš©ìì˜ user_id
         int currentUserId = loginInfo.getUser_id();
 
-        // ±ÇÇÑ È®ÀÎ
+        // ê¶Œí•œ í™•ì¸
         if (currentUserId == NestedCommentUserId) {
-            // »èÁ¦ ·ÎÁ÷ ¼öÇà
+            // ì‚­ì œ ë¡œì§ ìˆ˜í–‰
             int deleteResult = nestedCommentDao.deleteNestedComment(commentId);
             if (deleteResult > 0) {
-                return ResponseEntity.ok("´ë´ñ±ÛÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+                return ResponseEntity.ok("ëŒ€ëŒ“ê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("´ñ±Û »èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ëŒ“ê¸€ ì‚­ì œì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
             }
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("´ñ±Û ÀÛ¼ºÀÚ¸¸ »èÁ¦ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("ëŒ“ê¸€ ì‘ì„±ìë§Œ ì‚­ì œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
         }
     }
 

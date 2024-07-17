@@ -1,7 +1,9 @@
 package mypage.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,36 +52,59 @@ public class MyShopInsertController {
 	
 	@RequestMapping(value = command, method = RequestMethod.POST)
 	public ModelAndView insert(
-			@ModelAttribute("guide") GuideBean guide,
 			@ModelAttribute("shop") @Valid ShopBean shop,
-			BindingResult result) { 
+			BindingResult result,
+			HttpServletRequest request) { 
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("getShop_name: "+shop.getShop_name());
-		System.out.println("getShop_info: "+shop.getShop_info());
-		System.out.println("getCategory_id: "+shop.getCategory_id());
-		System.out.println("getService_id: "+shop.getService_id());
-		System.out.println("getRegion	: "+shop.getRegion());
-		System.out.println("getShop_address: "+shop.getShop_address());
+		// 가이드는 ,를 포함할 수 있기에 따로 배열로 받아준다.
+		String[] guide_title = request.getParameterValues("guide_title");
+		String[] guide_content = request.getParameterValues("guide_content");
+		List<GuideBean> list_guide = new ArrayList<GuideBean>();
+
+        
+		//System.out.println("getShop_name: "+shop.getShop_name());
+		//System.out.println("getShop_info: "+shop.getShop_info());
+		//System.out.println("getCategory_id: "+shop.getCategory_id());
+		//System.out.println("getCategory_name: "+shop.getCategory_name());
+		//System.out.println("getRegion	: "+shop.getRegion());
+		//System.out.println("getShop_address: "+shop.getShop_address());
+		System.out.println("guide_title:"+guide_title);
 		
 		if (result.hasErrors()) {
 			System.out.println("### shop insert 에러");
 	        List<SearchBean> list_service = shopDao.getServiceList();
 	        List<CategoryBean> list_category = shopDao.getCategoryList();
 	        
+	        // 현재까지 작성한 가이드 반환 (개행 전환을 하면안되기에 에러 날시 버전)
+	        if(guide_title != null) {
+	        	for(int i=0;i<guide_title.length;i++) {
+	        		GuideBean gb = new GuideBean();
+	        		gb.setGuide_title(guide_title[i]);
+	        		gb.setGuide_content(guide_content[i]);
+	        		list_guide.add(gb);
+	        	}
+	        }
+	        
+	        mav.addObject("list_guide", list_guide);
 	        mav.addObject("list_service", list_service);
 	        mav.addObject("list_category", list_category);
 	        mav.setViewName(getPage);
 	        return mav;
-	    }
+	    } 
 		
+		// 시설정보 및 가이드 형변환
 		shop.setShop_info(shop.getShop_info().replaceAll("\r\n","<br>"));
-		if(guide.getGuide_content()!=null) {
-			guide.setGuide_content(guide.getGuide_content().replaceAll("\r\n","<br>"));			
-		}
-		
-		
-		
+		if(guide_title!=null) {
+			for(int i=0;i<guide_content.length;i++) {
+				guide_content[i] = guide_content[i].replaceAll("\r\n","<br>");							
+				GuideBean gb = new GuideBean();
+				gb.setGuide_title(guide_title[i]);
+				gb.setGuide_content(guide_content[i]);
+				list_guide.add(gb);
+			}
+		}			
+		System.out.println("###성공");
 		mav.setViewName(getPage);
 		return mav;
 	}
