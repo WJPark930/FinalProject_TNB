@@ -12,9 +12,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   		<typeAlias alias="guide" type="shop.model.GuideBean"/>
   		<typeAlias alias="room" type="shop.model.ShopRoomBean"/>
   		<typeAlias alias="review" type="shop.model.ReviewBean"/>
-      <typeAlias type="community.model.BoardBean" alias="BoardBean" />
+    	<typeAlias type="community.model.BoardBean" alias="BoardBean" />
   		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
-<<<<<<< HEAD
   		<typeAlias alias="MyEvent" type="event.model.EventBean"/>
 		<typeAlias alias="MyReservation" type="reservation.model.ReservationBean"/>
 		<typeAlias alias="MyPayment" type="payment.model.PaymentBean"/>
@@ -26,21 +25,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/shop/review.xml"/>
 		<mapper resource="mybatis/mypage/reviewMy.xml"/>
 		<mapper resource="mybatis/mypage/shopMy.xml"/>
-    	<mapper resource="mybatis/board.xml"/>	
-    	<mapper resource="mybatis/event.xml"/>
-		<mapper resource="mybatis/reservation.xml"/>
-		<mapper resource="mybatis/payment.xml"/>
-=======
-  		
-  		<typeAlias alias="reservation" type="mypage.model.RoomReservationBean"/>
-  	</typeAliases>
-	<mappers>
-		<mapper resource="mybatis/shop/shop.xml"/>
-		<mapper resource="mybatis/shop/review.xml"/>
-		<mapper resource="mybatis/mypage/reviewMy.xml"/>
-		<mapper resource="mybatis/mypage/shopMy.xml"/>
-    <mapper resource="mybatis/board.xml"/>	
->>>>>>> branch 'leeyewon' of https://github.com/WJPark930/FinalProject.git
+  		<mapper resource="mybatis/board.xml"/>	
 		<mapper resource="mybatis/member.xml"/>	
 		<mapper resource="mybatis/comment.xml"/>	
 		<mapper resource="mybatis/Nested_CommentMapper.xml"/>	

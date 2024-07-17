@@ -19,78 +19,80 @@ import member.model.MemberDao;
 
 @Controller
 public class MemberLoginController {
-	
-	private final String command = "/loginForm.mb";
-	private final String getPage = "userLoginForm";
-	private final String gotoPage = "../board/CommunityMain";
-	
-	@Autowired
-	MemberDao memberDao;
-	//ìƒí’ˆì¶”ê°€í•˜ê¸° ë²„íŠ¼ì„ ëˆŒë €ëŠ”ë° ë¡œê·¸ì¸ ì •ë³´ê°€ ì—†ì„ ë•Œ 
-	// productList.jsp=>ì¶”ê°€í•˜ê¸°=>ProductInsertController=>redirect:/loginForm.mb
-	@RequestMapping(value=command, method=RequestMethod.GET)
-	public String loginForm() {
-		return getPage;
-	}
-	
-	
-	//postìš”ì²­í•œê³³ì€ member/memberLoginForm.jspì—ì„œ ë¡œê·¸ì¸ í´ë¦­í–ˆì„ë•Œ(id,password)
-	@RequestMapping(value=command, method=RequestMethod.POST)
-	public ModelAndView loginForm(MemberBean member, HttpSession session,HttpServletResponse response,
-			Model model,
-			@RequestParam(value = "pageNumber", required = false ) String pageNumber) {
-		System.out.println(this.getClass() + " Post : " + member.getUser_email() + " / "+ pageNumber);
-		
-		ModelAndView mav = new ModelAndView();
-
-		MemberBean mb = memberDao.getMemberByEmail(member.getUser_email());  
-		//System.out.println("mb:" + mb);
-
-		try {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			if(mb == null){ // í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
-				out.println("<script>");
-				out.println("alert('í•´ë‹¹ ì•„ì´ë””ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.');");
-				out.println("</script>");
-				out.flush();
-				//mav.setViewName(getPage);
-				return new ModelAndView( getPage ) ;
-				
-			}else{ // í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬í•œë‹¤.
-				if(mb.getUser_passwd().equals(member.getUser_passwd())) { // ë¹„ë²ˆ ì¼ì¹˜
-					
-					session.setAttribute("loginInfo", mb); // loginInfo:ë¡œê·¸ì¸í•œ ì‚¬ëŒì˜ ì •ë³´
-					System.out.println("ë¹„ë²ˆ ì¼ì¹˜");
-					System.out.println("destination:"+(String)session.getAttribute("destination"));
-				
-					//destination:redirect:/insert.prd
-					
-					//destination:redirect:/update.prd?num=13
-					
-					//destination:"redirect:/detail.prd" =>productDetialController=>productDetail.jsp(p,w,k)
-					
-				//	mav.setViewName(( ModelAndView( (String)session.getAttribute("destination") ) ;
-					
-					model.addAttribute("pageNumber", pageNumber);
-					mav.setViewName(gotoPage);
-					//return new ModelAndView((String)session.getAttribute("destination")) ;
-
-					
-				}else { // ë¹„ë²ˆ ë¶ˆì¼ì¹˜
-					System.out.println("ë¹„ë²ˆ ë¶ˆì¼ì¹˜");
-					out.println("<script>");
-					out.println("alert('ë¹„ë²ˆ ë¶ˆì¼ì¹˜ì…ë‹ˆë‹¤.');");
-					out.println("</script>");
-					out.flush();
-					return new ModelAndView( getPage ) ;
-				}
-			}
-
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return mav;
-	}
+    
+    private final String command = "/loginForm.mb";
+    private final String getPage = "userLoginForm";
+    private final String gotoPage = "loginSuccess";
+    private final String my_page="memberMypage";
+    
+    @Autowired
+    MemberDao memberDao;
+    
+    @RequestMapping(value = command, method = RequestMethod.GET)
+    public String loginForm() {
+        return getPage;
+    }
+    
+    @RequestMapping(value = command, method = RequestMethod.POST)
+    public ModelAndView loginForm(MemberBean member, HttpSession session, HttpServletResponse response,
+            Model model, @RequestParam(value = "pageNumber", required = false) String pageNumber) {
+        System.out.println(this.getClass() + " Post : " + member.getUser_email() + " / " + pageNumber);
+        
+        ModelAndView mav = new ModelAndView();
+        
+        MemberBean mb = memberDao.getMemberByEmail(member.getUser_email());
+        System.out.println("mb:" + mb);
+        
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            if (mb == null) { // ÇØ´ç ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+                out.println("<script>");
+                out.println("alert('ÇØ´ç ¾ÆÀÌµğ´Â Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.');");
+                out.println("</script>");
+                out.flush();
+                return new ModelAndView(getPage);
+                
+            } else { // ÇØ´ç ¾ÆÀÌµğ°¡ Á¸ÀçÇÑ´Ù.
+                if ("Y".equals(mb.getUser_status())) { // Á¤Áö »óÅÂÀÎ °æ¿ì
+                    out.println("<script>");
+                    out.println("alert('ÇØ´ç °èÁ¤Àº Á¤Áö »óÅÂÀÔ´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØÁÖ¼¼¿ä.');");
+                    out.println("</script>");
+                    out.flush();
+                    return new ModelAndView(getPage);
+                }
+                
+                if (mb.getUser_passwd().equals(member.getUser_passwd())) { // ºñ¹Ğ¹øÈ£ ÀÏÄ¡
+                    session.setAttribute("loginInfo", mb); // loginInfo: ·Î±×ÀÎÇÑ »ç¶÷ÀÇ Á¤º¸
+                    System.out.println("ºñ¹Ğ¹øÈ£ ÀÏÄ¡");
+                    System.out.println("destination:" + (String) session.getAttribute("destination"));
+                    
+                    model.addAttribute("pageNumber", pageNumber);
+                    mav.setViewName(gotoPage);
+                } else { // ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡
+                    System.out.println("ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+                    out.println("<script>");
+                    out.println("alert('ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.');");
+                    out.println("</script>");
+                    out.flush();
+                    return new ModelAndView(getPage);
+                }
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return mav;
+    }
+   /*
+    * @RequestMapping(value = "/memberMypage", method = RequestMethod.GET) public
+    * String myPage(HttpSession session, Model model) { // ¼¼¼Ç¿¡¼­ ·Î±×ÀÎ Á¤º¸ °¡Á®¿À±â
+    * MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo"); if
+    * (loginInfo == null) { // ·Î±×ÀÎ Á¤º¸°¡ ¾øÀ¸¸é ·Î±×ÀÎ ÆäÀÌÁö·Î redirect return "redirect:" +
+    * command; }
+    * 
+    * // ·Î±×ÀÎ Á¤º¸°¡ ÀÖÀ¸¸é ¸¶ÀÌÆäÀÌÁö·Î ÀÌµ¿ model.addAttribute("user_id",
+    * loginInfo.getUser_id()); return my_page; }
+    */
 }
