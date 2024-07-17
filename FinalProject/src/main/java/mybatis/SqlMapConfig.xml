@@ -12,6 +12,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   		<typeAlias alias="guide" type="shop.model.GuideBean"/>
   		<typeAlias alias="room" type="shop.model.ShopRoomBean"/>
   		<typeAlias alias="review" type="shop.model.ReviewBean"/>
+      <typeAlias type="community.model.BoardBean" alias="BoardBean" />
+  		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
   		
   		<typeAlias alias="reservation" type="mypage.model.RoomReservationBean"/>
   	</typeAliases>
@@ -20,6 +22,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/shop/review.xml"/>
 		<mapper resource="mybatis/mypage/reviewMy.xml"/>
 		<mapper resource="mybatis/mypage/shopMy.xml"/>
+    <mapper resource="mybatis/board.xml"/>	
+		<mapper resource="mybatis/member.xml"/>	
+		<mapper resource="mybatis/comment.xml"/>	
+		<mapper resource="mybatis/Nested_CommentMapper.xml"/>	
 	</mappers>
 </configuration>
-
