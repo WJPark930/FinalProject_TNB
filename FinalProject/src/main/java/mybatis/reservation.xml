@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation.model.Reservation">
+
+	<insert id="roomReservation">
+		insert into room_reservation values 
+		(reservation_seq.nextval, #{ user_id }, #{ shop_id }, #{ room_id }, #{ room_checkin_date }, #{ room_checkout_date }, #{ room_reserve_quantity }, #{ price })	
+	</insert>
+	
+	<insert id = "trainReservation">
+		insert into train_reservation values 
+		(reservation_seq.currval, #{ user_id }, #{ train_no }, #{ trainCode }, #{ depPlaceName }, #{ arrPlaceName }, #{ depPlandTime }, #{ arrPlandTime }, #{ totalTime }, #{ num_adults }, #{ num_children }, #{ num_seniors }, #{ seat_no }, #{ total_price }, #{ total_charge }) 
+	</insert>
+	
+	<select id = "getRecentReservation" resultType = "reservation.model.RoomReservationBean">
+		select * from room_reservation where room_reservation_num = (select max(room_reservation_num) from room_reservation)
+	</select>
+	
+	<select id = "isReservationWithTrain" resultType="reservation.model.TrainReservationBean">
+		select * from train_reservation
+		where train_reservation_num = #{ room_reservation_num }
+	</select>
+	
+	<select id = "getThisReservation" resultType = "MyReservation">
+		select * from reservation where order_num = #{ order_num }
+	</select>
+
+	<insert id = "roomreservation">
+		insert into reservation (order_num, user_id, shop_id, room_id, room_checkin_date, room_checkout_date, room_reserve_quantity, room_price) values (#{ room_reservation_num }, #{ user_id }, #{ shop_id }, #{ room_id }, #{ room_checkin_date }, #{ room_checkout_date }, #{ room_reserve_quantity }, #{ price })
+	</insert>
+
+	<update id="trainreservation">
+		update reservation set train_schedule_id = #{ train_schedule_id }, train_departure_station_id = #{ train_departure_station_id }, train_arrival_station_id = #{ train_arrival_station_id }, train_quantity_adult = #{ train_quantity_adult }, train_quantity_child = #{ train_quantity_child }, train_quantity_senior = #{ train_quantity_senior }, train_price = #{ train_price } 
+		where order_num = #{ train_reservation_num } and user_id = #{ user_id } 
+	</update>
+	
+	<update id="updatePaymentStatus">
+		update reservation set payment_status = 1 where order_num = #{ order_num }
+	</update>
+	
+	<select id="showAllMyReservationList" resultType="MyReservation">
+		select * from reservation where user_id = #{ user_id }
+	</select>
+</mapper>
