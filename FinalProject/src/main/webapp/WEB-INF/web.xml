@@ -54,7 +54,6 @@
         </init-param>
         <async-supported>true</async-supported> <!-- 비동기 지원 추가 -->
     </filter>
-
    
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -91,5 +90,4 @@
 		<url-pattern>*.mb</url-pattern>
 	</servlet-mapping>
 	
-
 </web-app>
