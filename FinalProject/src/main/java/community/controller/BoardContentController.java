@@ -36,13 +36,13 @@ public class BoardContentController {
                                  @RequestParam(value="pageNumber", required=false) String pageNumber,
                                  HttpServletRequest request,
                                  Model model) {
-        //»ó¼¼º¸±â °¡Á®¿À´Â ºÎºĞ
+        //ìƒì„¸ë³´ê¸° ê°€ì ¸ì˜¤ëŠ” ë¶€ë¶„
         BoardBean bb = bdao.getArticle(num);
 
         model.addAttribute("content", bb);
         model.addAttribute("pageNumber", pageNumber);
 
-        //»ó¼¼º¸±â¿¡¼­ listÇ¥½ÃÇÏ´Â ºÎºĞ
+        //ìƒì„¸ë³´ê¸°ì—ì„œ listí‘œì‹œí•˜ëŠ” ë¶€ë¶„
         Map<String, String> map = new HashMap<String, String>();
         map.put("whatColumn", whatColumn);
         map.put("keyword", "%" + keyword + "%");

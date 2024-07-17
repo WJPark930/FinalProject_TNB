@@ -28,27 +28,27 @@ public class BoardRecommendController {
 	                                       HttpSession session) {
 	    MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
 	    if (loginInfo == null) {
-	        return ResponseEntity.status(401).body("·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+	        return ResponseEntity.status(401).body("ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
 	    }
 
 	    int user_id = loginInfo.getUser_id();
 	    Board_RecommendBean recommendBean = new Board_RecommendBean(user_id, bid);
 
-//	    System.out.println("User ID: " + user_id + ", BID: " + bid);  // µğ¹ö±ë¿ë Ãâ·Â
+//	    System.out.println("User ID: " + user_id + ", BID: " + bid);  // ë””ë²„ê¹…ìš© ì¶œë ¥
 
 	    int userRecommendCheck = rdao.checkUserRecommend(recommendBean);
 	    if (userRecommendCheck > 0) {
-	        return ResponseEntity.status(409).body("ÀÌ¹Ì ÃßÃµÇÑ °Ô½Ã¹°ÀÔ´Ï´Ù.");
+	        return ResponseEntity.status(409).body("ì´ë¯¸ ì¶”ì²œí•œ ê²Œì‹œë¬¼ì…ë‹ˆë‹¤.");
 	    }
 
 	    int cnt = rdao.insertRecommend(recommendBean);
 	    if (cnt != -1) {
 	        int recommendCount = rdao.getRecommendCount(bid);
-//	        System.out.println("Recommend Count: " + recommendCount);  // µğ¹ö±ë¿ë Ãâ·Â
+//	        System.out.println("Recommend Count: " + recommendCount);  // ë””ë²„ê¹…ìš© ì¶œë ¥
 	        return ResponseEntity.ok(String.valueOf(recommendCount));
 	    } else {
-//	        System.out.println("ÃßÃµ ½ÇÆĞ");  // µğ¹ö±ë¿ë Ãâ·Â
-	        return ResponseEntity.status(500).body("ÃßÃµ ½ÇÆĞ");
+//	        System.out.println("ì¶”ì²œ ì‹¤íŒ¨");  // ë””ë²„ê¹…ìš© ì¶œë ¥
+	        return ResponseEntity.status(500).body("ì¶”ì²œ ì‹¤íŒ¨");
 	    }
 	}
 

@@ -24,7 +24,6 @@ public class MemberListController {
 	@Autowired
 	MemberDao memberDao;
 	
-	// loginForm.jsp에서 회원 목록보기
 	@RequestMapping(command)
 	public String list(
 			@RequestParam(value="whatColumn", required=false) String whatColumn,
