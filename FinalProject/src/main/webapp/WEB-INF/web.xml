@@ -84,7 +84,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/board-servlet.xml</param-value>
-		</init-param>
+      </init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
   
@@ -92,7 +92,7 @@
 		<servlet-name>board</servlet-name>
 		<url-pattern>*.bd</url-pattern>
 	</servlet-mapping>
-  		
+		
 
 	<!-- 마이페이지 관련xml -->
   <servlet>
@@ -125,6 +125,7 @@
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.mb</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+
 	
 </web-app>

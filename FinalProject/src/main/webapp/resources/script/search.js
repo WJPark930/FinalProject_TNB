@@ -153,4 +153,3 @@ function keyword_list(travel,travel_menu){
         }
     });
 }
-
