@@ -22,18 +22,18 @@ public class EchoHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessionList.add(session);
-        logger.info("{} ¿¬°áµÊ", session.getId());
+        logger.info("{} ì—°ê²°ë¨", session.getId());
 
         MemberBean loginInfo = (MemberBean) session.getAttributes().get("loginInfo");
         if (loginInfo != null) {
-            String message = loginInfo.getUser_email() + " ´ÔÀÌ ÀÔÀåÇÏ¼Ì½À´Ï´Ù.";
+            String message = loginInfo.getUser_email() + " ë‹˜ì´ ì…ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.";
             broadcastMessage(message);
         }
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        logger.info("{}·Î ºÎÅÍ {} ¹ŞÀ½", session.getId(), message.getPayload());
+        logger.info("{}ë¡œ ë¶€í„° {} ë°›ìŒ", session.getId(), message.getPayload());
 
         MemberBean loginInfo = (MemberBean) session.getAttributes().get("loginInfo");
         if (loginInfo != null) {
@@ -45,11 +45,11 @@ public class EchoHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessionList.remove(session);
-        logger.info("{} ¿¬°á ²÷±è.", session.getId());
+        logger.info("{} ì—°ê²° ëŠê¹€.", session.getId());
 
         MemberBean loginInfo = (MemberBean) session.getAttributes().get("loginInfo");
         if (loginInfo != null) {
-            String message = loginInfo.getUser_email() + " ´ÔÀÌ ÅğÀåÇÏ¼Ì½À´Ï´Ù.";
+            String message = loginInfo.getUser_email() + " ë‹˜ì´ í‡´ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.";
             broadcastMessage(message);
         }
     }
@@ -60,4 +60,3 @@ public class EchoHandler extends TextWebSocketHandler {
         }
     }
 }
-

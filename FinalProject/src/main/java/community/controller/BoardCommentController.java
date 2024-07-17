@@ -48,16 +48,16 @@ public class BoardCommentController {
 
         commentDao.addComment(newComment);
 
-        // Ãß°¡µÈ ´ñ±Û °´Ã¼¸¦ Å¬¶óÀÌ¾ğÆ®·Î ¹İÈ¯
+        // ì¶”ê°€ëœ ëŒ“ê¸€ ê°ì²´ë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ë°˜í™˜
         return newComment;
     }
 
     @GetMapping("/list.bd")
     public ResponseEntity<List<Map<String, Object>>> getComments(@RequestParam("bid") int boardId) {
-        // Æ¯Á¤ °Ô½Ã±Û(boardId)¿¡ ´ëÇÑ ´ñ±Û ¸ñ·ÏÀ» °¡Á®¿È
+        // íŠ¹ì • ê²Œì‹œê¸€(boardId)ì— ëŒ€í•œ ëŒ“ê¸€ ëª©ë¡ì„ ê°€ì ¸ì˜´
         List<CommentBean> comments = commentDao.getCommentsByBoardId(boardId);
 
-        // °¢ ´ñ±ÛÀÇ ÃßÃµ ¼ö¸¦ °¡Á®¿Í¼­ Map ÇüÅÂ·Î ¹İÈ¯
+        // ê° ëŒ“ê¸€ì˜ ì¶”ì²œ ìˆ˜ë¥¼ ê°€ì ¸ì™€ì„œ Map í˜•íƒœë¡œ ë°˜í™˜
         List<Map<String, Object>> commentsWithRecommendCount = new ArrayList<Map<String, Object>>();
         for (CommentBean comment : comments) {
             int recommendCount = crDao.getRecommendCount(comment.getId());
@@ -73,7 +73,7 @@ public class BoardCommentController {
             commentsWithRecommendCount.add(commentMap);
         }
 
-        // ´ñ±Û ¸ñ·Ï°ú °¢ ´ñ±ÛÀÇ ÃßÃµ ¼ö¸¦ ResponseEntity·Î ¹İÈ¯
+        // ëŒ“ê¸€ ëª©ë¡ê³¼ ê° ëŒ“ê¸€ì˜ ì¶”ì²œ ìˆ˜ë¥¼ ResponseEntityë¡œ ë°˜í™˜
         return ResponseEntity.ok().body(commentsWithRecommendCount);
     }
     
@@ -81,29 +81,29 @@ public class BoardCommentController {
     @ResponseBody
     public ResponseEntity<String> deleteComment(@RequestParam("comment_id") int commentId,
                                                 HttpSession session) {
-        // ·Î±×ÀÎ Á¤º¸ °¡Á®¿À±â
+        // ë¡œê·¸ì¸ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
         MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
         if (loginInfo == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // ´ñ±Û ÀÛ¼ºÀÚÀÇ user_id °¡Á®¿À±â
+        // ëŒ“ê¸€ ì‘ì„±ìì˜ user_id ê°€ì ¸ì˜¤ê¸°
         int boardUserId = commentDao.getCommentUserId(commentId);
 
-        // ÇöÀç ·Î±×ÀÎÇÑ »ç¿ëÀÚÀÇ user_id
+        // í˜„ì¬ ë¡œê·¸ì¸í•œ ì‚¬ìš©ìì˜ user_id
         int currentUserId = loginInfo.getUser_id();
 
-        // ±ÇÇÑ È®ÀÎ
+        // ê¶Œí•œ í™•ì¸
         if (currentUserId == boardUserId) {
-            // »èÁ¦ ·ÎÁ÷ ¼öÇà
+            // ì‚­ì œ ë¡œì§ ìˆ˜í–‰
             int deleteResult = commentDao.deleteComment(commentId);
             if (deleteResult > 0) {
-                return ResponseEntity.ok("´ñ±ÛÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+                return ResponseEntity.ok("ëŒ“ê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("´ñ±Û »èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ëŒ“ê¸€ ì‚­ì œì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
             }
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("´ñ±Û ÀÛ¼ºÀÚ¸¸ »èÁ¦ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("ëŒ“ê¸€ ì‘ì„±ìë§Œ ì‚­ì œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
         }
     }
 }

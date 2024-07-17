@@ -27,25 +27,25 @@ public class BoardNested_CommentRecommendController {
     public ResponseEntity<Integer> recommendNestedComment(@RequestParam("nested_comment_id") int nested_comment_id, HttpSession session) {
         MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
         if (loginInfo == null) {
-            return ResponseEntity.status(401).body(null); // ·Î±×ÀÎ ÇÊ¿ä
+            return ResponseEntity.status(401).body(null); // ë¡œê·¸ì¸ í•„ìš”
         }
         
-//        System.out.println("´ë´ñ±Û ÃßÃµ´©¸£¸é ³Ñ¾î¿À´Â loginÁ¤º¸ : " + loginInfo.getUser_id());
-//        System.out.println("´ë´ñ±Û ÃßÃµ ´©¸£¸é ³Ñ¾î¿À´Â ´ë´ñ±Û Á¤º¸ : " + nested_comment_id);
+//        System.out.println("ëŒ€ëŒ“ê¸€ ì¶”ì²œëˆ„ë¥´ë©´ ë„˜ì–´ì˜¤ëŠ” loginì •ë³´ : " + loginInfo.getUser_id());
+//        System.out.println("ëŒ€ëŒ“ê¸€ ì¶”ì²œ ëˆ„ë¥´ë©´ ë„˜ì–´ì˜¤ëŠ” ëŒ€ëŒ“ê¸€ ì •ë³´ : " + nested_comment_id);
         
         int user_id = loginInfo.getUser_id();
         Nested_Comment_RecommendBean ncBean = new Nested_Comment_RecommendBean(user_id,nested_comment_id);
 
-        // »ç¿ëÀÚ°¡ ÀÌ¹Ì ÇØ´ç ´ñ±ÛÀ» ÃßÃµÇß´ÂÁö Ã¼Å©
+        // ì‚¬ìš©ìê°€ ì´ë¯¸ í•´ë‹¹ ëŒ“ê¸€ì„ ì¶”ì²œí–ˆëŠ”ì§€ ì²´í¬
         int userRecommendCheck = ncDao.checkUserRecommend(user_id , nested_comment_id);
         if (userRecommendCheck > 0) {
-            return ResponseEntity.status(409).body(null); // ÀÌ¹Ì ÃßÃµÇÑ ´ñ±Û
+            return ResponseEntity.status(409).body(null); // ì´ë¯¸ ì¶”ì²œí•œ ëŒ“ê¸€
         }
 
-        // ´ñ±Û ÃßÃµ Á¤º¸ »ğÀÔ
+        // ëŒ“ê¸€ ì¶”ì²œ ì •ë³´ ì‚½ì…
         int cnt = ncDao.insertRecommend(ncBean);
         if (cnt != -1) {
-            // ÃßÃµ ¼ö Á¶È¸ ¹× ¹İÈ¯
+            // ì¶”ì²œ ìˆ˜ ì¡°íšŒ ë° ë°˜í™˜
             int recommendCount = ncDao.getRecommendCount(nested_comment_id);
             return ResponseEntity.ok(recommendCount);
         } else {
@@ -53,14 +53,14 @@ public class BoardNested_CommentRecommendController {
         }
     }
     
-    @GetMapping(value = "/getRecommendCount.bd") //´ë´ñ±Û ÃßÃµ¼ö °¡Á®¿À´Â ¿äÃ»
+    @GetMapping(value = "/getRecommendCount.bd") //ëŒ€ëŒ“ê¸€ ì¶”ì²œìˆ˜ ê°€ì ¸ì˜¤ëŠ” ìš”ì²­
     @ResponseBody
     public ResponseEntity<Integer> getRecommendCount(@RequestParam("nested_comment_id") int nested_comment_id) {
         try {
             int recommendCount = ncDao.getRecommendCount(nested_comment_id);
             return ResponseEntity.ok(recommendCount);
         } catch (NumberFormatException e) {
-            return ResponseEntity.status(400).body(0);// Àß¸øµÈ ´ñ±Û ID
+            return ResponseEntity.status(400).body(0);// ì˜ëª»ëœ ëŒ“ê¸€ ID
         }
     }
 }

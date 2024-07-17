@@ -12,24 +12,24 @@ public class BoardBean {
     private int cate_id;
     private Date created_at;
     private Date updated_at;
-    @NotEmpty(message = "Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä")
+    @NotEmpty(message = "ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”")
     private String title;
-    @NotEmpty(message = "³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä")
+    @NotEmpty(message = "ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”")
     private String content;
     private int readcount;
-    @NotEmpty(message = "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä")
+    @NotEmpty(message = "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”")
     private String passwd;
 
-    // Ãß°¡µÈ ÇÊµå
+    // ì¶”ê°€ëœ í•„ë“œ
     private MultipartFile upload;
     private String imageFilename;
 
-    // ±âº» »ı¼ºÀÚ
+    // ê¸°ë³¸ ìƒì„±ì
     public BoardBean() {
         super();
     }
 
-    // ¸Å°³º¯¼ö¸¦ ¹Ş´Â »ı¼ºÀÚ
+    // ë§¤ê°œë³€ìˆ˜ë¥¼ ë°›ëŠ” ìƒì„±ì
     public BoardBean(int bid, int user_id, String user_email, int cate_id, Date created_at, Date updated_at,
                      String title, String content, int readcount, String passwd, String imageFilename) {
         super();

@@ -3,10 +3,10 @@ package community.model;
 import java.util.Date;
 
 public class CommentBean {
-	private int id; //댓글 일련번호
-	private int board_id; //게시물 일련번호
-	private int user_id; // 사용자 일련번호
-	private String user_email; //사용자 이메일
+	private int id;
+	private int board_id;
+	private int user_id;
+	private String user_email;
 	private String content;
 	private Date created_at;
 	private Date updated_at;

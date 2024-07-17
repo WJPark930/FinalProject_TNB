@@ -26,15 +26,15 @@ public class MemberLoginController {
 	
 	@Autowired
 	MemberDao memberDao;
-	//»óÇ°Ãß°¡ÇÏ±â ¹öÆ°À» ´­·¶´Âµ¥ ·Î±×ÀÎ Á¤º¸°¡ ¾øÀ» ¶§ 
-	// productList.jsp=>Ãß°¡ÇÏ±â=>ProductInsertController=>redirect:/loginForm.mb
+	//ìƒí’ˆì¶”ê°€í•˜ê¸° ë²„íŠ¼ì„ ëˆŒë €ëŠ”ë° ë¡œê·¸ì¸ ì •ë³´ê°€ ì—†ì„ ë•Œ 
+	// productList.jsp=>ì¶”ê°€í•˜ê¸°=>ProductInsertController=>redirect:/loginForm.mb
 	@RequestMapping(value=command, method=RequestMethod.GET)
 	public String loginForm() {
 		return getPage;
 	}
 	
 	
-	//post¿äÃ»ÇÑ°÷Àº member/memberLoginForm.jsp¿¡¼­ ·Î±×ÀÎ Å¬¸¯ÇßÀ»¶§(id,password)
+	//postìš”ì²­í•œê³³ì€ member/memberLoginForm.jspì—ì„œ ë¡œê·¸ì¸ í´ë¦­í–ˆì„ë•Œ(id,password)
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	public ModelAndView loginForm(MemberBean member, HttpSession session,HttpServletResponse response,
 			Model model,
@@ -49,19 +49,19 @@ public class MemberLoginController {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			if(mb == null){ // ÇØ´ç ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+			if(mb == null){ // í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				out.println("<script>");
-				out.println("alert('ÇØ´ç ¾ÆÀÌµğ´Â Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.');");
+				out.println("alert('í•´ë‹¹ ì•„ì´ë””ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.');");
 				out.println("</script>");
 				out.flush();
 				//mav.setViewName(getPage);
 				return new ModelAndView( getPage ) ;
 				
-			}else{ // ÇØ´ç ¾ÆÀÌµğ°¡ Á¸ÀçÇÑ´Ù.
-				if(mb.getUser_passwd().equals(member.getUser_passwd())) { // ºñ¹ø ÀÏÄ¡
+			}else{ // í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬í•œë‹¤.
+				if(mb.getUser_passwd().equals(member.getUser_passwd())) { // ë¹„ë²ˆ ì¼ì¹˜
 					
-					session.setAttribute("loginInfo", mb); // loginInfo:·Î±×ÀÎÇÑ »ç¶÷ÀÇ Á¤º¸
-					System.out.println("ºñ¹ø ÀÏÄ¡");
+					session.setAttribute("loginInfo", mb); // loginInfo:ë¡œê·¸ì¸í•œ ì‚¬ëŒì˜ ì •ë³´
+					System.out.println("ë¹„ë²ˆ ì¼ì¹˜");
 					System.out.println("destination:"+(String)session.getAttribute("destination"));
 				
 					//destination:redirect:/insert.prd
@@ -77,10 +77,10 @@ public class MemberLoginController {
 					//return new ModelAndView((String)session.getAttribute("destination")) ;
 
 					
-				}else { // ºñ¹ø ºÒÀÏÄ¡
-					System.out.println("ºñ¹ø ºÒÀÏÄ¡");
+				}else { // ë¹„ë²ˆ ë¶ˆì¼ì¹˜
+					System.out.println("ë¹„ë²ˆ ë¶ˆì¼ì¹˜");
 					out.println("<script>");
-					out.println("alert('ºñ¹ø ºÒÀÏÄ¡ÀÔ´Ï´Ù.');");
+					out.println("alert('ë¹„ë²ˆ ë¶ˆì¼ì¹˜ì…ë‹ˆë‹¤.');");
 					out.println("</script>");
 					out.flush();
 					return new ModelAndView( getPage ) ;
