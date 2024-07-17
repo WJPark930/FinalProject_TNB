@@ -13,12 +13,12 @@ public class chatController {
 	
 	  @RequestMapping(value = command, method = RequestMethod.GET)
 	    public String doAction(HttpSession session) {
-	    	System.out.println(session.getAttribute("loginInfo")); //loginInfo·Î ¼¼¼Ç ¼³Á¤ÇÑ °ªÀÌ ¹«¾ùÀÎ°¡?
-			if(session.getAttribute("loginInfo")==null) { //login½ÇÆÐ
-				session.setAttribute("destination","redirect:/chat"); //·Î±×ÀÎ ÆäÀÌÁö·Î °¡´õ¶óµµ ¿ø·¡ ÀÛ¾÷À» Áß´Ü½ÃÅ°¸é ¾ÈµÇ±â ¶§¹®¿¡ ÀúÀåÀ» ÇØ³ö¾ß ÇÑ´Ù.
-				return "redirect:/loginForm.mb"; //·Î±×ÀÎ ½ÇÆÐ½Ã, ·Î±×ÀÎÆûÀ¸·Î ÀÌµ¿
+	    	System.out.println(session.getAttribute("loginInfo")); //loginInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
+			if(session.getAttribute("loginInfo")==null) { //loginï¿½ï¿½ï¿½ï¿½
+				session.setAttribute("destination","redirect:/chat"); //ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ß´Ü½ï¿½Å°ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø³ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+				return "redirect:/loginForm.mb"; //ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð½ï¿½, ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 			}else {
-				return gotoPage; //login¼º°ø
+				return gotoPage; //loginï¿½ï¿½ï¿½ï¿½
 			}
 	    }
 }
