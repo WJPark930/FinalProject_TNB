@@ -55,7 +55,7 @@
 			</div>
 			<div class="menu">
 				<p><a href="">숙소찾기</a></p>
-				<p><a href="">커뮤니티</a></p>
+				<p><a href="list.bd">커뮤니티</a></p>
 			</div>
 			<div class="line">
 				<img src="<%=request.getContextPath()%>/resources/assets/image/side_Line.svg" >
