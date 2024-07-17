@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!-- header.jsp<br> -->
@@ -79,6 +79,4 @@
 			</c:if>
 		</div>
 	</aside>
-  	
-  	
-  	
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community.model.Nested_Comment">
+
+    <insert id="InsertNestedComment" parameterType="community.model.Nested_CommentBean">
+        INSERT INTO nested_comment (id, comment_id, user_id, content, created_at, updated_at)
+        VALUES (nested_comment_seq.nextval, #{comment_id}, #{user_id}, #{content}, SYSDATE, SYSDATE)
+    </insert>
+
+    <select id="SelectNestedCommentsByCommentId" resultType="community.model.Nested_CommentBean">
+        SELECT nc.id, nc.comment_id, nc.user_id, m.user_email, nc.content, nc.created_at, nc.updated_at
+        FROM nested_comment nc
+        INNER JOIN member m ON nc.user_id = m.user_id
+        WHERE nc.comment_id = #{comment_id}
+        ORDER BY nc.created_at DESC
+    </select>
+
+    <delete id="deleteNestedComment" parameterType="int">
+        DELETE FROM nested_comment WHERE id = #{commentId}
+    </delete>
+    
+    <select id="getNestedCommentUserId" resultType="int" parameterType="int">
+        SELECT user_id
+        FROM nested_comment
+        WHERE id = #{commentId}
+    </select>
+    
+    <insert id="insertRecommend" parameterType="community.model.Nested_Comment_RecommendBean">
+        INSERT INTO nested_comment_recommend (id, user_id, nested_comment_id)
+        VALUES (nested_comment_recommend_seq.nextval, #{user_id}, #{nested_comment_id})
+    </insert>
+
+    <select id="getRecommendCount" resultType="int" parameterType="int">
+        SELECT COUNT(*)
+        FROM nested_comment_recommend
+        WHERE nested_comment_id = #{nested_comment_id}
+    </select>
+
+    <select id="checkUserRecommend" resultType="int" parameterType="map">
+        SELECT COUNT(*)
+        FROM nested_comment_recommend
+        WHERE user_id = #{user_id} AND nested_comment_id = #{nested_comment_id}
+    </select>
+
+</mapper>

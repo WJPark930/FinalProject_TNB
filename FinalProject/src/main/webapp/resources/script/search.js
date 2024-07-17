@@ -152,4 +152,8 @@ function keyword_list(travel,travel_menu){
             console.error('오류:', xhr);
         }
     });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/remotes/origin/geon
