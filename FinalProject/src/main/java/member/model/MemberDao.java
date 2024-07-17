@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
+import payment.model.PaymentBean;
 import utility.Paging;
 
 @Component("MemberDao")
@@ -39,12 +40,12 @@ public class MemberDao {
 		return cnt;
 	}//getTotalCount
 	
-	public List<MemberBean> getMemberList(Map<String,String> map, Paging pageInfo) {
+	public List<MemberBean> getMemberList(Map<String, String> map, Paging pageInfo) {
 		List<MemberBean> list = new ArrayList<MemberBean>();
 		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		list = sqlSessionTemplate.selectList(namespace+".getMemberList", map, rowbounds);
 		return list;
-	}//getMemberList
+	}
 
 
 	public int updateReadCount(int user_id) {
@@ -156,6 +157,28 @@ int cnt = sqlSessionTemplate.delete(namespace+".deleteMember",user_id);
 	  public Member findByEmail(String userEmail) {
 	        return sqlSessionTemplate.selectOne(namespace + ".FindByEmail", userEmail);
 	    }
+	  
+	  public MemberBean getMemberByUser_id(int user_id) {
+			// TODO Auto-generated method stub
+			MemberBean mb = null;
+			mb = sqlSessionTemplate.selectOne(namespace + ".getMemberByUser_id", user_id);
+			return mb;
+		}
+
+		public int getPoint(MemberBean mb) {
+			// TODO Auto-generated method stub
+			int cnt = -1;
+			cnt = sqlSessionTemplate.update(namespace + ".getPoint", mb);
+			return cnt;
+		}
+
+		public int decreasePoint(PaymentBean pb) {
+			// TODO Auto-generated method stub
+			int cnt = -1;
+			cnt = sqlSessionTemplate.update(namespace + ".decreasePoint", pb);
+			return cnt;
+		}
+
 	  
 	}
 
