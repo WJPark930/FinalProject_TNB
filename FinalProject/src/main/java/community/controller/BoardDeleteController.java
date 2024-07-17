@@ -28,9 +28,9 @@ public class BoardDeleteController {
         
         int result = bdao.deleteArticle(bid, passwd);
         
-        if (result == 1) { // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ°í »èÁ¦ ¼º°ø
+        if (result == 1) { // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ê³  ì‚­ì œ ì„±ê³µ
             response.put("success", true);
-        } else { // ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡ ¶Ç´Â »èÁ¦ ½ÇÆĞ
+        } else { // ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜ ë˜ëŠ” ì‚­ì œ ì‹¤íŒ¨
             response.put("success", false);
         }
 

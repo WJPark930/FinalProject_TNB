@@ -28,17 +28,13 @@ public class MemberDao {
 		
 		cnt = sqlSessionTemplate.insert(namespace+".insertMember",member);
 
-		/*
-		 * try { cnt = sqlSessionTemplate.insert(namespace+".insertMember",member);
-		 * }catch(DuplicateKeyException e) { System.out.println("¾ÆÀÌµð Áßº¹"); cnt= -3; }
-		 */
 		return cnt;
 	}//insertMember
  
 
 	public int getTotalCount(Map<String, String> map) {
 		int cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCount", map);
-		System.out.println("¿©±â");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½");
 		return cnt;
 	}//getTotalCount
 	

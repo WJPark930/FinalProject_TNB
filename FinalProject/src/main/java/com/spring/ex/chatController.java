@@ -13,12 +13,12 @@ public class chatController {
 	
 	  @RequestMapping(value = command, method = RequestMethod.GET)
 	    public String doAction(HttpSession session) {
-	    	System.out.println(session.getAttribute("loginInfo")); //loginInfo�� ���� ������ ���� �����ΰ�?
-			if(session.getAttribute("loginInfo")==null) { //login����
-				session.setAttribute("destination","redirect:/chat"); //�α��� �������� ������ ���� �۾��� �ߴܽ�Ű�� �ȵǱ� ������ ������ �س��� �Ѵ�.
-				return "redirect:/loginForm.mb"; //�α��� ���н�, �α��������� �̵�
+	    	System.out.println(session.getAttribute("loginInfo"));
+			if(session.getAttribute("loginInfo")==null) {
+				session.setAttribute("destination","redirect:/chat");
+				return "redirect:/loginForm.mb";
 			}else {
-				return gotoPage; //login����
+				return gotoPage;
 			}
 	    }
 }

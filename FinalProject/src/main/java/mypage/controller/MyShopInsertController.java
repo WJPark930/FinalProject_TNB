@@ -63,7 +63,7 @@ public class MyShopInsertController {
 		System.out.println("getShop_address: "+shop.getShop_address());
 		
 		if (result.hasErrors()) {
-			System.out.println("### shop insert ì—ëŸ¬");
+			System.out.println("### shop insert ¿¡·¯");
 	        List<SearchBean> list_service = shopDao.getServiceList();
 	        List<CategoryBean> list_category = shopDao.getCategoryList();
 	        

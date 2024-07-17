@@ -84,12 +84,7 @@ public class Shop_Search_Controller {
 			
 			return mav;
 	}
-	
-	// ,produces = "application/json" 추가하니까 가져오지도 못함
-	// @RequestBody(required = false) Map<String, Object> map 
-	/*
-	 * @RequestMapping( value = command_keyword , method = RequestMethod.GET)
-	 */
+
 	@RequestMapping(value =  command_keyword,method = RequestMethod.GET )
 	@ResponseBody
 	public void keywordSearch(

@@ -10,27 +10,27 @@ public class ShopBean {
 	private int shop_id;
 	private int user_id;
 	
-    @NotBlank(message = "ì‹œì„¤ëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
-    @Length(max = 20, message = "ì‹œì„¤ëª…ì€ 20ì ì´ë‚´ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”")
+    @NotBlank(message = "½Ã¼³¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+    @Length(max = 20, message = "½Ã¼³¸íÀº 20ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØÁÖ¼¼¿ä")
     private String shop_name;
 	
-	@NotEmpty(message = "ì§€ì—­ì„ ì„ íƒí•˜ì„¸ìš”.")
+	@NotEmpty(message = "Áö¿ªÀ» ¼±ÅÃÇÏ¼¼¿ä.")
 	private String region;
 	
-	@NotBlank(message = "ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.")
+	@NotBlank(message = "ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.")
 	private String shop_address;
 	
-	@NotBlank(message = "ì‹œì„¤ì†Œê°œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.")
-	@Length(max = 100,message = "ì‹œì„¤ëª…ì€ 20ì ì´ë‚´ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”")
+	@NotBlank(message = "½Ã¼³¼Ò°³¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Length(max = 100,message = "½Ã¼³¸íÀº 20ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØÁÖ¼¼¿ä")
 	private String shop_info;
 	private double grade;
 	private int review_count;
 	
-	@NotNull(message = "í•˜ë‚˜ ì´ìƒì˜ ì¹´í…Œê³ ë¦¬ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.")
+	@NotNull(message = "ÇÏ³ª ÀÌ»óÀÇ Ä«Å×°í¸®¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.")
 	private int category_id;
 	private String shop_date;
 	
-	/* ìµœì €ê°€, ëŒ€í‘œì´ë¯¸ì§€, ì¹´í…Œê³ ë¦¬, ì„œë¹„ìŠ¤ */
+	/* ÃÖÀú°¡, ´ëÇ¥ÀÌ¹ÌÁö, Ä«Å×°í¸®, ¼­ºñ½º */
 	private int price;
 	private String image;
 	private String category_name;

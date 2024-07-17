@@ -27,8 +27,8 @@ public class MyShopListController {
 			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
-		// member í…Œì´ë¸” ì¶”ê°€í›„ ìˆ˜ì • í•´ì•¼ í•˜ëŠ” ë¶€ë¶„
-		// member bean ì´ ìˆì–´ì•¼ ì•„ì´ë”” ê°€ì ¸ì˜¬ìˆ˜ìˆìŒ
+		// member Å×ÀÌºí Ãß°¡ÈÄ ¼öÁ¤ ÇØ¾ß ÇÏ´Â ºÎºĞ
+		// member bean ÀÌ ÀÖ¾î¾ß ¾ÆÀÌµğ °¡Á®¿Ã¼öÀÖÀ½
 		if(session.getAttribute("loginInfo")!=null) {			
 		}
 		List<ShopBean> shop_list = myShopDao.getMyShop("1");

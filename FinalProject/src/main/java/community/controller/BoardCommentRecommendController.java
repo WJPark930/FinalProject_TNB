@@ -26,29 +26,29 @@ public class BoardCommentRecommendController {
             int comment_id = Integer.parseInt(comment_id_str);
             MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo");
             if (loginInfo == null) {
-                return ResponseEntity.status(401).body(null); // ·Î±×ÀÎ ÇÊ¿ä
+                return ResponseEntity.status(401).body(null); // ë¡œê·¸ì¸ í•„ìš”
             }
 
             int user_id = loginInfo.getUser_id();
             Comment_RecommendBean crBean = new Comment_RecommendBean(comment_id, user_id);
 
-            // »ç¿ëÀÚ°¡ ÀÌ¹Ì ÇØ´ç ´ñ±ÛÀ» ÃßÃµÇß´ÂÁö Ã¼Å©
+            // ì‚¬ìš©ìê°€ ì´ë¯¸ í•´ë‹¹ ëŒ“ê¸€ì„ ì¶”ì²œí–ˆëŠ”ì§€ ì²´í¬
             int userRecommendCheck = crDao.checkUserRecommend(comment_id, user_id);
             if (userRecommendCheck > 0) {
-                return ResponseEntity.status(409).body(null); // ÀÌ¹Ì ÃßÃµÇÑ ´ñ±Û
+                return ResponseEntity.status(409).body(null); // ì´ë¯¸ ì¶”ì²œí•œ ëŒ“ê¸€
             }
 
-            // ´ñ±Û ÃßÃµ Á¤º¸ »ğÀÔ
+            // ëŒ“ê¸€ ì¶”ì²œ ì •ë³´ ì‚½ì…
             int cnt = crDao.insertRecommend(crBean);
             if (cnt != -1) {
-                // ÃßÃµ ¼ö Á¶È¸ ¹× ¹İÈ¯
+                // ì¶”ì²œ ìˆ˜ ì¡°íšŒ ë° ë°˜í™˜
                 int recommendCount = crDao.getRecommendCount(comment_id);
                 return ResponseEntity.ok(recommendCount);
             } else {
                 return ResponseEntity.status(500).body(null);
             }
         } catch (NumberFormatException e) {
-            return ResponseEntity.status(400).body(null);// Àß¸øµÈ ´ñ±Û ID
+            return ResponseEntity.status(400).body(null);// ì˜ëª»ëœ ëŒ“ê¸€ ID
         }
     }
 
@@ -60,7 +60,7 @@ public class BoardCommentRecommendController {
             int recommendCount = crDao.getRecommendCount(comment_id);
             return ResponseEntity.ok(recommendCount);
         } catch (NumberFormatException e) {
-            return ResponseEntity.status(400).body(0);// Àß¸øµÈ ´ñ±Û ID
+            return ResponseEntity.status(400).body(0);// ì˜ëª»ëœ ëŒ“ê¸€ ID
         }
     }
     

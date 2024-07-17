@@ -58,7 +58,6 @@ public class Shop_View_Controller {
 		List<ReviewBean> shop_review = reviewDao.getShopReview(shop_id);
 		List<ReviewBean> review_image = reviewDao.getShopReviewImage(shop_id);
 		
-		// member 테이블 추가후 수정 해야 하는 부분
 		
 		if(session.getAttribute("loginInfo")!=null) {			
 		}
