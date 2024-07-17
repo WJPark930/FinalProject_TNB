@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="mypage.model.ShopMy"> 
+ 	
+ 	<select id="getMyShop" resultType="myShop">
+ 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,PRICE,IMAGE,CATEGORY_NAME  
+		FROM (SELECT T12.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,PRICE,CATEGORY_NAME 
+		      FROM(SELECT T11_1.SHOP_ID,CATEGORY_NAME, MIN(PRICE) PRICE
+		            FROM (SELECT T11_11.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,CATEGORY_NAME 
+		                  FROM SHOP T11_11
+		                      ,CATEGORY T11_12
+		                  WHERE T11_11.CATEGORY_ID = T11_12.CATEGORY_ID) T11_1
+		                  ,SHOP_ROOM T11_2
+		            WHERE T11_1.SHOP_ID =  T11_2.SHOP_ID
+		            GROUP BY T11_1.SHOP_ID ,CATEGORY_NAME) T11
+		            ,SHOP T12
+		            WHERE T11.SHOP_ID = T12.SHOP_ID) T10 
+		LEFT OUTER JOIN 
+		      (SELECT * 
+		       FROM SHOP_IMAGE 
+		      WHERE SHOP_IMG_ID = 1) T20
+		ON T10.SHOP_ID = T20.SHOP_ID
+		WHERE USER_ID = #{user_id}
+		ORDER BY SHOP_ID DESC
+ 	</select>
+ 	
+	<select id="getMyShopRoom" resultType="room">
+		SELECT SHOP_ID, T21.ROOM_ID,ROOM_NAME,PRICE,MAX_PEOPLE,STANDARD_PEOPLE,CHECK_IN,CHECK_OUT,ROOM_COUNT,IMAGE
+		FROM SHOP_ROOM T21
+		LEFT OUTER JOIN 
+		    (SELECT ROOM_ID,IMAGE 
+		     FROM ROOM_IMAGE
+		     WHERE ROOM_IMG_ID =1) T22
+		ON T21.ROOM_ID = T22.ROOM_ID
+		WHERE T21.SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ </mapper>
+ 
+ 
+ 
+ 
