@@ -54,7 +54,22 @@
 		INNER JOIN member m ON b.user_id = m.user_id
 		WHERE b.bid = #{num}
 	</select>
-
+	
+    <!-- 조회수 상위 10개 게시물 가져오기(부등호 사용하려면 CDATA사용해야함) -->
+    <select id="getTopReadCountBoards" resultType="community.model.BoardBean">
+        <![CDATA[
+        SELECT *
+        FROM (
+            SELECT b.bid, b.user_id, m.user_email, b.cate_id, b.created_at,
+                   b.updated_at, b.title, b.content, b.image, b.readcount, b.passwd,
+                   ROW_NUMBER() OVER (ORDER BY b.readcount DESC) AS rank
+            FROM board b
+            INNER JOIN member m ON b.user_id = m.user_id
+        )
+        WHERE rank <= 10
+        ]]>
+    </select>
+    
 	<!-- 조회수 업데이트 -->
 	<update id="updateReadCount">
 		UPDATE board

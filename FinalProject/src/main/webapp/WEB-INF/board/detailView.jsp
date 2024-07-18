@@ -470,7 +470,7 @@ $(document).ready(function () {
 </head>
 <body>
 	<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<div class="container">
+	<div class="container" style="margin-top: 75px">
 		<form>
 			<input type="hidden" id="bid" name="bid" value="${content.bid}">
 			<input type="hidden" name="pageNumber" value="${pageNumber}">

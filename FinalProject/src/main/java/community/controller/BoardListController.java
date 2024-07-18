@@ -73,6 +73,11 @@ public class BoardListController {
 
         return response;
     }
-
+    
+    @RequestMapping("/topReadCountBoards.bd")
+    @ResponseBody
+    public List<BoardBean> getTopReadCountBoards() {
+        return bdao.getTopReadCountBoards();
+    }
 
 }

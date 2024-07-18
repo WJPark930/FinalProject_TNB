@@ -17,15 +17,14 @@
     }
 
     .chat-container {
-        max-width: 600px;
-        margin: 0 auto;
+        max-width: 100%;
         background-color: #ffffff;
         border: 1px solid #dee2e6;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
-    .chat-header {
+	
+	.chat-header {
         padding: 10px 20px;
         border-bottom: 1px solid #dee2e6;
         background-color: #80B156;
@@ -97,17 +96,16 @@
 
 </head>
 <body>
-    <div class="container chat-container" style="width: 40%" align="center">
-        <div class="chat-header">
-            <h2 class="my-2">테스트</h2>
+    <div class="container chat-container">
+		<div class="chat-header">
+            <h2 class="my-2">실시간 채팅</h2>
         </div>
         <div class="chat-messages" id="messageArea"></div>
     </div>
-    <div class="chat-input" style="width: 40%; margin: auto;" align="center">
+    <div class="chat-input" style="margin: auto;" align="center">
         <input type="text" id="message" class="form-control" placeholder="메세지를 입력하세요...">
         <button type="button" id="sendBtn" class="btn">전송</button>
     </div>
-   <!-- 파일첨부는 3MB넘어가면 안된다~ 그리고 이 문제를 해결하기 위해 일반적으로 AWS S3 이용함 -->
 
 <script type="text/javascript">
     $("#sendBtn").click(function() {
@@ -134,10 +132,10 @@
 
     // 서버와 연결을 끊었을 때
     function onClose(evt) {
-        displayMessage("Connection closed", false);
+        displayMessage("로그인 혹은 새로고침 해주세요", false);
     }
 
-    // Display a message in the chat area
+    //채팅 내용 보여주는 부분
     function displayMessage(message, isSent) {
         var messageClass = isSent ? "message message-sent" : "message message-received";
         var messageElement = $('<div class="' + messageClass + '"><div class="message-body">' + message + '</div></div>');
@@ -148,4 +146,3 @@
 
 </body>
 </html>
-

@@ -28,7 +28,7 @@ public class BoardDao {
 	public int getArticleCount(Map<String, String> map) {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.selectOne(namespace + ".getArticleCount", map);
-//		System.out.println("totalCount : " + cnt);
+		//		System.out.println("totalCount : " + cnt);
 		return cnt;
 	}
 
@@ -78,6 +78,8 @@ public class BoardDao {
 		return sqlSessionTemplate.selectOne(namespace + ".getBoardUserId", bid);
 	}
 
-
+	public List<BoardBean> getTopReadCountBoards() {
+		return sqlSessionTemplate.selectList(namespace + ".getTopReadCountBoards");
+	}
 
 }
