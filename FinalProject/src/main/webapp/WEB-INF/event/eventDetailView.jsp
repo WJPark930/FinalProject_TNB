@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  
     pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp" %>
+<%@ include file="../../resources/include/header.jsp" %> 
 eventDetailView.jsp<br>
 
 <script type="text/javascript">
@@ -18,7 +19,7 @@ eventDetailView.jsp<br>
 	}		
 </script>
 
-<c:if test="${user_email == 'admin'}">
+<c:if test="${sessionScope.loginInfo.user_id == 1}">
 	<table border = 1>
 		<tr>
 			<td>제목</td>
@@ -64,7 +65,7 @@ eventDetailView.jsp<br>
 
 
 
-<c:if test="${user_email != 'admin'}">
+<c:if test="${sessionScope.loginInfo.user_id != 1}">
 	<table border = 1>
 		<tr>
 			<td>제목</td>
@@ -112,3 +113,4 @@ eventDetailView.jsp<br>
 		
 	</table>
 </c:if>
+<%@ include file="../../resources/include/footer.jsp" %> 

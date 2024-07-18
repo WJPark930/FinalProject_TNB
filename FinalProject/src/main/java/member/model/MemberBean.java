@@ -8,35 +8,35 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MemberBean {
    
-   private final String message="ÀÔ·Â ÇÊ¼ö";
+   private final String message="ì…ë ¥ í•„ìˆ˜";
    
 private int user_id;
 
-@NotEmpty(message="ÀÌ¸ŞÀÏ"+message)
+@NotEmpty(message="ì´ë©”ì¼"+message)
 private String user_email;
 
-@NotEmpty(message="ºñ¹Ğ¹øÈ£"+message)
+@NotEmpty(message="ë¹„ë°€ë²ˆí˜¸"+message)
 private String user_passwd;
 
-@NotEmpty(message="´Ğ³×ÀÓ"+message)
+@NotEmpty(message="ë‹‰ë„¤ì„"+message)
 private String user_nickname;
 
-@NotEmpty(message="ÈŞ´ëÀüÈ­¹øÈ£"+message)
+@NotEmpty(message="íœ´ëŒ€ì „í™”ë²ˆí˜¸"+message)
 private String user_phone;
 
-@NotEmpty(message="ÀÌ¸§"+message)
+@NotEmpty(message="ì´ë¦„"+message)
 private String user_name;
 
-@NotNull(message="¼ºº° ¼±ÅÃ ÇÊ¼ö")
+@NotNull(message="ì„±ë³„ ì„ íƒ í•„ìˆ˜")
 private String user_gender;
 
 
 private int user_age;
 
-@NotNull(message="»ı³â¿ùÀÏÀ» ¼±ÅÃÇØÁÖ¼¼¿ä")
+@NotNull(message="ìƒë…„ì›”ì¼ì„ ì„ íƒí•´ì£¼ì„¸ìš”")
 private String user_birth;
 
-@NotEmpty(message="ÁÖ¼Ò"+message)
+@NotEmpty(message="ì£¼ì†Œ"+message)
 private String user_addr1;
 private String user_addr2;
 
@@ -49,7 +49,7 @@ private String user_account;
 
 private String user_type;
 
-//Å×ÀÌºí¿¡¾ø´À ¤¤º¯¼öÃß°¡ set get Ãß°¡ÇÏ±â
+//í…Œì´ë¸”ì—ì—†ëŠ ã„´ë³€ìˆ˜ì¶”ê°€ set get ì¶”ê°€í•˜ê¸°
    private MultipartFile upload;
    private String upload2;
    
@@ -68,14 +68,14 @@ private String user_type;
       this.upload = upload;
       if(this.upload != null) {
          System.out.println(upload.getName()); // upload
-         System.out.println(upload.getOriginalFilename()); // ³²ÀÚ½Ã°è.jpg
+         System.out.println(upload.getOriginalFilename()); // ë‚¨ìì‹œê³„.jpg
          
-         //ÀÌ¹ÌÁö ¼±ÅÃ ¾ÈÇÏ¸é 
+         //ì´ë¯¸ì§€ ì„ íƒ ì•ˆí•˜ë©´ 
          if(upload.getOriginalFilename().isEmpty()) {
-            System.out.println("dao ÀÌ¹ÌÁö ¼±ÅÃ ¾ÈÇÔ");
+            System.out.println("dao ì´ë¯¸ì§€ ì„ íƒ ì•ˆí•¨");
          } else {
 
-         user_image = upload.getOriginalFilename(); // image = ³²ÀÚ½Ã°è.jpg
+         user_image = upload.getOriginalFilename(); // image = ë‚¨ìì‹œê³„.jpg
       }
    }
    }

@@ -7,18 +7,18 @@ public class EventBean {
 
 	private int event_num;
 	
-	@NotBlank(message = "ÀÌº¥Æ® Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä")
+	@NotBlank(message = "ì´ë²¤íŠ¸ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”")
 	private String event_title;
 	
-	@NotBlank(message = "ÀÌº¥Æ® ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä")
+	@NotBlank(message = "ì´ë²¤íŠ¸ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”")
 	private String event_context;
 	
-	@NotBlank(message = "ÀÌº¥Æ® ÀÌ¹ÌÁö¸¦ µî·ÏÇÏ¼¼¿ä")
+	@NotBlank(message = "ì´ë²¤íŠ¸ ì´ë¯¸ì§€ë¥¼ ë“±ë¡í•˜ì„¸ìš”")
 	private String event_image;
 	
 	private String event_start_date;
 	
-	@NotBlank(message = "ÀÌº¥Æ® Á¾·áÀÏÀÚ¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä")
+	@NotBlank(message = "ì´ë²¤íŠ¸ ì¢…ë£Œì¼ìë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”")
 	private String event_end_date;
 	private String event_discount_kind;
 	private int event_discount_amount;
@@ -91,7 +91,7 @@ public class EventBean {
 	}
 	
 	
-	//ÀÌ¹ÌÁö °ü·Ã
+	//ì´ë¯¸ì§€ ê´€ë ¨
 	public MultipartFile getUpload() {
 		return upload;
 	}

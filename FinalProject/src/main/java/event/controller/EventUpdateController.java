@@ -38,7 +38,7 @@ public class EventUpdateController {
 	public String gotoForm(@RequestParam(value="event_num", required = true) int event_num, HttpSession session, Model model) {
 		
 		EventBean event = edao.eventDetail(event_num);
-		System.out.println("detail¿¡¼­ update·Î : " + event.getEvent_end_date());
+		System.out.println("detailï¿½ï¿½ï¿½ï¿½ updateï¿½ï¿½ : " + event.getEvent_end_date());
 		
 		model.addAttribute("event", event);
 		return getPage;
@@ -66,13 +66,13 @@ public class EventUpdateController {
 		System.out.println("updateController cnt : " + cnt);
 		if(cnt != -1) {
 			
-			//»èÁ¦
+			
 			File delFile = new File(deletePath+File.separator+event.getUpload2());
 			if(delFile.exists()) {
 				delFile.delete();
 			}
 			
-			//ÀÔ·Â
+			
 			MultipartFile multi = event.getUpload();
 			String uploadPath = servletContext.getRealPath("/resources/uploadEventImage/");
 			File destination = new File(uploadPath+File.separator+multi.getOriginalFilename());

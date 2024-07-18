@@ -21,7 +21,6 @@ public class BoardDao {
 		List<BoardBean> lists = new ArrayList<BoardBean>();
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		lists = sqlSessionTemplate.selectList(namespace + ".getBoardList", map, rowBounds);
-		System.out.println("list°¹¼ö : " + lists.size());
 		return lists;
 	}
 

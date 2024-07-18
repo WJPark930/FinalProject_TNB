@@ -63,7 +63,7 @@ public class RoomReservationController {
 		cnt = rrdao.roomReservation(rrb);
 				
 		if(cnt == 1) {
-			message = "¿­Â÷¸¦ ÇÔ²² ¿¹¾àÇÏ½Ã°Ú½À´Ï±î?";
+			message = "ì² ë„ë¥¼ í•¨ê»˜ ì˜ˆì•½í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
 		}
 		
 		model.addAttribute("message", message);

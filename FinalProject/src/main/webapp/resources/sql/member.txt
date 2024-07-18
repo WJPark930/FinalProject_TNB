@@ -1,12 +1,4 @@
-board_recomment_user_id_fk foreign key (user_id) references member(user_id) on delete cascade,
-  8     constraint pk_board_recommend primary key(id, user_id)
-  9  );
-  
-  
-   select user_email from member;
-   
-   
-   
+
 -- 회원 정보 --
 drop sequence member_seq;
 
@@ -45,24 +37,3 @@ VALUES (member_seq.nextval, 'admin', '1234', '관리자', '관리자','010-1234-
 -- '테스트' 사용자 추가
 INSERT INTO member (user_id, user_email, user_passwd, user_nickname,user_name, user_phone, user_gender, user_age, user_birth, user_addr1, user_addr2, user_status, user_point, user_image,user_type)
 VALUES (member_seq.nextval, 'test', '1234', '테스트','테스트', '010-9876-5432', '여자', 25, TO_DATE('1995-05-05', 'YYYY-MM-DD'), '서울시 강북구', '강북로 456', 'N', 0, 'test.jpg','G');
-
-
-
-create table member(
-user_id number primary key,
-email varchar2(40) not null,
-passwd varchar2(20) not null,
-nickname varchar2(30) not null,
-phone varchar2(30) not null, 
-gender varchar2(10) ,
-age number,
-birth date,
-addr1 varchar2(60) not null,
-addr2 varchar2(30),
-status varchar2(3) default 'N' ,
-point number default 0,
-image varchar2(100)
-);
-
-
-select user_status from member;

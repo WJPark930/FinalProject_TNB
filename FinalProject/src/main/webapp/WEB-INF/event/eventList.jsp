@@ -3,32 +3,14 @@
 <%@ include file="../common/common.jsp" %>  
 eventList.jsp<br>
 
-<style>
-    .event-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
 
-    .event-container {
-        flex: 1 1 calc(33.333% - 16px); 
-        box-sizing: border-box;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        text-align: center;
-    }
-
-    .event-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-    }
-</style>
+<%@ include file="../../resources/include/header.jsp" %> 
 
 
 
-<a href = "eventInsert.ev"><input type = button value = "이벤트 추가하기"></a>
+<c:if test="${sessionScope.loginInfo.user_id == 1}">
+	<a href = "eventInsert.ev"><input type = button value = "이벤트 추가하기"></a>
+</c:if>
 
 <div class="event-list">
     <c:forEach var="event" items="${ eventList }">
@@ -50,3 +32,5 @@ eventList.jsp<br>
         </a>
     </c:forEach>
 </div>
+
+<%@ include file="../../resources/include/footer.jsp" %> 

@@ -61,7 +61,7 @@
 				<img src="<%=request.getContextPath()%>/resources/assets/image/side_Line.svg" >
 			</div>
 			<div class="menu">
-				<p><a href="">이벤트</a></p>
+				<p><a href="<%=request.getContextPath()%>/eventList.ev">이벤트</a></p>
 				<p><a href="">FAQ</a></p>
 			</div>
 			<div class="line">

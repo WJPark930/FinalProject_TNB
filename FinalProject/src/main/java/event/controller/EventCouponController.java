@@ -38,12 +38,12 @@ public class EventCouponController {
 		System.out.println("flag : " + flag);
 		
 		if(flag) {
-			System.out.println("ÀÌ¹Ì ¹ŞÀº ÄíÆù");
+			System.out.println("ì´ë¯¸ ë°œê¸‰ ë°›ì€ ì¿ í°");
 		} else {
 			int cnt = -1;
 			cnt = cdao.getThisCoupon(coupon);
 			if(cnt > 0) {
-				System.out.println("ÄíÆù Àß ¹ŞÀ½");
+				System.out.println("ì¿ í° ë°œê¸‰ ì„±ê³µ");
 			}
 		}
 

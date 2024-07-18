@@ -29,5 +29,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/member.xml"/>	
 		<mapper resource="mybatis/comment.xml"/>	
 		<mapper resource="mybatis/Nested_CommentMapper.xml"/>	
+		<mapper resource="mybatis/event.xml"/>
+		<mapper resource="mybatis/reservation.xml"/>
+		<mapper resource="mybatis/payment.xml"/>
 	</mappers>
 </configuration>
