@@ -146,10 +146,13 @@
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .popular-posts {
         margin-bottom: 20px;
+        overflow: hidden;
+        height: 450px;
     }
     
     .popular-posts ol {
@@ -161,6 +164,9 @@
     	margin-bottom: 5px;
 	}
     
+    .list-type{
+    	list-style-type: none;
+    }
 
 	
 </style>
@@ -183,9 +189,11 @@
 	    <div class="left_section col-3">
 	        <div class="popular-posts">
 	            <h5 class="hot-board">인기 게시물 TOP10</h5>
-	            <ul id="popularPostsList">
-	                <!-- 조회수 TOP10 들어올 자리 -->
-	            </ul>
+	            <div class="popular-searches" id="popularPostsList">
+                    <ol class="list-type">
+                        <!-- 조회수 TOP10 들어올 자리 -->
+                    </ol>
+	            </div>
 	        </div>
 	    </div>
 	
@@ -244,23 +252,38 @@
             url: 'topReadCountBoards.bd',
             method: 'GET',
             success: function(response) {
-                var popularPostsList = $('#popularPostsList');
+                var popularPostsList = $('#popularPostsList ol');
                 popularPostsList.empty();
-                var ol = $('<ol>');
                 $.each(response, function(index, post) {
                     var listItem = $('<li>');
+                    var rank = $('<span>').addClass('rank').text(index + 1);
                     var link = $('<a>').attr('href', 'content.bd?bid=' + post.bid).text(post.title);
-                    listItem.append(link);
-                    ol.append(listItem);
+                    listItem.append(rank).append('위 ').append(link);
+                    popularPostsList.append(listItem);
                 });
-                popularPostsList.append(ol);
+				//자동롤링하는함수 호출
+                startAutoRolling();
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
             }
         });
-    });
 
+        function startAutoRolling() {
+            var popularPostsList = $('#popularPostsList ol');
+            var listHeight = popularPostsList.find('li').outerHeight();
+            var speed = 2000; // 시간 간격 (밀리초)
+
+            setInterval(function() {
+                popularPostsList.animate({
+                    marginTop: -listHeight
+                }, 600, function() {
+                    popularPostsList.find('li:first').appendTo(popularPostsList);
+                    popularPostsList.css('marginTop', 0);
+                });
+            }, speed);
+        }
+    });
 
     function filterByCategory(categoryId, pageNumber = 1) {
         currentCategory = categoryId;
@@ -328,22 +351,14 @@
         document.getElementById('searchForm').submit();
     }
 
-    // 로그인 여부를 확인하는 함수
-    function isLoggedIn() {
-        <%-- loginInfo 세션 객체가 null이 아니면 true를 반환하도록 설정 --%>
-        <% if (session.getAttribute("loginInfo") != null) { %>
-            return true;
-        <% } else { %>
-            return false;
-        <% } %>
-    }
+    var isLoggedIn = <% if (session.getAttribute("loginInfo") != null) { %> true <% } else { %> false <% } %>;
 
     //채팅 팝업으로 시작하는 함수
     function startChat() {
-        if (isLoggedIn()) {
+        if (isLoggedIn) {
             window.open('http://192.168.0.223:8080/ex/chat', '_blank', 'width=380,height=650');
         } else {
-            alert('로그인이 필요합니다.');
+            alert('로그인 후에 이용해주세요');
         }
     }
 </script>

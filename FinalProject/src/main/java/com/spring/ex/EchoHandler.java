@@ -36,8 +36,9 @@ public class EchoHandler extends TextWebSocketHandler {
         logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
 
         MemberBean loginInfo = (MemberBean) session.getAttributes().get("loginInfo");
+        String userImage = "<img src='" + loginInfo.getUser_image() + "' alt='User Image' style='width:30px;height:30px;border-radius:50%;' />";
         if (loginInfo != null) {
-            String messageToSend = loginInfo.getUser_email() + ": " + message.getPayload();
+            String messageToSend = userImage+""+loginInfo.getUser_email() + " : " + message.getPayload();
             broadcastMessage(messageToSend);
         }
     }
