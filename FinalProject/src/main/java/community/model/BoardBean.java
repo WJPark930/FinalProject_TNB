@@ -20,9 +20,6 @@ public class BoardBean {
     @NotEmpty(message = "비밀번호를 입력하세요")
     private String passwd;
 
-    // 추가된 필드
-    private MultipartFile upload;
-    private String imageFilename;
 
     // 기본 생성자
     public BoardBean() {
@@ -43,7 +40,6 @@ public class BoardBean {
         this.content = content;
         this.readcount = readcount;
         this.passwd = passwd;
-        this.imageFilename = imageFilename;
     }
 
     // getters and setters
@@ -127,22 +123,4 @@ public class BoardBean {
         this.passwd = passwd;
     }
 
-    public MultipartFile getUpload() {
-        return upload;
-    }
-
-    public void setUpload(MultipartFile upload) {
-        this.upload = upload;
-        if (upload != null) {
-            this.imageFilename = upload.getOriginalFilename();
-        }
-    }
-
-    public String getImageFilename() {
-        return imageFilename;
-    }
-
-    public void setImageFilename(String imageFilename) {
-        this.imageFilename = imageFilename;
-    }
 }

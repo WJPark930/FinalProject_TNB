@@ -74,6 +74,10 @@ public class BoardDao {
 		return sqlSessionTemplate.selectOne(namespace + ".getCategoryArticleCount", cateId);
 	}
 
+	public int getBoardUserId(int bid) {
+		return sqlSessionTemplate.selectOne(namespace + ".getBoardUserId", bid);
+	}
+
 
 
 }

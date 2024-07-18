@@ -39,7 +39,7 @@ public class MemberLoginController {
 	public ModelAndView loginForm(MemberBean member, HttpSession session,HttpServletResponse response,
 			Model model,
 			@RequestParam(value = "pageNumber", required = false ) String pageNumber) {
-		System.out.println(this.getClass() + " Post : " + member.getUser_email() + " / "+ pageNumber);
+//		System.out.println(this.getClass() + " Post : " + member.getUser_email() + " / "+ pageNumber);
 		
 		ModelAndView mav = new ModelAndView();
 

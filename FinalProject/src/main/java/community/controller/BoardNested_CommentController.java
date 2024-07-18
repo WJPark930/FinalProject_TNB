@@ -87,9 +87,11 @@ public class BoardNested_CommentController {
 
         // 현재 로그인한 사용자의 user_id
         int currentUserId = loginInfo.getUser_id();
-
-        // 권한 확인
-        if (currentUserId == NestedCommentUserId) {
+        
+        String AdminId = loginInfo.getUser_email();
+        
+     // 권한 확인(대댓글 작성자가 현재 로그인 세션정보의 아이디와 대댓글 작성자 아이디와 일치하거나, 관리자(admin)일 때만 삭제 가능하도록 구현
+        if (currentUserId == NestedCommentUserId || AdminId.equals("admin")) {
             // 삭제 로직 수행
             int deleteResult = nestedCommentDao.deleteNestedComment(commentId);
             if (deleteResult > 0) {

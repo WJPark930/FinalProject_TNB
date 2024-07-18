@@ -106,12 +106,6 @@
             <form:errors path="passwd" cssClass="err"/>
         </div>
 
-        <div class="form-group">
-            <label>이미지:</label>
-            <input type="file" name="upload" class="form-control-file">
-            <form:errors path="upload" cssClass="err"/>
-        </div>
-
         <div class="form-group" style="text-align: center;">
             <input type="submit" value="글쓰기" class="btn btn-primary">
             <input type="reset" value="다시작성" class="btn btn-secondary">
@@ -153,8 +147,7 @@
 			</c:forEach>
 
 			<tr>
-				<td colspan="6"><c:forEach var="i"
-						begin="${pageInfo.beginPage}" end="${pageInfo.endPage}">
+				<td colspan="6" align="center"><c:forEach var="i" begin="${pageInfo.beginPage}" end="${pageInfo.endPage}">
 						<c:choose>
 							<c:when test="${i eq pageInfo.pageNumber}">
                                 ${i}

@@ -77,28 +77,9 @@ public class BoardWriteController {
 			return mav;
 		}
 
-		// 파일 업로드 및 저장 로직
-		MultipartFile multi = board.getUpload();
-		if (multi != null && !multi.isEmpty()) {
-			String uploadPath = servletContext.getRealPath("/") + "resources/BoardImage/";
-			File destination = new File(uploadPath + multi.getOriginalFilename());
-			try {
-				multi.transferTo(destination);
-				board.setImageFilename(multi.getOriginalFilename());
-				System.out.println("파일 업로드 성공: " + destination.getAbsolutePath());
-				System.out.println("Image Filename: " + board.getImageFilename());
-			} catch (IOException e) {
-				e.printStackTrace();
-				mav.setViewName(getPage);
-				return mav;
-			}
-		}
-
 		int cnt = bdao.insertArticle(board);
 		if (cnt != -1) {
 			System.out.println("게시물 저장 성공");
-			System.out.println("Image Filename: " + board.getImageFilename());
-			System.out.println("Content: " + board.getContent());
 			mav.setViewName(gotoPage);
 		} else {
 			System.out.println("게시물 저장 실패");

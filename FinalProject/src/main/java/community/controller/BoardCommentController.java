@@ -88,13 +88,14 @@ public class BoardCommentController {
         }
 
         // 댓글 작성자의 user_id 가져오기
-        int boardUserId = commentDao.getCommentUserId(commentId);
+        int CommentUserId = commentDao.getCommentUserId(commentId);
 
         // 현재 로그인한 사용자의 user_id
         int currentUserId = loginInfo.getUser_id();
-
-        // 권한 확인
-        if (currentUserId == boardUserId) {
+        String AdminId = loginInfo.getUser_email();
+  
+        // 권한 확인(댓글 작성자가 현재 로그인 세션정보의 아이디와 댓글 작성자 아이디와 일치하거나, 관리자(admin)일 때만 삭제 가능하도록 구현
+        if (currentUserId == CommentUserId || AdminId.equals("admin")) {
             // 삭제 로직 수행
             int deleteResult = commentDao.deleteComment(commentId);
             if (deleteResult > 0) {
