@@ -95,9 +95,9 @@
 					<c:forEach items="${shop_review}" var="review">
 						<div class="review_content_area">
 							<div class="review_header">
-								<img src="<%=request.getContextPath()%>/resources/assets/image/${review.user_img}">
+								<img src="<%=request.getContextPath()%>/resources/assets/image/${review.user_image}">
 								<div class="user_info">
-									${review.user_name}
+									${review.user_nickname}
 									<c:set var="gradeCnt"  value="0" />
 									<fmt:parseNumber var="gradeInt" value="${review.grade}" integerOnly="true" />
 									<c:forEach begin="1" end="${gradeInt/2}">

@@ -18,9 +18,9 @@ public class MyShopDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
-	public List<ShopBean> getMyShop(String user_id) {
+	public List<ShopBean> getMyShop(int shop_id) {
 		List<ShopBean> lists = new ArrayList<ShopBean>();
-		lists = sqlSessionTemplate.selectList(namespace+".getMyShop",user_id);
+		lists = sqlSessionTemplate.selectList(namespace+".getMyShop",shop_id);
 		return  lists;
 	}
 

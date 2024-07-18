@@ -30,8 +30,8 @@ public class ReviewBean {
 	private String save_image;
 	private MultipartFile[] upload;
 	
-	private String user_name;
-	private String user_img;
+	private String user_nickname;
+	private String user_image;
 	private String room_name;	
 	private String shop_name;	
 	
@@ -126,20 +126,20 @@ public class ReviewBean {
 		this.image = image;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 
-	public String getUser_img() {
-		return user_img;
+	public String getUser_image() {
+		return user_image;
 	}
 
-	public void setUser_img(String user_img) {
-		this.user_img = user_img;
+	public void setUser_image(String user_img) {
+		this.user_image = user_img;
 	}
 
 	public String getRoom_name() {
