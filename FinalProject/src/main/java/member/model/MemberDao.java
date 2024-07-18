@@ -168,9 +168,3 @@ int cnt = sqlSessionTemplate.delete(namespace+".deleteMember",user_id);
 
 	
 
-
-
-
-
-
-

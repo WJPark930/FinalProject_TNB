@@ -19,6 +19,7 @@ import member.model.MemberDao;
 
 @Controller
 public class MemberLoginController {
+
     
     private final String command = "/loginForm.mb";
     private final String getPage = "userLoginForm";
@@ -96,3 +97,4 @@ public class MemberLoginController {
 	 * loginInfo.getUser_id()); return my_page; }
 	 */
 }
+

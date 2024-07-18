@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/mypage/reviewMy.xml"/>
 		<mapper resource="mybatis/mypage/shopMy.xml"/>
     <mapper resource="mybatis/board.xml"/>	
+
 		<mapper resource="mybatis/member.xml"/>	
 		<mapper resource="mybatis/comment.xml"/>	
 		<mapper resource="mybatis/Nested_CommentMapper.xml"/>	
