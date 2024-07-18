@@ -13,6 +13,17 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported> <!-- 비동기 지원 추가(서블릿 버전 3.0 이상 지원) -->
+    </servlet>
 
 	<!-- Processes application requests -->
 	<servlet>
@@ -29,5 +40,92 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <async-supported>true</async-supported> <!-- 비동기 지원 추가 -->
+    </filter>
+   
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+  <!-- shop 관련xml -->
+  <servlet>
+		<servlet-name>shop</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/shop-servlet.xml</param-value>
+      </init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+  		
+	<servlet-mapping>
+		<servlet-name>shop</servlet-name>
+		<url-pattern>*.sh</url-pattern>
+	</servlet-mapping>
 
+  
+  <!-- 커뮤니티 관련xml -->
+    <servlet>
+		<servlet-name>board</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/board-servlet.xml</param-value>
+      </init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+  
+  <servlet-mapping>
+		<servlet-name>board</servlet-name>
+		<url-pattern>*.bd</url-pattern>
+	</servlet-mapping>
+		
+
+	<!-- 마이페이지 관련xml -->
+  <servlet>
+		<servlet-name>mypage</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/mypage-servlet.xml</param-value>
+      	</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+  
+  <servlet-mapping>
+		<servlet-name>mypage</servlet-name>
+		<url-pattern>*.mp</url-pattern>
+	</servlet-mapping>
+
+	
+  <!-- 멤버 관련xml -->
+	<servlet>
+		<servlet-name>member</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/member-servlet.xml</param-value>
+      	</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>member</servlet-name>
+		<url-pattern>*.mb</url-pattern>
+	</servlet-mapping>
+
+	
 </web-app>
