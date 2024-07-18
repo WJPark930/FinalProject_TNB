@@ -9,10 +9,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import utility.Paging;
 import utility.Shop_Paging;
 
 @Component("myShopDao")
-public class ShopDao {
+public class ShopDao  {
 	
 	private String namespace = "shop.model.Shop";
 	
@@ -93,6 +94,33 @@ public class ShopDao {
 	}
 	
 	
+	
+	// 관리자 시설 관리 //
+	
+	public int getTotalCount(Map<String, String> map) {
+		int count =-1;
+		count = sqlSessionTemplate.selectOne(namespace +".getTotalCount",map);
+		System.out.println("totalCount : " +count);
+		
+		return count;
+	}//getTotalCount
+
+	public List<ShopBean> getShopList(Map<String, String> map, Paging pageInfo) {
+		
+		System.out.println(map.get("whatColumn"));
+		System.out.println(map.get("keyword"));
+		
+		System.out.println("offset:" +pageInfo.getOffset()); // 현재 페이지에서 건너뛸 갯수
+		System.out.println("limit:"+pageInfo.getLimit()); // 가지고있는 레코드수(가지고올 갯수)
+		
+		List<ShopBean>lists = new ArrayList<ShopBean>();
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		lists = sqlSessionTemplate.selectList(namespace + ".getShopList",map,rowBounds);
+		
+		
+		System.out.println("lists.size()" +lists.size());
+		return lists;
+	}//getProductList
 	
 
 }
