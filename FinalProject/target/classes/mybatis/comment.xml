@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community.model.Comment">
+  
+  <!-- 댓글 삽입 -->
+  <insert id="insertComment" parameterType="community.model.CommentBean">
+    INSERT INTO board_comment (id, board_id, user_id, content, created_at, updated_at)
+    VALUES (comment_seq.nextval, #{board_id}, #{user_id}, #{content}, sysdate, sysdate)
+  </insert>
+  
+
+<!-- 댓글 조회 -->
+<select id="getCommentsByBoardId" resultType="community.model.CommentBean" parameterType="int">
+    SELECT bc.id, bc.board_id, bc.user_id, m.user_email, bc.content, bc.created_at, bc.updated_at
+    FROM board_comment bc
+    INNER JOIN member m ON bc.user_id = m.user_id
+    WHERE bc.board_id = #{board_id}
+    ORDER BY bc.created_at ASC
+</select>
+
+  
+  <!-- 댓글 삭제 -->
+  <delete id="deleteComment" parameterType="int">
+    DELETE FROM board_comment
+    WHERE id = #{commentId}
+  </delete>
+  
+  <!-- 추천 여부 확인 쿼리 -->
+	<select id="checkUserRecommend" resultType="int">
+		SELECT COUNT(*)
+		FROM comment_recommend
+		WHERE user_id = #{user_id} AND comment_id = #{comment_id}
+	</select>
+	
+	<!-- 추천 삽입 쿼리 -->
+	<insert id="insertRecommend">
+		INSERT INTO comment_recommend (id, user_id, comment_id)
+		VALUES (comment_recommend_seq.nextval,#{user_id}, #{comment_id})
+	</insert>
+	
+	<!-- 추천수 조회 쿼리 -->
+	<select id="getRecommendCount" resultType="int">
+		SELECT COUNT(*)
+		FROM comment_recommend
+		WHERE comment_id = #{comment_id}
+	</select>
+	
+	 <select id="getCommentUserId" resultType="int" parameterType="int">
+        SELECT user_id
+        FROM board_comment
+        WHERE id = #{commentId}
+    </select>
+  
+</mapper>
