@@ -85,14 +85,5 @@ public class MemberLoginController {
         
         return mav;
     }
-	/*
-	 * @RequestMapping(value = "/memberMypage", method = RequestMethod.GET) public
-	 * String myPage(HttpSession session, Model model) { // 세션에서 로그인 정보 가져오기
-	 * MemberBean loginInfo = (MemberBean) session.getAttribute("loginInfo"); if
-	 * (loginInfo == null) { // 로그인 정보가 없으면 로그인 페이지로 redirect return "redirect:" +
-	 * command; }
-	 * 
-	 * // 로그인 정보가 있으면 마이페이지로 이동 model.addAttribute("user_id",
-	 * loginInfo.getUser_id()); return my_page; }
-	 */
+	
 }

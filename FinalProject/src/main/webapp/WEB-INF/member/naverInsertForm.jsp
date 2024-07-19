@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/resources/include/header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="/resources/include/header.jsp" %> 
+
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/member/login.css?after">
 
 <style>
-.content_container {
-	margin-top: 75px;
-	padding: 50px 0px;
-}
     .err {
         color: red;
         font-size: 9pt;
@@ -80,57 +77,16 @@
         }).open();
     }
 
-    function validatePassword() {
-        var passwd = document.getElementById('user_passwd').value;
-        var confirmPasswd = document.getElementById('user_passwd_confirm').value;
-        var pwMessage = document.getElementById('pwmessage');
+ 
 
-        if (passwd !== confirmPasswd) {
-            pwMessage.textContent = "비밀번호가 일치하지 않습니다.";
-            pwMessage.className = 'err'; // 빨간색으로 설정
-            alert('비밀번호가 일치하지 않습니다');
-            return false;
-        } else {
-            pwMessage.textContent = "비밀번호 일치";
-            pwMessage.className = 'success'; // 파란색으로 설정
-            return true;
-        }
-    }
-    
-    function checkEmail() {
-        var email = document.getElementById('user_email').value;
-        var emailMessage = document.getElementById('emailMessage');
-
-        if (email === '') {
-            emailMessage.textContent = "이메일을 입력해주세요.";
-            emailMessage.className = 'err';
-            return;
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'checkEmail.mb?user_email=' + encodeURIComponent(email), true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                if (xhr.responseText === 'true') {
-                    emailMessage.textContent = "이미 가입된 이메일입니다.";
-                    emailMessage.className = 'err';
-                } else {
-                    emailMessage.textContent = "사용 가능한 이메일입니다.";
-                    emailMessage.className = 'success';
-                }
-            }
-        };
-        xhr.send();
-    }
     // 닉네임 중복 체크 함수
-    function checkNickname() {
-        var nickname = document.getElementById('user_nickname').value;
-        var nicknameMessage = document.getElementById('nicknameMessage');
+  function checkNickname() {
+    var nickname = document.getElementById('user_nickname').value;
 
-        if (nickname.trim() === '') {
-            nicknameMessage.textContent = ""; // 에러 메시지 초기화
-            return;
-        }
+    if (nickname.trim() === '') { // 값이 공백인 경우
+        nicknameMessage.textContent = ""; // 에러 메시지 초기화
+        return;
+    }
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'checkNickname.mb?user_nickname=' + encodeURIComponent(nickname), true);
@@ -149,6 +105,7 @@
         };
         xhr.send();
     }
+    
 
     function validateForm() {
         var profileInput = document.getElementById('profileInput');
@@ -190,7 +147,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('profileInput').addEventListener('change', displaySelectedFile);
     });
-
+    
     function formatPhoneNumber(input) {
         // 현재 입력된 값에서 숫자만 추출
         const cleaned = ('' + input.value).replace(/\D/g, '');
@@ -210,61 +167,64 @@
     }
     
 </script>
-<div class="container" id="content_container">
+naverinsertForm.jsp<br>
+
+${ user_email } / ${ user_name }
+
+<c:if test="${ user_email != null }">
 
 <h2 align="center">필수 정보 입력</h2>
 
-<form:form modelAttribute="member" method="post" action="insertuser.mb" enctype="multipart/form-data" onsubmit="return validateForm() && validatePassword()">
-    <input type="hidden" name="user_type" value="B">
-    <table border=1>
-
+<form:form modelAttribute="member" method="post" action="naverInsert.mb" enctype="multipart/form-data" onsubmit="return validateForm() && validatePassword()">
+<%--   <input type="text" name="from_kakao" value="${from_kakao}" /> --%>
+   <input type="hidden" name="user_type" value="G"> 
+    <table border="1">
         <tr>
             <th>* 이메일</th>
             <td>
-                <input type="text" id="user_email" name="user_email" value="${member.user_email}" placeholder="이메일을 입력해주세요" onblur="checkEmail()">
+        <input type="text" id="user_email" name="user_email1" value="${user_email}"  onkeyup="checkEmail()" disabled >
+           <input type="hidden" id="user_email" name="user_email" value="${user_email}"   >
                 <span id="emailMessage" class=""></span>
                 <form:errors path="user_email" cssClass="err"/>
             </td>
         </tr>
 
-        <tr>
+        <!-- Nickname Field in Form -->
+        
+           <tr>
             <th>* 이름</th>
             <td>
-                <input type="text" id="user_name" name="user_name" value="${member.user_name}" placeholder="이름을 입력해주세요">
+                <input type="text" id="user_name" name="user_name1" value="${user_name}"  onblur="checkName()" disabled>
+                <input type="hidden" id="user_name" name="user_name" value="${user_name}"  >
                 <span id="nameMessage" class=""></span>
                 <form:errors path="user_name" cssClass="err"/>
             </td>
         </tr>
-
         <tr>
             <th>* 닉네임</th>
             <td>
                 <input type="text" id="user_nickname" name="user_nickname" value="${member.user_nickname}" placeholder="닉네임을 입력해주세요" onblur="checkNickname()">
                 <span id="nicknameMessage" class=""></span>
-                <form:errors path="user_nickname" cssClass="err"/>
+             <form:errors path="user_nickname" cssClass="err"/>
             </td>
         </tr>
+
 
         <tr>
             <th>* 비밀번호</th>
             <td>
-                <input type="password" id="user_passwd" name="user_passwd" value="${member.user_passwd}" placeholder="비밀번호를 입력해주세요">
+                <input type="password" value = "1234" disabled>
+                <input type="hidden"  id="user_passwd" name="user_passwd" value = "1234">
                 <form:errors path="user_passwd" cssClass="err"/>
             </td>
         </tr>
 
-        <tr>
-            <th>* 비밀번호 확인</th>
-            <td>
-                <input type="password" id="user_passwd_confirm" name="user_passwd_confirm" placeholder="비밀번호를 재입력해주세요" onblur="validatePassword()">
-                <div id="pwmessage" class="err"></div>
-            </td>
-        </tr>
+
 
         <tr>
             <th>* 휴대전화번호</th>
             <td>
-                <input type="text" name="user_phone" value="${member.user_phone}" placeholder="휴대번호를 입력해주세요"  oninput="formatPhoneNumber(this)" maxlength="13">
+                <input type="text" name="user_phone" value="${member.user_phone}" placeholder="휴대번호를 입력해주세요" oninput="formatPhoneNumber(this)" maxlength="13">
                 <form:errors path="user_phone" cssClass="err"/>
             </td>
         </tr>
@@ -284,7 +244,8 @@
                 String[] user_gender = { "여자", "남자" };
                 %> 
                 <c:forEach var="gender" items="<%=user_gender%>">
-                    <input type="radio" name="user_gender" value="${gender}" <c:if test="${member.user_gender eq gender}">checked</c:if>>${gender}
+                    <input type="radio" name="user_gender" value="${gender}"
+                    <c:if test="${member.user_gender eq gender}">checked</c:if>>${gender}
                 </c:forEach>
                 <form:errors path="user_gender" cssClass="err"/>
             </td>
@@ -294,17 +255,9 @@
             <th>* 주소</th>
             <td>
                 <input type="button" id="find_button" value="주소 검색" class="find-button" onclick="execDaumPostcode()"><br>
-                <input type="text" name="user_addr1" id="user_addr1" value="${member.user_addr1}" class="address-input" readonly>
+                <input type="text" name="user_addr1" id="user_addr1" value="${user_addr1}" class="address-input" readonly>
                 <input type="text" name="zonecode" id="zonecode" placeholder="우편번호" class="address-input" readonly><br>
-                <input type="text" name="user_addr2" id="user_addr2" value="${member.user_addr2}" class="address-input"><br>
-            </td>
-        </tr>
-
-        <tr>
-            <th>* 계좌번호</th>
-            <td>
-                <input type="text" name="user_account" value="${member.user_account}">
-                <form:errors path="user_account" cssClass="err"/>
+                <input type="text" name="user_addr2" id="user_addr2" value="${user_addr2}" class="address-input"><br>
             </td>
         </tr>
 
@@ -312,7 +265,7 @@
             <th>* 프로필사진</th>
             <td>
                 <input type="button" value="파일 선택하기" onclick="openFileSelector()"><br>
-                ( 파일 선택하지 않으면 기본이미지로 저장)<br>
+               ( 파일 선택하지 않으면 기본이미지로 저장)<br>
                 <input type="file" id="profileInput" name="upload" class="profile-input">
                 <div class="profile-container">
                     <div class="profile-image"></div>
@@ -324,14 +277,128 @@
         <tr>
             <th colspan="2" align="center">
                 <input type="submit" value="회원가입">
-                <input type="button" value="돌아가기" onclick="location.href='loginForm.mb?pageNumber=${param.pageNumber}&whatColumn=${param.whatColumn}&keyword=${keyword}'">
+                <input type="button" value="돌아가기" onClick="location.href='loginForm.mb?pageNumber=${param.pageNumber}&whatColumn=${param.whatColumn}&keyword=${keyword}'">
             </th>
         </tr>
-
     </table>
 </form:form>
-</div>
+
+</c:if>
+
+<c:if test="${ user_email == null }">
+<div class="container" id="content_container">
+<h2 align="center">필수 정보 입력</h2>
+
+<form:form modelAttribute="member" method="post" action="naverInsert.mb" enctype="multipart/form-data" onsubmit="return validateForm() && validatePassword()">
+<%--   <input type="text" name="from_kakao" value="${from_kakao}" /> --%>
+   <input type="hidden" name="user_type" value="G"> 
+    <table border="1">
+        <tr>
+            <th>* 이메일</th>
+            <td>
+        <input type="text" id="user_email" name="user_email1" value="${member.user_email}"  onkeyup="checkEmail()" disabled >
+           <input type="hidden" id="user_email" name="user_email" value="${member.user_email}"   >
+                <span id="emailMessage" class=""></span>
+                <form:errors path="user_email" cssClass="err"/>
+            </td>
+        </tr>
+
+        <!-- Nickname Field in Form -->
+        
+           <tr>
+            <th>* 이름</th>
+            <td>
+                <input type="text" id="user_name" name="user_name1" value="${member.user_name}"  onblur="checkName()" disabled>
+                <input type="hidden" id="user_name" name="user_name" value="${member.user_name}"  >
+                <span id="nameMessage" class=""></span>
+                <form:errors path="user_name" cssClass="err"/>
+            </td>
+        </tr>
+        <tr>
+            <th>* 닉네임</th>
+            <td>
+                <input type="text" id="user_nickname" name="user_nickname" value="${member.user_nickname}" placeholder="닉네임을 입력해주세요" onblur="checkNickname()">
+                <span id="nicknameMessage" class=""></span>
+             <form:errors path="user_nickname" cssClass="err"/>
+            </td>
+        </tr>
 
 
+        <tr>
+            <th>* 비밀번호</th>
+                
+            <td>
+            	<input type="hidden" name="user_passwd" value="1234" >
+                <input type="password" id="user_passwd" name="user_passwd" value="1234" disabled>
+                <form:errors path="user_passwd" cssClass="err"/>
+            </td>
+        </tr>
 
-<%@include file="/resources/include/footer.jsp" %>
+      
+
+        <tr>
+            <th>* 휴대전화번호</th>
+            <td>
+                <input type="text" name="user_phone" value="${member.user_phone}" placeholder="휴대번호를 입력해주세요" oninput="formatPhoneNumber(this)" maxlength="13">
+                <form:errors path="user_phone" cssClass="err"/>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 생년월일</th>
+            <td>
+                <input type="date" name="user_birth" value="${member.user_birth}">
+                <form:errors path="user_birth" cssClass="err"/>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 성별</th>
+            <td>
+                <%
+                String[] user_gender = { "여자", "남자" };
+                %> 
+                <c:forEach var="gender" items="<%=user_gender%>">
+                    <input type="radio" name="user_gender" value="${gender}"
+                    <c:if test="${member.user_gender eq gender}">checked</c:if>>${gender}
+                </c:forEach>
+                <form:errors path="user_gender" cssClass="err"/>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 주소</th>
+            <td>
+                <input type="button" id="find_button" value="주소 검색" class="find-button" onclick="execDaumPostcode()"><br>
+                <input type="text" name="user_addr1" id="user_addr1" value="${user_addr1}" class="address-input" readonly>
+                <input type="text" name="zonecode" id="zonecode" placeholder="우편번호" class="address-input" readonly><br>
+                <input type="text" name="user_addr2" id="user_addr2" value="${user_addr2}" class="address-input"><br>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 프로필사진</th>
+            <td>
+                <input type="button" value="파일 선택하기" onclick="openFileSelector()"><br>
+               ( 파일 선택하지 않으면 기본이미지로 저장)<br>
+                <input type="file" id="profileInput" name="upload" class="profile-input">
+                <div class="profile-container">
+                    <div class="profile-image"></div>
+                    <span id="profileFilename" class="profile-filename">기본이미지</span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th colspan="2" align="center">
+                <input type="submit" value="회원가입">
+                <input type="button" value="돌아가기" onClick="location.href='loginForm.mb?pageNumber=${param.pageNumber}&whatColumn=${param.whatColumn}&keyword=${keyword}'">
+            </th>
+        </tr>
+    </table>
+</form:form>
+    </div>
+
+</c:if>
+
+ <%@include file="/resources/include/footer.jsp" %> 

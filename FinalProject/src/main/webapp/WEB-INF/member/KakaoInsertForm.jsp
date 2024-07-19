@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp"%>
+<%@include file="/resources/include/header.jsp" %>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -209,16 +209,9 @@ kakaoinsertForm.jsp<br>
         <tr>
             <th>* 비밀번호</th>
             <td>
-                <input type="password" id="user_passwd" name="user_passwd" value="${member.user_passwd}" placeholder="비밀번호를 입력해주세요">
+                <input type="password" value = "1234" disabled>
+                <input type="hidden"  id="user_passwd" name="user_passwd" value = "1234">
                 <form:errors path="user_passwd" cssClass="err"/>
-            </td>
-        </tr>
-
-        <tr>
-            <th>* 비밀번호 확인</th>
-            <td>
- <input type="password" id="user_passwd_confirm" placeholder="비밀번호를 재입력해주세요" onkeyup="validatePassword()">               
-  <div id="pwmessage" class="err"></div>
             </td>
         </tr>
 
@@ -278,10 +271,127 @@ kakaoinsertForm.jsp<br>
         <tr>
             <th colspan="2" align="center">
                 <input type="submit" value="회원가입">
-                <input type="button" value="돌아가기" onClick="location.href='memberList.mb?pageNumber=${param.pageNumber}&whatColumn=${param.whatColumn}&keyword=${keyword}'">
+                <input type="button" value="돌아가기" onClick="location.href='loginForm.mb?pageNumber=${param.pageNumber}&whatColumn=${param.whatColumn}&keyword=${keyword}'">
             </th>
         </tr>
     </table>
 </form:form>
 
 </c:if>
+
+<c:if test="${ user_email == null }">
+<div class="container" id="content_container">
+<h2 align="center">필수 정보 입력</h2>
+
+<form:form modelAttribute="member" method="post" action="naverInsert.mb" enctype="multipart/form-data" onsubmit="return validateForm() && validatePassword()">
+<%--   <input type="text" name="from_kakao" value="${from_kakao}" /> --%>
+   <input type="hidden" name="user_type" value="G"> 
+    <table border="1">
+        <tr>
+            <th>* 이메일</th>
+            <td>
+        <input type="text" id="user_email" name="user_email1" value="${member.user_email}"  onkeyup="checkEmail()" disabled >
+           <input type="hidden" id="user_email" name="user_email" value="${member.user_email}"   >
+                <span id="emailMessage" class=""></span>
+                <form:errors path="user_email" cssClass="err"/>
+            </td>
+        </tr>
+
+        <!-- Nickname Field in Form -->
+        
+           <tr>
+            <th>* 이름</th>
+            <td>
+                <input type="text" id="user_name" name="user_name1" value="${member.user_name}"  onblur="checkName()" disabled>
+                <input type="hidden" id="user_name" name="user_name" value="${member.user_name}"  >
+                <span id="nameMessage" class=""></span>
+                <form:errors path="user_name" cssClass="err"/>
+            </td>
+        </tr>
+        <tr>
+            <th>* 닉네임</th>
+            <td>
+                <input type="text" id="user_nickname" name="user_nickname" value="${member.user_nickname}" placeholder="닉네임을 입력해주세요" onblur="checkNickname()">
+                <span id="nicknameMessage" class=""></span>
+             <form:errors path="user_nickname" cssClass="err"/>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>* 비밀번호</th>
+                
+            <td>
+            	<input type="hidden" name="user_passwd" value="1234" >
+                <input type="password" id="user_passwd" name="user_passwd" value="1234" disabled>
+                <form:errors path="user_passwd" cssClass="err"/>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>* 휴대전화번호</th>
+            <td>
+                <input type="text" name="user_phone" value="${member.user_phone}" placeholder="휴대번호를 입력해주세요">
+                <form:errors path="user_phone" cssClass="err"/>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 생년월일</th>
+            <td>
+                <input type="date" name="user_birth" value="${member.user_birth}">
+                <form:errors path="user_birth" cssClass="err"/>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 성별</th>
+            <td>
+                <%
+                String[] user_gender = { "여자", "남자" };
+                %> 
+                <c:forEach var="gender" items="<%=user_gender%>">
+                    <input type="radio" name="user_gender" value="${gender}"
+                    <c:if test="${member.user_gender eq gender}">checked</c:if>>${gender}
+                </c:forEach>
+                <form:errors path="user_gender" cssClass="err"/>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 주소</th>
+            <td>
+                <input type="button" id="find_button" value="주소 검색" class="find-button" onclick="execDaumPostcode()"><br>
+                <input type="text" name="user_addr1" id="user_addr1" value="${user_addr1}" class="address-input" readonly>
+                <input type="text" name="zonecode" id="zonecode" placeholder="우편번호" class="address-input" readonly><br>
+                <input type="text" name="user_addr2" id="user_addr2" value="${user_addr2}" class="address-input"><br>
+            </td>
+        </tr>
+
+        <tr>
+            <th>* 프로필사진</th>
+            <td>
+                <input type="button" value="파일 선택하기" onclick="openFileSelector()"><br>
+               ( 파일 선택하지 않으면 기본이미지로 저장)<br>
+                <input type="file" id="profileInput" name="upload" class="profile-input">
+                <div class="profile-container">
+                    <div class="profile-image"></div>
+                    <span id="profileFilename" class="profile-filename">기본이미지</span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th colspan="2" align="center">
+                <input type="submit" value="회원가입">
+                <input type="button" value="돌아가기" onClick="location.href='loginForm.mb?pageNumber=${param.pageNumber}&whatColumn=${param.whatColumn}&keyword=${keyword}'">
+            </th>
+        </tr>
+    </table>
+</form:form>
+    </div>
+
+</c:if>
+
+<%@include file="/resources/include/footer.jsp" %>

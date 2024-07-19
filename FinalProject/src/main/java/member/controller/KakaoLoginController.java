@@ -1,7 +1,5 @@
 package member.controller;
 
-import java.lang.reflect.Member;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import member.model.MemberBean;
 import member.model.MemberDao;
 
 	@Controller
@@ -19,7 +18,6 @@ import member.model.MemberDao;
 		    private MemberDao memberDao;
 		   
 		private final String command = "kakaoLogin.mb";
-		private final String gotoPage = "gotoKakaoLogin";
 		
 		
 		@RequestMapping(command)
@@ -29,7 +27,8 @@ import member.model.MemberDao;
                  HttpServletRequest request,
                  HttpSession session) {
 
-Member existingMember = memberDao.findByEmail(userEmail);
+			System.out.println("user_email : " + userEmail);
+MemberBean existingMember = memberDao.findByEmail(userEmail);
 
 if (existingMember != null) {
 session.setAttribute("loginInfo", existingMember);

@@ -118,7 +118,7 @@ int cnt = sqlSessionTemplate.delete(namespace+".deleteMember",user_id);
 
 		 int cnt = -1;
 	        // 파라미터를 Map에 담아서 전달
-	        Map<String, Object> params = new HashMap<String, Object>();
+	        Map<String, Object> params = new HashMap<>();
 	        params.put("user_id", userId);
 	        params.put("user_status", status);
 	        
@@ -139,7 +139,7 @@ int cnt = sqlSessionTemplate.delete(namespace+".deleteMember",user_id);
 
 
 	  public String findEmail(String userName, String userPhone) {
-	        Map<String, Object> params = new HashMap<String, Object>();
+	        Map<String, Object> params = new HashMap<>();
 	        params.put("user_name", userName);
 	        params.put("user_phone", userPhone);
 	        
@@ -148,7 +148,7 @@ int cnt = sqlSessionTemplate.delete(namespace+".deleteMember",user_id);
 	  
 	  
 	  public String findPassword(String userEmail, String userPhone) {
-	        Map<String, Object> params = new HashMap<String, Object>();
+	        Map<String, Object> params = new HashMap<>();
 	        params.put("user_email", userEmail);
 	        params.put("user_phone", userPhone);
 	        
@@ -156,8 +156,10 @@ int cnt = sqlSessionTemplate.delete(namespace+".deleteMember",user_id);
 	    }
 	  
 	  
-	  public Member findByEmail(String userEmail) {
-	        return sqlSessionTemplate.selectOne(namespace + ".FindByEmail", userEmail);
+	  public MemberBean findByEmail(String userEmail) {
+		  MemberBean mb = null;
+		  mb = sqlSessionTemplate.selectOne(namespace + ".FindByEmail", userEmail);
+		  return mb;
 	    }
 	  
 	}

@@ -15,7 +15,7 @@ adminMyPage.jsp<br>
     </tr>
     <tr>
         <td><a href="memberList.mb?user_id=${sessionScope.loginInfo.user_id}">멤버리스트확인</a></td>
-        <td><a href="shopList.sh?user_id=${sessionScope.loginInfo.user_id}">숙소관리</a></td>
+        <td><a href="shopList.sp?user_id=${sessionScope.loginInfo.user_id}">숙소관리</a></td>
         <td><a href="FAQList.mb?user_id=${sessionScope.loginInfo.user_id}">F A Q</a></td>
         <td><a href="community.mb?user_id=${sessionScope.loginInfo.user_id}">커뮤니티</a></td>
         <td><a href="eventList.mb?user_id=${sessionScope.loginInfo.user_id}">이벤트</a></td>

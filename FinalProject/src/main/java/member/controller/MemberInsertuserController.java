@@ -113,8 +113,8 @@ public class MemberInsertuserController {
 	
 		  memberDao.insertMember(member); 
 		  // 회원가입 성공 시 한 번만 출력할 메시지 설정
-		  //request.getSession().setAttribute("registerSuccess", true);
 	        mav.setViewName(REDIRECT_PAGE);
+	        
 	        return mav;
     }
 
