@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="train.model.City">
+	<insert id="insertCity" parameterType="train.model.CityBean">
+        INSERT INTO city (city_id, city_name) VALUES (#{city_id}, #{city_name})
+    </insert>
+    
+    <select id="getCityList" resultType="train.model.CityBean">
+        SELECT * FROM city
+        ORDER BY city_id asc
+    </select>
+    
+    <delete id="deleteCity">
+        DELETE FROM city WHERE city_id = #{city_id}
+    </delete>
+    
+    <update id="updateCity" parameterType="train.model.CityBean">
+        UPDATE city SET city_name = #{city_name} WHERE city_id = #{city_id}
+    </update>
+</mapper>
+
+<!-- city.xml -->

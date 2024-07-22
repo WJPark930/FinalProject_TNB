@@ -22,10 +22,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/shop/review.xml"/>
 		<mapper resource="mybatis/mypage/reviewMy.xml"/>
 		<mapper resource="mybatis/mypage/shopMy.xml"/>
-    <mapper resource="mybatis/board.xml"/>	
-
+        <mapper resource="mybatis/board.xml"/>	
 		<mapper resource="mybatis/member.xml"/>	
 		<mapper resource="mybatis/comment.xml"/>	
-		<mapper resource="mybatis/Nested_CommentMapper.xml"/>	
+		<mapper resource="mybatis/Nested_CommentMapper.xml"/>
+		<mapper resource="mybatis/faq/faq.xml"/>
+        <mapper resource="mybatis/train/city.xml"/>
+        <mapper resource="mybatis/train/station.xml"/>
+        <mapper resource="mybatis/train/trainSchedule.xml"/>
+        <mapper resource="mybatis/train/seat.xml"/>
+        <mapper resource="mybatis/train/trainReservation.xml"/>	
 	</mappers>
 </configuration>

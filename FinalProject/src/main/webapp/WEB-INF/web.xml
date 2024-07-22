@@ -111,7 +111,7 @@
 	</servlet-mapping>
 
 	
-  <!-- 멤버 관련xml -->
+    <!-- 멤버 관련xml -->
 	<servlet>
 		<servlet-name>member</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -125,6 +125,39 @@
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>*.mb</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 기차 관련 xml -->
+	<servlet>
+		<servlet-name>train</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/train-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>train</servlet-name>
+		<url-pattern>*.train</url-pattern>
+	</servlet-mapping>
+
+	<!-- faq 관련 xml -->
+	<servlet>
+		<servlet-name>faq</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/faq-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>faq</servlet-name>
+		<url-pattern>*.faq</url-pattern>
 	</servlet-mapping>
 
 	

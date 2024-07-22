@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="train.model.Seat">
+    
+    <select id="getReservedSeatCountByScheduleId" parameterType="String" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM seat 
+	    WHERE schedule_id = #{schedule_id}
+	</select>
+    
+    <insert id="insertSeat" parameterType="train.model.SeatBean">
+        INSERT INTO seat (seat_id, seat_no, schedule_id)
+        VALUES (seat_seq.NEXTVAL, #{seat_no}, #{schedule_id})
+    </insert>
+    
+    <select id="getSeatsByScheduleId" resultType="train.model.SeatBean">
+        SELECT * FROM seat
+        WHERE schedule_id = #{schedule_id}
+    </select>
+    
+</mapper>
+
+<!-- seat.xml -->

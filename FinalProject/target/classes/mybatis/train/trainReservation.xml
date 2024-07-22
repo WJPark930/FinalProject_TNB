@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="train.model.TrainReservation">
+    
+    <insert id="insertReservation" parameterType="train.model.TrainReservationBean">
+        INSERT INTO train_reservation
+        VALUES (reservation_seq.nextval, #{user_id}, #{depPlaceName}, #{arrPlaceName}, #{depPlandTime}, #{arrPlandTime}, #{duration}, #{train_no}, #{train_type}, #{num_adults}, #{num_children}, #{num_seniors}, #{seat_no}, #{train_total_prices})
+    </insert>
+    
+</mapper>
+
+<!-- seat.xml -->
