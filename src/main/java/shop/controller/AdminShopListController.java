@@ -27,7 +27,7 @@ public class AdminShopListController {
 	@Autowired
 	ShopDao shopDao;
 	
-	  @Autowired
+	  @Autowired 
 	    ServletContext servletContext;
 	
     @RequestMapping(value = command, method = RequestMethod.GET)
