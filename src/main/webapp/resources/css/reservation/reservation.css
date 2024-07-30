@@ -1,0 +1,398 @@
+@charset "UTF-8";
+
+#content_container {
+    margin-top: 75px;
+    padding: 50px 0px;
+ }
+
+
+/* pay 결제 */
+
+.pay_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_area {
+    width: 60%;
+    min-width: 400px;
+}
+
+.pay_container h2{
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}
+
+.pay_container p{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 5px;
+}
+
+.pay_container p span{
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-700);
+}
+
+.info_area{
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.pay_area {
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.pay_area .coupon_info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pay_area .coupon_amount {
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+.pay_area #point_amount_show {
+    width: 20%;
+    min-width: 120px;
+    height: 45px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid var(--bs-gray-900);
+}
+
+.pay_area .point_my {
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-500);
+}
+
+.pay_area #final_price{
+    font-size: 20px;
+    font-family: 'NanumSquare_EB';
+    color: var(--bs-main_up2_color);
+}
+
+.pay_area .total_price_text {
+    margin-top: 10px;
+    font-size: 20px;
+    color: var(--bs-gray-900);
+}
+
+.pay_area #default_price{
+    font-size: 14px;
+    text-decoration:line-through ;
+    margin-left: 5px;
+    color: var(--bs-gray-500);
+}
+
+.pay_area .pay_submit_btn{
+    background-color: var(--bs-main_color);
+    color: #fff;
+    font-family: 'NanumSquare_B';
+}
+
+.reservation_area{
+    width: 35%;
+    min-width: 175px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    overflow: hidden;
+    padding: 20px 20px 0px 20px;
+    height: 100%;
+}
+
+.reservation_area .reservation_image_area {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.reservation_area .reservation_image_area img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.user_area .line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--bs-gray-200);
+    margin: 0px 0px 20px 0px;
+}
+
+.reservation_area .line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--bs-gray-200);
+    margin: 20px 0px 20px 0px;
+}
+
+.coupon_area {
+    border-radius: 15px;
+    border: 1px solid var(--bs-gray-400);
+    padding: 10px 10px;
+    margin-bottom: 10px;
+}
+
+.coupon_area p{
+    margin-bottom: 5px;
+}
+
+
+/* 철도 예약 여부 페이지 */
+
+ #content_container .choice_btn_area {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+ #content_container .choice_btn_area .btn_area{
+    display: flex;
+    justify-content: center;
+
+}
+
+ /* 버튼 추가 */
+ a.button {
+    display: block;
+    position: relative;
+    float: left;
+    width: 120px;
+    padding: 0;
+    margin: 10px 20px 10px 0;
+    font-weight: 600;
+    text-align: center;
+    line-height: 50px;
+    color: var(--bs-gray-900);
+    border-radius: 5px;
+    transition: all 0.2s ;
+    text-decoration: none;
+  }
+
+.btnFloat {
+background: none;
+box-shadow: 0px 0px 0px 0px rgba(32, 30, 30, 0.5);
+}
+
+.btnFloat:before {
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+width: 120px;
+height: 50px;
+border-radius: 5px;
+transition: all 0.2s ;
+
+}
+
+.pay_btn:before {
+    content: '결제하기';
+    border: 1px solid var(--bs-gray-900);
+}
+
+.train_btn:before {
+    content: '철도예약';
+    background-color: var(--bs-main_color);
+    border: 1px solid var(--bs-main_up1_color);
+    color: #fff;
+}
+
+
+.btnFloat:before {
+box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+
+.btnFloat:hover:before {
+margin-top: -2px;
+margin-left: 0px;
+transform: scale(1.1,1.1);
+-ms-transform: scale(1.1,1.1);
+-webkit-transform: scale(1.1,1.1);
+box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+
+
+/* 예약 디테일뷰 */
+.content_area .reservation_content_area {
+    width: 100%;
+    min-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    text-align: left;
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content_area .reservation_content_area .image_box {
+    width: 40%;
+    height: 30%;
+    max-height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.content_area .reservation_content_area .image_box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.content_area .reservation_content_area .reservation_box {
+    padding-right: 100px;
+    width: 60%;
+}
+
+.content_area .reservation_content_area .reservation_box .line{
+    width: 100%;
+    height: 1px;
+    background-color: var(--bs-gray-200);
+    margin: 20px 0px;
+}
+
+#content_container .reservation_content_area .shop_name_text{
+    font-size: 32px;
+    font-family: 'NanumSquare_EB';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}
+
+
+#content_container .reservation_content_area h2{
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}
+
+#content_container .reservation_content_area p{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 5px;
+}
+
+#content_container .reservation_content_area p span{
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-700);
+}
+
+.content_container {
+    padding: 0 !important;
+}
+
+#content_container .reservation_content_area .review_name{
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+#content_container .reservation_content_area .review_name span{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: #FFAD0A;
+}
+
+#content_container .reservation_content_area .review_content{
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-700);
+}
+
+
+
+/* 결제 방법 창 */
+
+#content_container .payment-button {
+    background-color: var(--bs-main_color); /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 버튼 테두리 없음 */
+    border-radius: 5px; /* 버튼 모서리를 둥글게 */
+    padding: 12px 20px; /* 버튼의 패딩 */
+    font-size: 18px; /* 버튼 텍스트 크기 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    transition: background-color 0.3s; /* 배경색 변화에 애니메이션 추가 */
+    font-family: 'NanumSquare_B';
+    margin-bottom: 100px;
+    margin-top: 15px;
+}
+
+#content_container .payment-button:hover {
+    background-color: var(--bs-main_up1_color); /* 버튼 호버 시 배경색 변화 */
+}
+
+
+.payment_area {
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
+
+.payment_area  .payment_box_area {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    width: 200px; /* 네모의 가로 크기 */
+    height: 80px; /* 네모의 세로 크기 */
+    color: var(--bs-gray-900); /* 숫자의 색상 */
+    font-size: 18px; /* 숫자의 크기 */
+    border-radius: 15px; /* 네모의 모서리를 둥글게 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    margin: 5px;
+}
+
+.box.selected {
+    border: 2px solid var(--bs-main_color); /* 선택된 박스에 테두리 추가 */
+}
+
+.box .box_text{
+    width: 192px;
+    height: 72px;
+    border: 2px solid var(--bs-gray-900);
+    margin: 2px;
+    border-radius: 10px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'NanumSquare_B';
+}
+
+.box .box_text img{
+    height: 14px;
+    object-fit: cover;
+}
+
+.box .box_text img , .box .box_text i {
+    margin-right: 10px;
+}

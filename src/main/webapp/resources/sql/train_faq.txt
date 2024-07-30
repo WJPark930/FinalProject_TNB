@@ -1,0 +1,121 @@
+
+-- 도시 테이블
+DROP TABLE city CASCADE CONSTRAINTS;
+CREATE TABLE city (
+    city_id int PRIMARY KEY,       	-- 도시 ID (PK)
+    city_name VARCHAR(30) NOT NULL 	-- 도시명
+);
+
+-- 기차역 테이블
+DROP TABLE station CASCADE CONSTRAINTS;
+CREATE TABLE station (
+    station_id VARCHAR(20) PRIMARY KEY,     -- 역 ID (PK)
+    station_name VARCHAR(100) NOT NULL,     -- 역 이름
+    city_id int NOT NULL,                   -- 도시 ID (FK)
+    FOREIGN KEY (city_id) REFERENCES city(city_id)
+);
+
+
+-- 기차 일정 테이블
+drop table trainSchedule;
+CREATE TABLE trainSchedule (
+    schedule_id VARCHAR2(70) PRIMARY KEY,   -- 일정 ID (PK)
+    train_no int,          					-- 열차번호
+    depPlaceName VARCHAR(30),   			-- 출발역명
+    arrPlaceName VARCHAR(30),    			-- 도착역명
+    train_type VARCHAR2(20),   				-- 차량종류명
+    depPlandTime date,       				-- 출발시간
+    arrPlandTime date,        				-- 도착시간
+    seat_available INT,        				-- 잔여석
+    adult_charge INT,        			    -- 운임(단위: 원)
+    duration VARCHAR2(20)					-- 소요시간
+);
+
+-- 좌석ID 시퀀스
+drop sequence seat_seq;
+CREATE SEQUENCE seat_seq					-- 좌석 시퀀스
+    START WITH 1        
+    INCREMENT BY 1     
+    NOCACHE;
+    
+-- 좌석 테이블
+drop table seat;
+CREATE TABLE seat (
+    seat_id INT PRIMARY KEY,                 -- 좌석 ID (PK)
+    order_num int,             -- 예약번호
+    seat_no VARCHAR2(10) NOT NULL,          -- 좌석 번호
+    schedule_id VARCHAR2(70)              -- 일정 ID
+);
+
+
+========================================================================================
+
+
+-- FAQ 시퀀스 (faq_seq)
+drop sequence faq_seq;
+create sequence faq_seq
+start with 1
+increment by 1
+nocache;
+
+-- FAQ 테이블 (faq)
+drop table faq;
+CREATE TABLE faq (
+    faq_id INT PRIMARY KEY,
+    question varchar(200) NOT NULL,
+    answer varchar(500) NOT NULL,
+    faq_category varchar(30) NOT NULL,
+    created_date date DEFAULT sysdate,
+    modified_date date DEFAULT sysdate
+);
+
+
+-- 숙소 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '숙소 예약은 어떻게 하나요?', '숙소 예약은 검색 후 원하는 숙소를 선택하여 예약 버튼을 클릭하시면 됩니다.', '숙소', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '숙소 예약 취소는 어떻게 하나요?', '숙소 예약 취소는 마이페이지에서 예약 내역을 선택하여 취소 버튼을 클릭하시면 됩니다.', '숙소', SYSDATE, SYSDATE);
+
+-- 교통 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '교통 예약은 어떻게 하나요?', '교통 예약은 숙소 예약 후 옵션에서 교통을 추가하여 예약하시면 됩니다.', '교통', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '교통 예약과정은 어떻게 되나요?', '노선조회, 배차조회, 좌석선택, 예매정보 페이지로 구성되어있습니다. 예약 시 각 페이지 하단에 설명을 참고하여 예매하세요.', '교통', SYSDATE, SYSDATE);
+-- 조회/변경/취소 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '예약 내역은 어디서 조회하나요?', '예약 내역은 마이페이지에서 확인하실 수 있습니다.', '조회/변경/취소', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '예약 변경은 어떻게 하나요?', '예약 변경은 마이페이지에서 예약 내역을 선택하여 변경 버튼을 클릭하시면 됩니다.', '조회/변경/취소', SYSDATE, SYSDATE);
+
+-- 커뮤니티 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '여행지 후기는 어디서 볼 수 있나요?', '여행지 후기는 커뮤니티 페이지 '떠나봄 게시판' 에서 확인하실 수 있습니다.', '커뮤니티', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '후기 작성은 어떻게 하나요?', '후기 작성은 커뮤니티 페이지에서 '자유 게시판' 혹은 '떠나봄 게시판'에서 '게시물 작성' 버튼을 클릭하시면 됩니다.', '커뮤니티', SYSDATE, SYSDATE);
+
+-- 채팅 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '관리자에게 질문은 어떻게 하나요?', '관리자에게 질문은 실시간 채팅을 클릭하신 후, 대화 진행 하시면 됩니다.', '채팅', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '채팅으로 실시간 상담이 가능한가요?', '네, 채팅으로 실시간 상담이 가능합니다.', '채팅', SYSDATE, SYSDATE);
+
+-- 결제 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '결제 방법은 어떤 것들이 있나요?', '결제 방법으로는 신용카드, 체크카드, 무통장 입금, 카카오페이, 토스페이 결제가 있습니다.', '결제', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '결제 영수증은 어디서 발급받나요?', '결제 영수증은 마이페이지에서 발급받으실 수 있습니다.', '결제', SYSDATE, SYSDATE);
+
+-- 회원 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '회원 가입은 어떻게 하나요?', '회원 가입은 회원가입 페이지에서 정보를 입력하고 가입 버튼을 클릭하시면 됩니다.', '회원', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '회원 정보 변경은 어떻게 하나요?', '회원 정보 변경은 마이페이지에서 회원 정보 수정 버튼을 클릭하시면 됩니다.', '회원', SYSDATE, SYSDATE);
+
+-- 기타 카테고리
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES 
+(faq_seq.nextval, '사이트 이용 시 문제가 발생하면 어떻게 하나요?', '사이트 이용 시 문제가 발생하면 고객센터로 문의해주시기 바랍니다.', '기타', SYSDATE, SYSDATE);
+INSERT INTO faq (faq_id, question, answer, faq_category, created_date, modified_date) VALUES
+(faq_seq.nextval, '이용 약관은 어디서 확인할 수 있나요?', '이용 약관은 홈페이지 하단의 이용 약관 링크를 클릭하여 확인하실 수 있습니다.', '기타', SYSDATE, SYSDATE);
+
+
+

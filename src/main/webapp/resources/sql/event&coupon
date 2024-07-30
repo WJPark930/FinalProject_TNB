@@ -1,0 +1,51 @@
+--이벤트시퀀스
+
+drop sequence event_seq ;
+create sequence event_seq
+start with 1
+increment by 1
+nocache ;
+
+
+--이벤트테이블
+
+drop table event cascade constraints;
+create table event(
+   event_num number primary key,
+   event_title varchar2(100),
+   event_context varchar2(300),
+   event_image varchar2(50),
+   event_start_date date default sysdate,
+   event_end_date date,
+   event_discount_kind varchar2(20),
+   event_discount_amount number
+);
+
+insert into event values (event_seq.nextval, '서울로 여행 가자', '지금 기차타고 서울로 여행 떠나자! 기차와 결합하면 더 저렴하게!', 'Seoul.jpg', '2024-06-01', '2024-08-01', '비율 할인', 5);
+insert into event values (event_seq.nextval, '여름엔 부산으로', '해운대 가서 바다 보고 회도 먹고', 'Busan.jpg', '2024-06-01', '2024-09-01', '금액 차감', 10000);
+
+-- 포인트 테스트용
+update member set user_point = 10000;
+
+commit;
+
+--쿠폰시퀀스
+
+drop sequence coupon_seq ;
+create sequence coupon_seq
+start with 1
+increment by 1
+nocache ;
+
+
+--쿠폰테이블
+
+drop table coupon cascade constraints;
+create table coupon(
+   coupon_num number primary key,
+   event_num number,
+   user_id number,
+   kind varchar2(15),
+   amount number,
+   use_status number(1) default 0
+);

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="shop.model.Shop">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from shop
+		<if test="whatColumn == 'all'">
+			where shop_name like #{keyword}
+			or region like #{keyword}
+			or grade like #{keyword}
+			or shop_status like #{keyword}
+		</if>
+		<if test="whatColumn == 'shop_name'">
+			where shop_name like #{keyword}
+		</if>
+		<if test="whatColumn == 'region'">
+			where region like #{keyword}
+		</if>
+		<if test="whatColumn == 'shop_grade'">
+			where grade like #{keyword}
+		</if>
+		<if test="whatColumn == 'shop_status'">
+			where shop_status like #{keyword}
+		</if>
+		
+		
+	</select>
+	
+	<select id = "getShopList" resultType = "shop.model.ShopBean" parameterType = "hashmap">
+  		select * from shop
+  		<if test="whatColumn == 'all'">
+			where shop_name like #{keyword}
+			or region like #{keyword}
+			or grade like #{keyword}
+			or shop_status like #{keyword}
+		</if>
+  		<if test = "whatColumn == 'shop_name'">
+  			where shop_name like #{keyword}
+  		</if>
+  		
+  		<if test = "whatColumn == 'region'">
+  			where region like #{keyword}
+  		</if>
+  		
+  		<if test="whatColumn == 'shop_grade'">
+			where grade like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'shop_status'">
+			where shop_status like #{keyword}
+		</if>
+  	</select>
+  	
+ 	
+ 	<delete id="deleteShop">
+	
+	delete from shop where shop_id=#{shop_id}
+	</delete>
+	
+	<update id="updateShopStatus" parameterType="map">
+    UPDATE shop
+    SET shop_status = #{shop_status}
+    WHERE shop_id = #{shop_id}
+    
+</update>
+  
+     <select id = "getRoomInfo" resultType="shop.model.ShopRoomBean">
+      select * from shop_room where shop_id = #{ shop_id } and room_id = #{ room_id }
+    </select>
+    
+   <select id="getThisShopImage" resultType = "String">
+      select image from shop_image where shop_id =#{ shop_id } and SHOP_IMG_ID = ( SELECT MIN(SHOP_IMG_ID)SHOP_IMG_ID FROM SHOP_IMAGE where shop_id = #{ shop_id }) 
+   </select>
+   
+   <select id="getThisRoomImage" resultType = "String">
+      select image from room_image where shop_id = #{ shop_id } and room_id = #{ room_id } and room_img_id = 1
+   </select>
+  
+</mapper> 

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="mypage.model.ShopMy"> 
+ 	
+ 	<select id="getMyShop" resultType="myShop">
+
+ 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,IMAGE,CATEGORY_NAME  
+		FROM (SELECT T11.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,CATEGORY_NAME 
+		                  FROM SHOP T11
+		                      ,CATEGORY T12
+		                  WHERE T11.CATEGORY_ID = T12.CATEGORY_ID) T10 
+		LEFT OUTER JOIN 
+		      (SELECT IMAGE,SHOP_IMG_ID,T10.SHOP_ID
+				FROM SHOP_IMAGE T10,
+				      (SELECT MIN(SHOP_IMG_ID) MIN_IMG,SHOP_ID
+				      FROM SHOP_IMAGE 
+				      GROUP BY SHOP_ID) T20
+				WHERE T10.SHOP_IMG_ID = T20.MIN_IMG
+				AND T10.SHOP_ID = T20.SHOP_ID) T20
+		ON T10.SHOP_ID = T20.SHOP_ID
+		WHERE USER_ID = #{user_id}
+		ORDER BY SHOP_ID DESC
+ 	</select>
+ 	
+	<select id="getMyShopRoom" resultType="room">
+		SELECT T21.SHOP_ID, T21.ROOM_ID,ROOM_NAME,PRICE,MAX_PEOPLE,STANDARD_PEOPLE,CHECK_IN,CHECK_OUT,ROOM_COUNT,IMAGE
+		FROM SHOP_ROOM T21
+		LEFT OUTER JOIN 
+		    (SELECT IMAGE,ROOM_IMG_ID,T10.ROOM_ID,T10.SHOP_ID
+			FROM ROOM_IMAGE T10,
+			      (SELECT MIN(ROOM_IMG_ID) MIN_IMG,ROOM_ID,SHOP_ID
+						FROM ROOM_IMAGE 
+						GROUP BY ROOM_ID,SHOP_ID) T20
+			WHERE T10.ROOM_IMG_ID = T20.MIN_IMG
+			AND T10.ROOM_ID = T20.ROOM_ID
+			AND T10.SHOP_ID = T20.SHOP_ID) T22
+		ON T21.ROOM_ID = T22.ROOM_ID
+		AND T21.SHOP_ID = T22.SHOP_ID
+		WHERE T21.SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<select id="getShopId" resultType="integer">
+ 		SELECT MAX(SHOP_ID)
+ 		FROM SHOP
+ 	</select>
+ 	
+ 	<select id="getShopImageId" resultType="integer">
+ 		SELECT NVL(MAX(SHOP_IMG_ID),0)+1 FROM SHOP_IMAGE WHERE SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<select id="getShopGuideId" resultType="integer">
+ 		SELECT NVL(MAX(GUIDE_ID),0)+1 FROM SHOP_GUIDE WHERE SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<insert id="insertShop">
+ 		INSERT INTO SHOP(SHOP_ID,USER_ID,SHOP_NAME,REGION,SHOP_ADDRESS,SHOP_INFO,CATEGORY_ID) 
+ 		VALUES (SHOP_SEQ.NEXTVAL,#{user_id},#{shop_name},#{region},#{shop_address},#{shop_info},#{category_id})
+ 	</insert>
+
+ 	<insert id="insertShopImage" parameterType="list">
+ 		<foreach collection="list" item="item" index="idx" separator=" " open="INSERT ALL" close="SELECT 1 FROM DUAL">
+		 	INTO SHOP_IMAGE (
+		 										SHOP_IMG_ID,
+		 										SHOP_ID,IMAGE
+		 									)
+			VALUES (
+							#{item.shop_img_id},
+							#{item.shop_id},
+							#{item.image}
+			)
+		</foreach>	
+ 	</insert>
+
+ 	<insert id="insertShopGuide" parameterType="list">
+ 		<foreach collection="list" item="item" index="idx" separator=" " open="INSERT ALL" close="SELECT 1 FROM DUAL">
+		 	INTO SHOP_GUIDE (
+		 										GUIDE_ID,
+		 										SHOP_ID,GUIDE_TITLE,GUIDE_CONTENT
+		 									)
+			VALUES (
+							#{item.guide_id},
+							#{item.shop_id},
+							#{item.guide_title},
+							#{item.guide_content}
+			)
+		</foreach>	
+ 	</insert>
+
+ 	<insert id="insertShopService"  parameterType="list">
+ 	 		<foreach collection="list" item="item" index="idx" separator=" " open="INSERT ALL" close="SELECT 1 FROM DUAL">
+		 	INTO SHOP_SERVICE (
+		 										SERVICE_ID,
+		 										SHOP_ID
+		 									)
+			VALUES (
+							#{item.service_id},
+							#{item.shop_id}
+			)
+		</foreach>	
+ 	</insert>
+ 	
+ 	<delete id="deleteShop">
+ 		DELETE SHOP WHERE SHOP_ID = #{shop_id}
+ 	</delete>
+ 	
+ 	<select id="getShopImage" resultType="myShop">
+ 		SELECT *
+		FROM SHOP_IMAGE
+		WHERE SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<delete id="deleteShopImage">
+ 		DELETE SHOP_IMAGE 
+ 		WHERE SHOP_ID = #{shop_id}
+ 		AND SHOP_IMG_ID = #{shop_img_id}
+ 	</delete>
+ 	
+ 	<delete id="resetService">
+ 		DELETE SHOP_SERVICE
+ 		WHERE SHOP_ID = #{shop_id}
+ 	</delete>
+ 	
+ 	<delete id="deleteShopGuide">
+ 		DELETE SHOP_GUIDE
+ 		WHERE SHOP_ID = #{shop_id}
+ 		AND GUIDE_ID = #{guide_id}
+ 	</delete>
+ 	
+ 	<update id="updateShopGuide">
+ 		UPDATE SHOP_GUIDE
+ 		SET GUIDE_TITLE = #{guide_title} ,GUIDE_CONTENT= #{guide_content} 
+ 		WHERE SHOP_ID = #{shop_id}
+ 		AND GUIDE_ID = #{guide_id}
+ 	</update>
+ 	
+ 	<update id="updateShop">
+ 		UPDATE SHOP
+ 		SET SHOP_NAME= #{shop_name},REGION= #{region}
+ 		,SHOP_ADDRESS= #{shop_address}
+ 		,SHOP_INFO= #{shop_info},CATEGORY_ID= #{category_id}
+ 		WHERE SHOP_ID = #{shop_id}
+ 	</update>
+ 	
+ 	<select id="getRoomId" resultType="integer">
+ 		SELECT MAX(ROOM_ID)
+ 		FROM SHOP_ROOM
+ 		WHERE SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<select id="getRoomImageId" resultType="integer">
+ 		SELECT NVL(MAX(ROOM_IMG_ID),0)+1 FROM ROOM_IMAGE WHERE ROOM_ID=#{room_id} AND SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+	<insert id="insertRoomImage" parameterType="list">
+ 		<foreach collection="list" item="item" index="idx" separator=" " open="INSERT ALL" close="SELECT 1 FROM DUAL">
+		 	INTO ROOM_IMAGE (
+		 										ROOM_IMG_ID,
+		 										ROOM_ID,SHOP_ID,IMAGE
+		 									)
+			VALUES (
+							#{item.room_img_id},
+							#{item.room_id},
+							#{item.shop_id},
+							#{item.image}
+			)
+		</foreach>	
+ 	</insert>
+ 	
+ 	<insert id="insertRoom">
+ 		INSERT INTO SHOP_ROOM(ROOM_ID,SHOP_ID,ROOM_NAME,PRICE,
+ 		MAX_PEOPLE,STANDARD_PEOPLE,CHECK_IN,CHECK_OUT,ROOM_COUNT) 
+		VALUES ((SELECT NVL(MAX(ROOM_ID),0)+1 FROM SHOP_ROOM WHERE SHOP_ID = #{shop_id}),
+					 #{shop_id}, #{room_name}, #{price}, #{max_people},
+					 #{standard_people},#{check_in},#{check_out},#{room_count})
+ 	</insert>
+ 	
+ 	<select id="getOneRoomImage" resultType="room">
+ 		SELECT *
+		FROM ROOM_IMAGE
+		WHERE SHOP_ID = #{shop_id}
+		AND ROOM_ID = #{room_id}
+		ORDER BY ROOM_IMG_ID
+ 	</select>
+ 	
+ 	<delete id="deleteRoom">
+ 		DELETE SHOP_ROOM 
+ 		WHERE SHOP_ID = #{shop_id}
+ 		AND ROOM_ID = #{room_id}
+ 	</delete>
+ 	
+ 	<select id="getOneRoom" resultType="room">
+ 		SELECT *
+		FROM SHOP_ROOM
+		WHERE SHOP_ID = #{shop_id}
+		AND ROOM_ID = #{room_id}
+ 	</select>
+ 	
+ 	<delete id="deleteRoomImage">
+ 		DELETE ROOM_IMAGE 
+ 		WHERE SHOP_ID = #{shop_id}
+ 		AND ROOM_ID = #{room_id}
+ 		AND ROOM_IMG_ID = #{room_img_id}
+ 	</delete>
+ 	
+ 	<update id="updateRoom">
+ 		UPDATE SHOP_ROOM
+ 		SET ROOM_NAME= #{room_name},PRICE= #{price}
+ 		,MAX_PEOPLE= #{max_people},STANDARD_PEOPLE= #{standard_people}
+ 		,CHECK_IN= #{check_in} ,CHECK_OUT= #{check_out}
+ 		,ROOM_COUNT= #{room_count}
+ 		WHERE SHOP_ID = #{shop_id}
+ 		AND ROOM_ID = #{room_id}
+ 	</update>
+ 	
+ 	
+ </mapper>
+ 
+ 
+ 
+ 

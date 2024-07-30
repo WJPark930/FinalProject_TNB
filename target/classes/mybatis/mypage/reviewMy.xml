@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="mypage.model.ReviewMy"> 
+ 	
+ 	<select id="getReservationById" resultType="reservation">
+ 		SELECT * 
+ 		FROM RESERVATION
+ 		WHERE order_num = #{reservation_id}
+ 	</select>
+ 	
+ 	<select id="getReviewId" resultType="integer">
+ 		SELECT MAX(REVIEW_ID)
+ 		FROM REVIEW
+ 		WHERE RESERVATION_ID = #{reservation_id}
+ 	</select>
+ 	
+ 	<select id="getReviewImageId" resultType="integer">
+ 		SELECT NVL(MAX(REVIEW_IMG_ID),0)+1 FROM REVIEW_IMAGE WHERE REVIEW_ID = #{review_id}
+ 	</select>
+ 	
+ 	<insert id="insertReview">
+ 		INSERT INTO REVIEW
+		VALUES (REVIEW_SEQ.NEXTVAL,#{room_id},#{shop_id},#{user_id},#{reservation_id},
+        #{review_content},#{grade},0,SYSDATE)
+ 	</insert>
+ 	
+ 	<insert id="insertReviewImage" parameterType="list">
+		<foreach collection="list" item="item" index="idx" separator=" " open="INSERT ALL" close="SELECT 1 FROM DUAL">
+		 	INTO REVIEW_IMAGE (
+		 										REVIEW_IMG_ID,
+		 										REVIEW_ID,IMAGE
+		 									)
+			VALUES (
+							#{item.review_img_id},
+							#{item.review_id},
+							#{item.image}
+			)
+		</foreach>	
+ 	</insert>
+ 	
+ 	<update id="updateShopReviewUp">
+ 		UPDATE SHOP SET REVIEW_COUNT = REVIEW_COUNT+1,GRADE = (SELECT AVG(GRADE)GRADE_AVG FROM REVIEW) WHERE SHOP_ID = #{shop_id}         
+ 	</update>
+ 	
+ 	<update id="updateShopReviewDown">
+ 		UPDATE SHOP SET REVIEW_COUNT = REVIEW_COUNT-1,GRADE = (SELECT AVG(GRADE)GRADE_AVG FROM REVIEW) WHERE SHOP_ID = #{shop_id}         
+ 	</update>
+ 	
+ 	<update id="updateShopReviewGrade">
+ 		UPDATE SHOP SET GRADE = (SELECT AVG(GRADE)GRADE_AVG FROM REVIEW) WHERE SHOP_ID = #{shop_id}         
+ 	</update>
+ 	
+ 	<select id="getReviewImageById" resultType="review">
+ 		SELECT * 
+ 		FROM REVIEW_IMAGE
+ 		WHERE REVIEW_ID = #{review_id}
+ 	</select>
+ 	 	
+ 	<delete id="deleteReview">
+ 		DELETE REVIEW WHERE REVIEW_ID = #{review_id}
+ 	</delete>
+ 	
+ 	<select id="getReviewById" resultType="review">
+ 		SELECT REVIEW_ID,ROOM_ID,T10.SHOP_ID,SHOP_NAME,T10.USER_ID,RESERVATION_ID,REVIEW_CONTENT,T10.GRADE,RECOMMEND,REVIEW_DATE
+		FROM (SELECT *
+		      FROM REVIEW
+		      WHERE REVIEW_ID = #{review_id}) T10
+		      ,SHOP T20
+		WHERE T10.SHOP_ID = T20.SHOP_ID
+ 	</select>
+ 	
+ 	<delete id="deleteReviewImage">
+ 		DELETE REVIEW_IMAGE 
+ 		WHERE REVIEW_ID = #{review_id}
+ 		AND REVIEW_IMG_ID = #{review_img_id}
+ 	</delete>
+ 	
+ 	<update id="updateReview">
+ 		UPDATE REVIEW 
+ 		SET REVIEW_CONTENT = #{review_content}
+ 				,GRADE = #{grade}
+ 		WHERE REVIEW_ID = #{review_id}
+ 	</update>
+ 	
+ </mapper>
+ 
+ 
+ 
+ 

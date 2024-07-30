@@ -1,0 +1,98 @@
+--���������
+
+drop sequence reservation_seq ;
+create sequence reservation_seq 
+start with 1100
+increment by 1 
+nocache ;
+
+
+--���ҿ������̺�
+
+drop table room_reservation cascade constraints;
+create table room_reservation(
+	room_reservation_num number primary key,
+	user_id number not null,
+	shop_id number not null,
+	room_id number not null,
+	room_checkin_date date,
+	room_checkout_date date,
+	room_reserve_quantity number,
+	room_total_price number
+	--,constraint room_reservation_shop_id_room_id foreign key (shop_id,room_id) references shop_room(shop_id,room_id) on delete cascade
+) ;
+
+
+--ö���������̺�
+
+drop table train_reservation;
+CREATE TABLE train_reservation (
+    train_reservation_num INT PRIMARY KEY,       
+    user_id number,
+    depPlaceName VARCHAR(30),            
+    arrPlaceName VARCHAR(30),             
+    depPlandTime date,                    
+    arrPlandTime date,                    
+    duration VARCHAR2(20),             
+    train_no int,                       
+    train_type VARCHAR2(20), 
+    num_adults INT,            
+    num_children INT,               
+    num_seniors INT,                  
+    seat_no VARCHAR(200),               
+    train_total_price INT                   
+);
+
+
+--�������̺�
+
+drop table reservation cascade constraints;
+CREATE TABLE reservation (
+    order_num NUMBER primary key,
+    user_id NUMBER NOT NULL,
+    shop_id NUMBER NOT NULL,
+    room_id NUMBER,
+    room_checkin_date varchar2(30),
+    room_checkout_date varchar2(30), 
+    room_reserve_quantity NUMBER,
+    room_total_price number,
+	depPlaceName VARCHAR(30),           
+    arrPlaceName VARCHAR(30),             
+    depPlandTime varchar2(30),                    
+    arrPlandTime varchar2(30),                    
+    duration VARCHAR2(20),              
+    train_no NUMBER,                       
+    train_type VARCHAR2(20),            
+    num_adults NUMBER,                       
+    num_children NUMBER,                     
+    num_seniors NUMBER,                      
+    seat_no VARCHAR(200),                 
+    train_total_price NUMBER,         
+	total_price NUMBER,
+    payment_status number(1) default 0,
+    refund_status number(1) default 0
+);
+
+
+--����������
+
+drop sequence payment_seq ;
+create sequence payment_seq 
+start with 10000 
+increment by 1 
+nocache ;
+
+
+--�������̺�
+drop table payment cascade constraints;
+create table payment (
+	payment_num number primary key,
+	tid varchar2(50),
+	order_num number not null,
+	user_id number not null,
+	coupon_num number,
+	point_amount number,
+	total_price number not null,
+	refund_status number default 0
+);
+

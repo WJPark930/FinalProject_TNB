@@ -1,0 +1,291 @@
+@charset "UTF-8";
+
+#content_container {
+   margin-top: 75px;
+   padding: 50px 0px;
+}
+
+
+/* 모든 div 요소와 그 자식 요소에 폰트 적용 */
+.div {
+    font-family: 'NanumSquare_R', sans-serif;
+}
+
+.div h1, div h2, div h3, div h4, div h5, div h6 {
+    font-family: 'NanumSquare_B', sans-serif;
+}
+
+.div strong {
+    font-family: 'NanumSquare_EB', sans-serif;
+}
+
+.div em {
+    font-family: 'NanumSquare_H', sans-serif;
+}
+
+
+
+.login-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 80%;
+    min-width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.login-box {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login-box h2 {
+    font-family: 'NanumSquare_EB';
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 36px;
+    color: var(--bs-gray-900);
+}
+
+.input_area {
+    margin-bottom: 15px;
+
+}
+
+.input_area label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+.input_area input {
+    width: 100%;
+    min-height: 60px;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    border-radius: 10px;
+    line-height: 30px;
+
+}
+
+.register {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.register a {
+    width: 48%;
+    height: 60px;
+    font-family: 'NanumSquare_B';
+    margin: 0 !important;
+    padding: 12px;
+    padding-top: 16px;
+}
+
+.register a i{
+    font-size: 20px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
+.links {
+    margin-top: 10px;
+    text-align: end;
+    color: var(--bs-gray-600);
+}
+
+.links a{
+    text-decoration: none;
+    color: var(--bs-gray-600);
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.input-group .login_btn{
+    width: 100%;
+    min-height: 60px;
+    padding: 18px 18px;
+    font-size: 1.1rem;
+    margin: 10px 0px 20px 0px;
+    color: white;
+    background-color: var(--bs-main_color);
+    border-radius: 10px;
+    font-family: 'NanumSquare_B';
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+}
+
+.input-group button:hover {
+    background-color: var(--bs-main_up1_color);
+}
+
+.login_sns {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.login_sns a img {
+    height: 3.6vh;
+    margin-right: 0.5rem;
+    border-radius: 10px;
+}
+
+.login_sns .btn {
+    width: 48%;
+    height: 60px;
+    font-family: 'NanumSquare_B';
+    margin: 0 !important;
+    padding: 12px;
+    border: 1px solid var(--bs-gray-600);
+}
+
+.login_sns .kakao_btn:hover{
+    background-color: #FFEB3B;
+}
+
+.login_sns .naver_btn:hover{
+    background-color: #34B663;
+}
+
+
+/* 회원가입 */
+
+#content_container .register_content_area {
+    width: 80%;
+    min-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    text-align: left;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+
+#content_container .register_insert_area{
+    padding: 30px 20px;
+}
+
+#content_container .register_content_area p {
+    margin: 0;
+
+}
+
+
+#content_container .register_insert_area .info_title { 
+    font-size: 18px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}    
+
+
+#content_container .register_content_area h2 {
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+
+.register_insert_area .info_content {
+    margin-bottom: 30px;
+}
+
+.register_insert_area .info_content:last-child {
+    margin-bottom: 0px;
+}
+
+#content_container .info_content .info_err {
+    margin-top: 10px ;
+}
+
+
+.register_content_area .register_text_input {
+    width: 50%;
+    min-width: 360px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+}
+
+.register_content_area .date_input {
+    width: 20%;
+    min-width: 120px;
+}
+
+.content_area form .submit_btn {
+    width: 100px;
+    height: 60px;
+    background-color: var(--bs-main_color);
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: #fff;
+    border-radius: 15px;
+    border: 0;
+}
+
+.register_content_area .addr_input{
+    width: 30%;
+    min-width: 200px;
+    margin-bottom: 10px;
+}
+
+#content_container .register_insert_area .info_title span{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-500);
+    margin-left: 8px;
+}
+
+#content_container .register_insert_area .profile_name_area {
+    padding: 2px 10px;
+    height: 30px;
+    border: 1px solid var(--bs-gray-500);
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#content_container .register_insert_area .profile_name_area span {
+    margin: 0;
+}
+
+#content_container .register_insert_area .profile-image {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#content_container .register_insert_area .profile-image img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+#content_container .btn_area {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#content_container .btn_area .btn{
+    padding: 10px 15px;
+}
+
+#content_container .profile_area {
+    width: 100%;
+}

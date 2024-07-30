@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="train.model.TrainSchedule">
+    
+    <insert id="insertTrainSchedule" parameterType="train.model.TrainScheduleBean">
+        INSERT INTO trainSchedule (schedule_id, train_no, depPlaceName, arrPlaceName, train_type, depPlandTime, arrPlandTime, seat_available, adult_charge, duration) 
+        VALUES (#{schedule_id}, #{train_no}, #{depPlaceName}, #{arrPlaceName}, #{train_type}, #{depPlandTime}, #{arrPlandTime}, #{seat_available}, #{adult_charge}, #{duration})
+    </insert>
+    
+    <select id="getTrainSchedulesByChoice" parameterType="map" resultType="train.model.TrainScheduleBean">
+        SELECT * FROM trainSchedule
+        WHERE depPlaceName = #{depPlaceName}
+        AND arrPlaceName = #{arrPlaceName}
+        AND TO_CHAR(depPlandTime, 'YYYY-MM-DD') = #{depPlandTime}
+        ORDER BY depPlandTime ASC
+    </select>
+    
+    <select id="getTrainSchedulesById" resultType="train.model.TrainScheduleBean">
+        SELECT * FROM trainSchedule
+        WHERE schedule_id = #{schedule_id}
+    </select>
+    
+    <delete id="truncateTrainSchedule">
+        TRUNCATE TABLE trainSchedule
+    </delete>
+    
+</mapper>
+
+<!-- trainSchedule.xml -->

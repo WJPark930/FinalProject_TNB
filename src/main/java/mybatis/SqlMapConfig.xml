@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+  	<typeAliases>
+  		<typeAlias alias="myShop" type="shop.model.ShopBean"/>
+  		<typeAlias alias="service" type="shop.model.ServiceBean"/>
+  		<typeAlias alias="category" type="shop.model.CategoryBean"/>
+  		<typeAlias alias="guide" type="shop.model.GuideBean"/>
+  		<typeAlias alias="room" type="shop.model.ShopRoomBean"/>
+  		<typeAlias alias="review" type="shop.model.ReviewBean"/>
+     	<typeAlias type="community.model.BoardBean" alias="BoardBean" />
+  		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
+  		<typeAlias alias="MyShop" type="shop.model.ShopBean"/>
+  		<typeAlias alias="reservation" type="mypage.model.RoomReservationBean"/>
+  		<typeAlias alias="MyEvent" type="event.model.EventBean"/>
+		<typeAlias alias="MyReservation" type="reservation.model.ReservationBean"/>
+		<typeAlias alias="MyPayment" type="payment.model.PaymentBean"/>
+  		<typeAlias alias="MyCoupon" type="event.model.CouponBean"/> 
+  	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mybatis/shop/shop.xml"/>
+		<mapper resource="mybatis/shop/review.xml"/>
+		<mapper resource="mybatis/mypage/reviewMy.xml"/>
+		<mapper resource="mybatis/mypage/shopMy.xml"/>
+  		<mapper resource="mybatis/board.xml"/>	
+		<mapper resource="mybatis/member.xml"/>	
+		<mapper resource="mybatis/comment.xml"/>	
+		<mapper resource="mybatis/Nested_CommentMapper.xml"/>
+		<mapper resource="mybatis/shop.xml"/>	
+		<mapper resource="mybatis/faq/faq.xml"/>
+        <mapper resource="mybatis/train/city.xml"/>
+        <mapper resource="mybatis/train/station.xml"/>
+        <mapper resource="mybatis/train/trainSchedule.xml"/>
+        <mapper resource="mybatis/train/seat.xml"/>
+        <mapper resource="mybatis/event.xml"/>
+		<mapper resource="mybatis/reservation.xml"/>
+		<mapper resource="mybatis/payment.xml"/>
+	</mappers>
+</configuration>

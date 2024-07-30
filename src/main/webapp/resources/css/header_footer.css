@@ -1,0 +1,205 @@
+@import 'default_style.css';
+
+
+/* 헤더 */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid var(--bs-gray-300);
+    z-index: 1000;
+    background-color: #fff;
+}
+
+header .container {
+    height: 75px;
+}
+
+header .logo{
+    margin-top: 17px;
+}
+
+.nav_toggle_btn {
+    margin-top: 17.5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav_toggle_btn:hover {
+    background-color: var(--bs-gray-300);
+}
+
+.nav_toggle_btn:active{
+    outline: 0;
+    border: 0;
+}
+
+/* 사이드 메뉴 */
+
+aside {
+    display: none;
+    position: fixed;
+    top: 75px;
+    right: -360px;
+    width: 360px;
+    height: 100%;
+    z-index: 900;
+    box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    padding: 35px 54px 50px 54px;
+}
+
+@keyframes side-ani {
+   from {
+      transform: translateX(0px);
+   }
+   to {
+      transform: translateX(-350px);
+   }
+}
+
+.active_menu{
+    display: block;
+    animation: side-ani 0.3s linear forwards;
+}
+
+aside .profile_area {
+    min-height: 90px;
+}
+
+aside .profile_area .logo{
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+aside .profile_area .profile{
+    padding-bottom: 35px;
+}
+
+aside .profile_area .profile div{
+    display: inline-block;     
+    vertical-align: top;
+}
+
+aside .profile_area .profile .profile_img_area{
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+aside .profile_area .profile .profile_img {
+    width: 70px;
+    height: 70px; 
+    object-fit: cover;
+}
+
+aside .profile_text {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+aside .profile p{
+    margin: 0;
+}
+
+aside .profile .profile_name{
+    font-family: 'NanumSquare_B';
+    font-size: 18;
+    color: var(--bs-gray-900);
+}
+
+aside .profile .profile_email{
+    font-size: 12;
+    color: var(--bs-gray-400);
+}
+
+aside .line {
+    margin: 0 auto;
+    text-align: center;
+}
+
+aside .menu {
+    padding-top: 30px;
+    text-align: left;
+}
+
+aside .menu p {
+    font-size: 22px;
+    font-family: 'NanumSquare_B';
+    margin-bottom: 30px;
+    line-height: 25px;
+}
+
+aside .menu p a {
+    text-decoration: none;
+    color: var(--bs-gray-900);
+}
+
+aside .login_btn {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 12vh;
+    width: 260px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-900);
+    background-color: white;
+    text-align: center;
+    user-select : none;
+
+    font-size: 14;
+    font-family: 'NanumSquare_B';
+}
+
+aside .login_btn:hover {
+    border: 1px solid var(--bs-gray-900);
+}
+
+aside .login_btn:active {
+    background-color: var(--bs-gray-100);
+}
+
+
+
+/* 푸터영역 */
+footer {
+    background-color: var(--bs-gray-800);
+}
+
+footer #footer{
+    min-height: 500px;
+    padding: 70px 0px;
+}
+
+footer .text_area{
+    display: inline-block;
+    text-align: left;
+}
+
+footer .text_area img {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+footer .text_area p{
+    font-size: 20px;
+    color: var(--bs-gray-400);
+    line-height: 56px;
+    margin-top: 40px;
+}
+
+footer .icon_area{
+    float: right;
+    padding-top: 350px;
+}
+
+footer .icon_area .instagram_icon{
+    margin-left: 50px;
+}
+

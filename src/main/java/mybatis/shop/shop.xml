@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="shop.model.Shop">
+ 	<select id="search_shop" resultType="myShop">
+ 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,CATEGORY_ID,PRICE,IMAGE 
+		FROM (SELECT T12.SHOP_ID,MIN(PRICE) PRICE
+		 	      	FROM (SELECT SHOP_ID,ROOM_ID,COUNT(ROOM_ID) CNT
+					            FROM RESERVATION
+					            WHERE room_checkout_date <![CDATA[>]]>=#{search.day1}
+					            AND room_checkin_date <![CDATA[<]]>=#{search.day2}
+					            GROUP BY SHOP_ID, ROOM_ID) T11
+            		RIGHT OUTER JOIN
+					            (SELECT *
+					            FROM SHOP_ROOM) T12
+		            ON T12.SHOP_ID = T11.SHOP_ID 
+		            AND T12.ROOM_ID = T11.ROOM_ID
+		            WHERE MAX_PEOPLE <![CDATA[>]]>= #{search.people}
+		            AND ROOM_COUNT <![CDATA[>]]> NVL(CNT,0)
+		            
+		            GROUP BY T12.SHOP_ID) T10,
+		      		(SELECT T21.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,CATEGORY_ID,REGION,IMAGE 
+					FROM SHOP T21 
+					    LEFT OUTER JOIN 
+					    (SELECT IMAGE,SHOP_IMG_ID,T10.SHOP_ID
+						FROM SHOP_IMAGE T10,
+						      (SELECT MIN(SHOP_IMG_ID) MIN_IMG,SHOP_ID
+						      FROM SHOP_IMAGE 
+						      GROUP BY SHOP_ID) T20
+						WHERE T10.SHOP_IMG_ID = T20.MIN_IMG
+						AND T10.SHOP_ID = T20.SHOP_ID) T22 
+					ON T22.SHOP_ID = T21.SHOP_ID) T20
+		WHERE T10.SHOP_ID = T20.SHOP_ID 
+		AND (SHOP_NAME LIKE '%'||#{search.keyword}||'%'
+		    OR SHOP_ADDRESS LIKE '%'||#{search.keyword}||'%'
+		    OR REGION LIKE '%'||#{search.keyword}||'%')
+		<if test="search.price!=0">
+			AND PRICE <![CDATA[<]]> #{search.price}
+		</if>
+		<if test="search.service != null">
+			<foreach item="service_id" collection="search.service_arr">
+				AND instr((select listagg(SERVICE_ID, ',') within group(order by SHOP_ID)
+		                    from SHOP_SERVICE WHERE SHOP_ID = T10.SHOP_ID),#{service_id}) <![CDATA[>]]> 0
+			</foreach>
+		</if>
+		<if test="search.category_id!=0">
+			AND category_id = #{search.category_id}
+		</if>  
+		<if test="whatColumn==null">
+			ORDER BY GRADE DESC
+		</if>  
+		<if test="whatColumn=='평점높은순'">
+			ORDER BY GRADE DESC
+		</if>  
+		<if test="whatColumn=='리뷰많은순'">
+			ORDER BY REVIEW_COUNT DESC
+		</if>  
+		<if test="whatColumn=='낮은가격순'">
+			ORDER BY PRICE
+		</if>  
+		<if test="whatColumn=='높은가격순'">
+			ORDER BY PRICE DESC
+		</if>  
+ 	</select>
+ 	
+ 	<select id="search_count" resultType="integer">
+ 		SELECT  COUNT(*) CNT
+		FROM (SELECT T12.SHOP_ID,MIN(PRICE) PRICE
+		 	      	FROM (SELECT SHOP_ID,ROOM_ID,COUNT(ROOM_ID) CNT
+					            FROM RESERVATION
+					            WHERE room_checkout_date <![CDATA[>]]>=#{search.day1}
+					            AND room_checkin_date <![CDATA[<]]>=#{search.day2}
+					            GROUP BY SHOP_ID, ROOM_ID) T11
+            		RIGHT OUTER JOIN
+					            (SELECT *
+					            FROM SHOP_ROOM) T12
+		            ON T12.SHOP_ID = T11.SHOP_ID 
+		            AND T12.ROOM_ID = T11.ROOM_ID
+		            WHERE MAX_PEOPLE <![CDATA[>]]>= #{search.people}
+		            AND ROOM_COUNT <![CDATA[>]]> NVL(CNT,0)
+		            
+		            GROUP BY T12.SHOP_ID) T10,
+		      		(SELECT T21.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,CATEGORY_ID,REGION,IMAGE 
+					FROM SHOP T21 
+					    LEFT OUTER JOIN 
+					    (SELECT IMAGE,SHOP_IMG_ID,T10.SHOP_ID
+						FROM SHOP_IMAGE T10,
+						      (SELECT MIN(SHOP_IMG_ID) MIN_IMG,SHOP_ID
+						      FROM SHOP_IMAGE 
+						      GROUP BY SHOP_ID) T20
+						WHERE T10.SHOP_IMG_ID = T20.MIN_IMG
+						AND T10.SHOP_ID = T20.SHOP_ID) T22 
+					ON T22.SHOP_ID = T21.SHOP_ID) T20
+		WHERE T10.SHOP_ID = T20.SHOP_ID 
+		AND (SHOP_NAME LIKE '%'||#{search.keyword}||'%'
+		    OR SHOP_ADDRESS LIKE '%'||#{search.keyword}||'%'
+		    OR REGION LIKE '%'||#{search.keyword}||'%')
+		<if test="search.price!=0">
+			AND PRICE <![CDATA[<]]> #{search.price}
+		</if>
+		<if test="search.service != null">
+			<foreach item="service_id" collection="search.service_arr">
+				AND instr((select listagg(SERVICE_ID, ',') within group(order by SHOP_ID)
+		                    from SHOP_SERVICE WHERE SHOP_ID = T10.SHOP_ID),#{service_id}) <![CDATA[>]]> 0
+			</foreach>
+		</if>
+		<if test="search.category_id!=0">
+			AND category_id = #{search.category_id}
+		</if>  		
+ 	</select>
+ 	
+ 	<select id="getServiceList" resultType="service">
+ 		SELECT * FROM SERVICE
+ 	</select>
+ 	
+ 	<select id="getCategoryList" resultType="category">
+ 		SELECT * FROM CATEGORY
+ 	</select>
+ 	
+ 	<select id="getShopInfo" resultType="myShop">
+ 		SELECT * 
+		FROM (SELECT * 
+		      FROM SHOP 
+		      WHERE SHOP_ID = #{shop_id}) T10,
+		      CATEGORY T20
+		WHERE T10.CATEGORY_ID = T20.CATEGORY_ID
+ 	</select>
+ 	
+ 	<select id="getShopImage" resultType="String">
+ 		SELECT IMAGE
+		FROM SHOP_IMAGE
+		WHERE SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<select id="getShopService" resultType="service">
+		SELECT SERVICE_NAME,ICON,T10.SERVICE_ID
+		FROM (SELECT * 
+		      FROM SHOP_SERVICE 
+		      WHERE SHOP_ID = #{shop_id}) T10,
+		      SERVICE T20
+		WHERE T10.SERVICE_ID = T20.SERVICE_ID
+ 	</select>
+ 	
+ 	<select id="getShopGuide" resultType="guide">
+ 		SELECT *
+		FROM SHOP_GUIDE
+		WHERE SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+ 	<select id="getShopRoom" resultType="room">
+ 		SELECT T20.SHOP_ID, T20.ROOM_ID,ROOM_NAME,PRICE,MAX_PEOPLE,STANDARD_PEOPLE,CHECK_IN,CHECK_OUT,(ROOM_COUNT-NVL(CNT,0))ROOM_COUNT,IMAGE
+		 	      	FROM (SELECT SHOP_ID,ROOM_ID,COUNT(ROOM_ID) CNT
+					            FROM RESERVATION
+					            WHERE ROOM_CHECKOUT_DATE <![CDATA[>]]>=#{search.day1}
+					            AND ROOM_CHECKIN_DATE <![CDATA[<]]>=#{search.day2}
+					            
+					            GROUP BY SHOP_ID, ROOM_ID) T10
+            		RIGHT OUTER JOIN
+					            (SELECT T21.SHOP_ID, T21.ROOM_ID,ROOM_NAME,PRICE,MAX_PEOPLE,STANDARD_PEOPLE,CHECK_IN,CHECK_OUT,ROOM_COUNT,IMAGE
+					            FROM SHOP_ROOM T21
+                      LEFT OUTER JOIN 
+                          (SELECT IMAGE,ROOM_IMG_ID,T10.ROOM_ID,T10.SHOP_ID
+							FROM ROOM_IMAGE T10,
+							      (SELECT MIN(ROOM_IMG_ID) MIN_IMG,ROOM_ID,SHOP_ID
+										FROM ROOM_IMAGE 
+										GROUP BY ROOM_ID,SHOP_ID) T20
+							WHERE T10.ROOM_IMG_ID = T20.MIN_IMG
+							AND T10.ROOM_ID = T20.ROOM_ID
+							AND T10.SHOP_ID = T20.SHOP_ID) T22
+                      ON T21.ROOM_ID = T22.ROOM_ID
+                      AND T21.SHOP_ID = T22.SHOP_ID                    
+                      WHERE  T21.SHOP_ID = #{shop_id}) T20
+		            ON T20.SHOP_ID = T10.SHOP_ID 
+		            AND T20.ROOM_ID = T10.ROOM_ID
+ 	</select>
+ 	
+ 	<select id="getRoomImage" resultType="room">
+ 		SELECT ROOM_ID,IMAGE
+		FROM ROOM_IMAGE
+		WHERE SHOP_ID = #{shop_id}
+		ORDER BY ROOM_IMG_ID
+ 	</select>
+ 	
+ 	<select id="getKeyword" resultType="String">
+ 		SELECT SHOP_NAME
+ 		FROM SHOP
+ 		WHERE SHOP_NAME  LIKE '%'||#{keyword}||'%'
+ 	</select>
+ 	
+ 	<select id="getShopByRegion" resultType="myShop">
+ 		SELECT T10.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,PRICE,IMAGE,CATEGORY_NAME  
+		FROM (SELECT T12.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,PRICE,CATEGORY_NAME 
+		      FROM(SELECT T11_1.SHOP_ID,CATEGORY_NAME, MIN(PRICE) PRICE
+		            FROM (SELECT T11_11.SHOP_ID,USER_ID,SHOP_NAME,SHOP_ADDRESS,GRADE,REVIEW_COUNT,REGION,CATEGORY_NAME 
+		                  FROM SHOP T11_11
+		                      ,CATEGORY T11_12
+		                  WHERE T11_11.CATEGORY_ID = T11_12.CATEGORY_ID) T11_1
+		                  ,SHOP_ROOM T11_2
+		            WHERE T11_1.SHOP_ID =  T11_2.SHOP_ID
+		            GROUP BY T11_1.SHOP_ID ,CATEGORY_NAME) T11
+		            ,SHOP T12
+		            WHERE T11.SHOP_ID = T12.SHOP_ID) T10 
+		LEFT OUTER JOIN 
+		      (SELECT IMAGE,SHOP_IMG_ID,T10.SHOP_ID
+				FROM SHOP_IMAGE T10,
+				      (SELECT MIN(SHOP_IMG_ID) MIN_IMG,SHOP_ID
+				      FROM SHOP_IMAGE 
+				      GROUP BY SHOP_ID) T20
+				WHERE T10.SHOP_IMG_ID = T20.MIN_IMG
+				AND T10.SHOP_ID = T20.SHOP_ID) T20
+		ON T10.SHOP_ID = T20.SHOP_ID
+		<if test="type=='region' and word != '전체'">
+			WHERE SHOP_ADDRESS LIKE '%'||#{word}||'%'
+		</if>
+		<if test="type=='category' and word != '전체'">
+			WHERE CATEGORY_NAME LIKE '%'||#{word}||'%'
+		</if>
+		ORDER BY REVIEW_COUNT DESC
+ 	</select>
+ 	
+ </mapper>
+ 
+ 
+ 
+ 

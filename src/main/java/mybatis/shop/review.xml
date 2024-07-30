@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="shop.model.Review"> 
+ 	
+ 	<select id="getShopReview" resultType="review">
+ 		SELECT REVIEW_ID,T10.ROOM_ID,T10.SHOP_ID,T10.USER_ID,REVIEW_CONTENT,GRADE,RECOMMEND,REVIEW_DATE,USER_NICKNAME,USER_IMAGE,ROOM_NAME
+		FROM (SELECT REVIEW_ID,ROOM_ID,SHOP_ID,T11.USER_ID,REVIEW_CONTENT,GRADE,RECOMMEND,REVIEW_DATE,USER_NICKNAME,USER_IMAGE
+		      FROM REVIEW T11
+		          ,MEMBER T12
+		      WHERE T11.USER_ID = T12.USER_ID) T10
+		      ,SHOP_ROOM T20
+		WHERE T10.ROOM_ID = T20.ROOM_ID
+		AND T10.SHOP_ID = T20.SHOP_ID
+		AND T10.SHOP_ID = #{shop_id}
+ 	</select>
+ 	
+	<select id="getShopReviewImage" resultType="review">
+	 	SELECT REVIEW_IMG_ID,T10.REVIEW_ID,IMAGE
+		FROM REVIEW_IMAGE T10
+		    ,REVIEW T20
+		WHERE T10.REVIEW_ID = T20.REVIEW_ID
+		AND SHOP_ID = #{shop_id}
+		ORDER BY REVIEW_IMG_ID
+ 	</select>
+ 	
+ 	<insert id="reviewLike">
+ 		INSERT INTO REVIEW_RECOMMEND
+		VALUES (#{review_id},#{user_id})
+ 	</insert>
+ 	
+ 	<delete id="reviewUnlike">
+ 		DELETE REVIEW_RECOMMEND
+		WHERE REVIEW_ID = #{review_id} AND USER_ID = #{user_id}
+ 	</delete>
+ 	
+ 	<update id="reviewRecommendUp">
+ 		UPDATE REVIEW 
+ 		SET RECOMMEND = RECOMMEND+1 
+ 		WHERE REVIEW_ID = #{review_id}       
+ 	</update>
+ 	
+ 	<update id="reviewRecommendDown">
+ 		UPDATE REVIEW 
+ 		SET RECOMMEND = RECOMMEND-1 
+ 		WHERE REVIEW_ID = #{review_id}        
+ 	</update>
+ 	
+ 	<select id="getRecommendUser"  resultType="review">
+ 		SELECT *
+ 		FROM REVIEW_RECOMMEND
+ 		WHERE USER_ID = #{user_id}
+ 	</select>
+ 	
+ 	<select id="getMyReview"  resultType="review">
+ 		SELECT REVIEW_ID,ROOM_ID,T10.SHOP_ID,SHOP_NAME,T10.USER_ID,RESERVATION_ID,REVIEW_CONTENT,T10.GRADE,RECOMMEND,REVIEW_DATE
+		FROM (SELECT *
+		      FROM REVIEW
+		      WHERE USER_ID = #{user_id}) T10
+		      ,SHOP T20
+		WHERE T10.SHOP_ID = T20.SHOP_ID
+		ORDER BY REVIEW_DATE DESC
+ 	</select>
+ 	
+ </mapper>
+ 
+ 
+ 
+ 

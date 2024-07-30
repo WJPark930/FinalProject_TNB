@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="member.model.Member">
+
+
+<select id ="getTotalCount" resultType="int">
+select count(*) from member
+	<if test="whatColumn == 'all'">
+			where user_gender like #{keyword}
+			or user_status like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_gender'">
+			where user_gender like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_status'">
+			where user_status like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_type'">
+			where user_type like #{keyword}
+		</if>
+</select>
+
+<select id = "getMemberList" resultType = "MyMember" parameterType = "hashmap">
+ select * from member
+ <if test="whatColumn =='all'">
+ 	where user_gender like #{keyword}
+			or user_status like #{keyword}
+ </if>
+ 	<if test="whatColumn == 'user_gender'">
+			where user_gender like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_status'">
+			where user_status like #{keyword}
+		</if>
+		<if test="whatColumn == 'user_type'">
+			where user_type like #{keyword}
+		</if>
+		order by user_id desc
+</select>
+  		
+  		
+<insert id="insertMember">
+
+	insert into member (user_id,user_email,user_passwd,user_nickname,user_phone,user_name,user_gender,user_age
+	,user_birth,user_addr1,user_addr2,user_status,user_point,user_image,user_type)
+	values(member_seq.nextval,#{user_email},#{user_passwd},#{user_nickname},#{user_phone},#{user_name},
+	#{user_gender},10,#{user_birth},#{user_addr1},#{user_addr2},
+	'N',10,#{user_image},#{user_type})
+
+ </insert>
+ 
+ <insert id="insertBusinessMember">
+
+	insert into member (user_id,user_email,user_passwd,user_nickname,user_phone,user_name,user_gender,user_age
+	,user_birth,user_addr1,user_addr2,user_status,user_point,user_image,user_type,user_account)
+	values(member_seq.nextval,#{user_email},#{user_passwd},#{user_nickname},#{user_phone},#{user_name},
+	#{user_gender},10,#{user_birth},#{user_addr1},#{user_addr2},
+	'N',10,#{user_image},#{user_type},#{user_account})
+
+ </insert>
+ 
+ <update id= "UpdateReadCount" parameterType="string">
+   UPDATE member SET readcount = readcount + 1 WHERE user_id = #{user_id}
+    </update>
+
+
+<select id ="detailMember" resultType ="MyMember">
+select * from member where user_id =#{user_id}
+</select>
+
+<select id="getMember" resultType = "member.model.MemberBean">
+  		select * from member where user_id = #{user_id}
+  	</select> 
+  	
+<update id="updateMember">
+update member set user_email=#{user_email},user_passwd=#{user_passwd},user_nickname=#{user_nickname},
+user_phone=#{user_phone},user_name=#{user_name},user_gender=#{user_gender},user_age=#{user_age},
+ user_birth = #{user_birth}, user_addr1 = #{user_addr1}, user_addr2 = #{user_addr2},
+ user_status=#{user_status},user_point=#{user_point},user_image = #{user_image}
+where user_id=#{user_id}
+	</update>
+
+<update id="updateBusinessMember" >
+update member set user_email=#{user_email},user_passwd=#{user_passwd},user_nickname=#{user_nickname},
+user_phone=#{user_phone},user_name=#{user_name},user_gender=#{user_gender},user_age=#{user_age},
+ user_birth = #{user_birth}, user_addr1 = #{user_addr1}, user_addr2 = #{user_addr2},
+ user_status=#{user_status},user_point=#{user_point},user_account=#{user_account},user_image = #{user_image}
+where user_id=#{user_id}
+	</update>
+	
+ 	<delete id="deleteMember">
+	
+	delete from member where user_id=#{user_id}
+	</delete>
+	
+	<select id="getMemberByEmail" resultType = "MyMember">
+		select * from member where user_email = #{ user_email }
+	</select>
+	
+	
+	<update id="updateStatusMember" parameterType="map">
+    UPDATE member
+    SET user_status = #{user_status}
+    WHERE user_id = #{user_id}
+    
+</update>
+
+ 
+
+      <select id="checkDuplicateEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM member WHERE user_email = #{user_email}
+    </select>
+
+    <select id="checkDuplicateNickname" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM member WHERE user_nickname = #{user_nickname}
+    </select>
+
+<select id="findEmail" parameterType="map" resultType="string">
+        SELECT user_email
+        FROM member
+        WHERE user_name = #{user_name} AND user_phone = #{user_phone}
+    </select>
+
+ <select id="findPassword" parameterType="map" resultType="string">
+        SELECT user_passwd
+        FROM member
+        WHERE user_email = #{user_email} AND user_phone = #{user_phone}
+    </select>
+    
+    <!-- 새로 추가된 findByEmail 쿼리 -->
+    <select id="FindByEmail" parameterType="string" resultType="MyMember">
+        SELECT * 
+        FROM member 
+        WHERE user_email = #{user_email}
+    </select>
+    
+     <select id="getMemberByUser_id" resultType = "MyMember">
+      select * from member where user_id = #{ user_id }
+   </select>
+    
+    <update id="getPoint">
+       update member set user_point = user_point + #{ user_point } where user_id = #{ user_id }    
+    </update>
+    
+    <update id="decreasePoint">
+       update member set user_point = user_point - #{ point_amount } where user_id = #{ user_id }
+    </update>
+    
+</mapper> 

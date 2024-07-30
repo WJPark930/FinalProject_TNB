@@ -1,0 +1,141 @@
+@import '../default_style.css';
+
+
+
+/* 리뷰 */
+
+#content_container .reivew_content_area {
+    width: 100%;
+    min-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    text-align: left;
+    overflow: hidden;
+}
+
+#content_container .reivew_insert_area{
+    padding: 30px 20px;
+}
+
+#content_container .reivew_content_area p {
+    margin: 0;
+
+}
+
+.reivew_content_area p  {
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-500);
+}
+
+#content_container .reivew_insert_area .info_title { 
+    font-size: 18px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}    
+
+#content_container .reivew_insert_area .info_title span{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-500);
+    margin-left: 8px;
+}
+
+#content_container .reivew_content_area h2 {
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+
+.reivew_insert_area .info_content {
+    margin-bottom: 30px;
+}
+
+.reivew_insert_area .info_content:last-child {
+    margin-bottom: 0px;
+}
+
+#content_container .info_content .info_err {
+    margin-top: 10px ;
+}
+
+.reivew_insert_area .room_text_input {
+    width: 40%;
+    min-width: 360px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+}
+
+
+.reivew_insert_area .area_top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.reivew_insert_area .file_area input {
+    margin-bottom: 10px;
+}
+
+.content_area form .submit_btn {
+    width: 100px;
+    height: 60px;
+    background-color: var(--bs-main_color);
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: #fff;
+    border-radius: 15px;
+    border: 0;
+}
+
+.reivew_insert_area .review_textarea {
+    width: 60%;
+    min-width: 360px;
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 15px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+    resize: none;
+}
+
+
+.save_area {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px 3px;
+    padding: 0;
+    display: inline-block;
+}
+
+.save_area img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.save_area button{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bs-gray-900);
+    opacity: 80%;
+    color: white;
+    border: 0;
+    outline: none;
+}

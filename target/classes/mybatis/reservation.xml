@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation.model.Reservation">
+
+	<insert id="roomReservation">
+		insert into room_reservation values 
+		(reservation_seq.nextval, #{ user_id }, #{ shop_id }, #{ room_id }, #{ room_checkin_date }, #{ room_checkout_date }, #{ room_reserve_quantity }, #{ room_total_price })	
+	</insert>
+	
+	<insert id = "trainReservation">
+		INSERT INTO train_reservation
+        VALUES (reservation_seq.currval, #{user_id}, #{depPlaceName}, #{arrPlaceName}, #{depPlandTime}, #{arrPlandTime}, #{duration}, #{train_no}, #{train_type}, #{num_adults}, #{num_children}, #{num_seniors}, #{seat_no}, #{train_total_price})
+	</insert>
+	
+	<select id = "getRecentReservation" resultType = "reservation.model.RoomReservationBean">
+		select * from room_reservation where room_reservation_num = (select max(room_reservation_num) from room_reservation)
+	</select>
+	
+	<select id = "isReservationWithTrain" resultType="reservation.model.TrainReservationBean">
+		select * from train_reservation
+		where train_reservation_num = #{ room_reservation_num }
+	</select>
+	
+	<select id = "getThisReservation" resultType = "MyReservation">
+		select * from reservation where order_num = #{ order_num }
+	</select>
+
+	<insert id = "roomreservation">
+		insert into reservation (order_num, user_id, shop_id, room_id, room_checkin_date, room_checkout_date, room_reserve_quantity, room_total_price, total_price) values (#{ room_reservation_num }, #{ user_id }, #{ shop_id }, #{ room_id }, #{ room_checkin_date }, #{ room_checkout_date }, #{ room_reserve_quantity }, #{ room_total_price }, #{ room_total_price })
+	</insert>
+
+	<update id="trainreservation">
+	    update reservation set 
+	    	depPlaceName = #{ depPlaceName },
+	        arrPlaceName = #{ arrPlaceName },
+	        depPlandTime = #{ depPlandTime },
+	        arrPlandTime = #{ arrPlandTime },
+	        duration = #{ duration },
+	        train_no = #{ train_no },
+	        train_type = #{ train_type },
+	        num_adults = #{ num_adults },
+	        num_children = #{ num_children },
+	        num_seniors = #{ num_seniors },
+	        seat_no = #{ seat_no },
+	        train_total_price = #{ train_total_price },
+	        total_price = (select total_price from reservation where order_num = #{ train_reservation_num } and user_id = #{ user_id }) + #{ train_total_price } 
+	    	where order_num = #{ train_reservation_num } and user_id = #{ user_id }
+	</update>
+
+	
+	<update id="updatePaymentStatus">
+		update reservation set payment_status = 1 where order_num = #{ order_num }
+	</update>
+	
+	<select id="showAllMyReservationList" resultType="MyReservation">
+		SELECT 
+			r.*, s.shop_name AS shop_name, sr.room_name AS room_name
+		FROM 
+    		reservation r
+		JOIN 	
+    		shop s ON r.shop_id = s.shop_id
+		JOIN 
+    		shop_room sr ON r.room_id = sr.room_id AND r.shop_id = sr.shop_id
+		WHERE 
+    		r.payment_status = 1 and r.refund_status = 0 and r.user_id = #{ user_id }
+	</select>
+	
+	<select id="showAllMyReservationlistWithoutPay" resultType="MyReservation">
+		select * from reservation where user_id = #{ user_id } and payment_status = 0 and refund_status = 0
+	</select>
+	
+	<select id="showAllMyReservationlistCanceled" resultType="MyReservation">
+		SELECT 
+			r.*, s.shop_name AS shop_name, sr.room_name AS room_name
+		FROM 
+    		reservation r
+		JOIN 	
+    		shop s ON r.shop_id = s.shop_id
+		JOIN 
+    		shop_room sr ON r.room_id = sr.room_id AND r.shop_id = sr.shop_id
+		WHERE 
+    		r.payment_status = 1 and r.refund_status = 1 and r.user_id = #{ user_id }
+	</select>
+	
+	<select id = "getThisRoomReservation" resultType = "reservation.model.RoomReservationBean">
+		select * from room_reservation where room_reservation_num = #{ order_num }
+	</select>
+	
+	<update id = "updateRefund_status">
+		update reservation set refund_status = 1 where order_num = #{ order_num }
+	</update>
+	
+	<select id = "showDetailPayment" resultType = "MyReservation">
+		SELECT 
+			r.*, s.shop_name AS shop_name, sr.room_name AS room_name
+		FROM 
+    		reservation r
+		JOIN 	
+    		shop s ON r.shop_id = s.shop_id
+		JOIN 
+    		shop_room sr ON r.room_id = sr.room_id AND r.shop_id = sr.shop_id
+		WHERE 
+    		r.order_num = #{ order_num }
+	</select>
+	
+	<select id="getReviewById"  resultType="review">
+ 		SELECT *
+ 		FROM REVIEW
+ 		WHERE RESERVATION_ID = #{order_num}
+ 	</select>
+ 	
+ 	<update id = "updateFinalPrice">
+      update reservation set total_price = #{ total_price } where order_num = #{ order_num }
+   </update>
+	
+</mapper>

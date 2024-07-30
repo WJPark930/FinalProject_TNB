@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="faq.model.Faq">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from faq
+        <if test="whatColumn == 'faq_category'">
+            where faq_category like #{keyword}
+        </if>
+        <if test="whatColumn == 'question'">
+            where question like #{keyword}
+        </if>
+        <if test="whatColumn == 'answer'">
+            where answer like #{keyword}
+        </if>
+        <if test="whatColumn == 'all'">
+            where (faq_category like #{keyword} or question like #{keyword} or answer like #{keyword})
+        </if>
+	</select>
+	
+	<select id="getFaqList" resultType="faq.model.FaqBean">
+		select * from faq
+        <if test="whatColumn == 'faq_category'">
+            where faq_category like #{keyword}
+        </if>
+        <if test="whatColumn == 'question'">
+            where question like #{keyword}
+        </if>
+        <if test="whatColumn == 'answer'">
+            where answer like #{keyword}
+        </if>
+        <if test="whatColumn == 'all'">
+            where (faq_category like #{keyword} or question like #{keyword} or answer like #{keyword})
+        </if>
+        order by faq_id desc
+	</select>
+	
+	<insert id="insertFaq">
+		insert into faq(faq_id, question, answer, faq_category, created_date, modified_date)
+		values(faq_seq.nextval,#{question},#{answer},#{faq_category},sysdate,sysdate)
+	</insert>
+	
+	<update id="updateFaq">
+		update faq set question = #{question}, answer = #{answer}, faq_category = #{faq_category}, modified_date = sysdate
+		where faq_id = #{faq_id}
+	</update>
+	
+	<delete id="deleteFaq">
+		delete from faq where faq_id = #{faq_id}
+	</delete>
+	
+	<select id="getFaq" resultType="faq.model.FaqBean">
+		select * from faq where faq_id = #{faq_id}
+	</select>
+	
+	<select id="getCategoryList" resultType="string">
+        select distinct faq_category from faq
+    </select>
+    
+</mapper>
+
+<!-- faq.xml -->

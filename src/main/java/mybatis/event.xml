@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event.model.Event">
+	<insert id="eventInsert">
+		insert into event values 
+		(event_seq.nextval, #{ event_title }, #{ event_context }, #{ event_image,jdbcType=VARCHAR }, sysdate, #{ event_end_date }, #{ event_discount_kind }, #{ event_discount_amount } )
+	</insert>
+	
+	<select id = "eventList" resultType = "MyEvent">
+		select * from event order by event_num desc
+	</select>
+	
+	<select id = "eventDetail" resultType = "MyEvent">
+		select * from event where event_num = #{ event_num }
+	</select>
+	
+	<delete id = "eventDelete">
+		delete from event where event_num = #{ event_num }
+	</delete>
+	
+	<update id = "eventUpdate">
+		update event set 
+		event_title = #{ event_title }, event_context = #{ event_context }, event_end_date = #{ event_end_date }, event_discount_kind = #{ event_discount_kind }, event_discount_amount = #{ event_discount_amount } where event_num = #{ event_num }
+	</update>
+	
+	<insert id="getThisCoupon">
+		insert into coupon values (coupon_seq.nextval, #{ event_num }, #{ user_id }, #{ kind }, #{ amount }, default)
+	</insert>
+	
+	<select id="showAllMyCoupon" resultType="MyCoupon">
+		select * from coupon where user_id = #{ user_id }
+	</select>
+	
+	<select id="showCanUseCoupon" resultType="MyCoupon">
+		select c.coupon_num, c.event_num, c.user_id, c.kind, c.amount, c.use_status,
+		e.event_title, e.event_context, e.event_image,
+		e.event_start_date, e.event_end_date, e.event_discount_kind, e.event_discount_amount
+		from coupon c join event e on c.event_num = e.event_num
+		where c.user_id = #{ user_id } and c.use_status = 0
+	</select>
+	
+	<select id="didIGetCoupon" resultType="MyCoupon">
+		select * from coupon where user_id = #{ user_id } and event_num = #{ event_num }
+	</select>
+	
+	<update id = "updateCouponUse_status_toYes">
+		update coupon set use_status = 1 where user_id = #{ user_id } and coupon_num = #{ coupon_num }
+	</update>
+	
+	<update id = "updateCouponUse_status_toNo">
+		update coupon set use_status = 0 where user_id = #{ user_id } and coupon_num = #{ coupon_num }
+	</update>
+	
+	<select id = "showAllMyCouponWithEventInfo_CanUse" resultType="MyCoupon">
+		select c.coupon_num, c.event_num, c.user_id, c.kind, c.amount, c.use_status,
+		e.event_title, e.event_context, e.event_image,
+		e.event_start_date, e.event_end_date, e.event_discount_kind, e.event_discount_amount
+		from coupon c join event e on c.event_num = e.event_num
+		where c.user_id = #{ user_id } and c.use_status = 0
+	</select>
+	
+ 	<select id="showAllMyCouponWithEventInfo_Used" resultType="MyCoupon">
+	    SELECT c.coupon_num, c.event_num, c.user_id, c.kind, c.amount, c.use_status,
+	           e.event_title, e.event_context, e.event_image,
+	           e.event_start_date, e.event_end_date, e.event_discount_kind, e.event_discount_amount
+	    FROM coupon c
+	    JOIN event e ON c.event_num = e.event_num
+	    WHERE c.user_id = #{ user_id } AND c.use_status = 1 
+	</select> 
+	
+	<select id = "showAllMyCouponWithEventInfo" resultType = "MyCoupon">
+		SELECT c.coupon_num, c.event_num, c.user_id, c.kind, c.amount, c.use_status,
+	           e.event_title, e.event_context, e.event_image,
+	           e.event_start_date, e.event_end_date, e.event_discount_kind, e.event_discount_amount
+	    FROM coupon c
+	    JOIN event e ON c.event_num = e.event_num
+	    WHERE c.user_id = #{ user_id }
+	</select>
+
+</mapper>
+
+<!-- event.xml -->
+

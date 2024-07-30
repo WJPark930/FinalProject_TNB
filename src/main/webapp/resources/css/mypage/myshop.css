@@ -1,0 +1,565 @@
+@import '../default_style.css';
+
+/* 리스트 */
+
+#content_container .list_area {
+    margin: 0 auto;
+}
+
+#content_container .content_box {
+    width: 210px;
+    height: 270px;
+    display: inline-block;
+    border: 1px solid var(--bs-gray-300);
+    padding: 0;
+    text-align: left;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+#content_container .content_box .content_img {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+#content_container .content_box .content_img img {
+    width: 100%;
+    height: 180px; 
+    object-fit: cover;
+}
+
+#content_container .content_box p {
+    margin: 0;
+}
+
+#content_container .content_box .content_text {
+    padding-left: 10px;
+}
+
+#content_container .content_box .content_category_name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--bs-gray-500);
+}
+
+#content_container .content_box .content_shop_name {
+    font-family: 'NanumSquare_B';
+    font-size: 18px;
+    color: var(--bs-gray-900);
+    margin-bottom: 5px;
+}
+
+#content_container .content_box .content_grade {
+    font-family: 'NanumSquare_B';
+    font-size: 14px;
+    color: #FFAD0A;
+    line-height: 14px;
+    margin: 0;
+}
+
+#content_container .content_box .content_grade img {
+    padding-bottom: 1px;
+    padding-right: 5px;
+}
+
+#content_container .list_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    padding: 10px 25px;
+    border: 2px solid #000;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    font-family: "NanumSquare_B";
+}
+
+.btn-6 {
+    background: var(--bs-main_color);
+   color: #fff;
+   line-height: 42px;
+   padding: 0;
+   border: none;
+ }
+ .btn-6 span {
+   position: relative;
+   display: block;
+   width: 100%;
+   height: 100%;
+ }
+ .btn-6:before,
+ .btn-6:after {
+   position: absolute;
+   content: "";
+   height: 0%;
+   width: 2px;
+   background: var(--bs-main_color);
+ }
+ .btn-6:before {
+   right: 0;
+   top: 0;
+   transition: all 500ms ease;
+ }
+ .btn-6:after {
+   left: 0;
+   bottom: 0;
+   transition: all 500ms ease;
+ }
+ .btn-6:hover{
+    background: var(--bs-main_color);
+   background: transparent;
+   color: var(--bs-main_color);
+ }
+ .btn-6:hover:before {
+   transition: all 500ms ease;
+   height: 100%;
+ }
+ .btn-6:hover:after {
+    color: var(--bs-main_color);
+   transition: all 500ms ease;
+   height: 100%;
+ }
+ .btn-6 span:before,
+ .btn-6 span:after {
+   position: absolute;
+   content: "";
+   background: var(--bs-main_color);
+ }
+ .btn-6 span:before {
+   left: 0;
+   top: 0;
+   width: 0%;
+   height: 2px;
+   transition: all 500ms ease;
+ }
+ .btn-6 span:after {
+   right: 0;
+   bottom: 0;
+   width: 0%;
+   height: 2px;
+   transition: all 500ms ease;
+   color: var(--bs-main_color);
+ }
+ .btn-6 span:hover:before {
+   width: 100%;
+ }
+ .btn-6 span:hover:after {
+   width: 100%;
+ }
+
+
+/* 디테일 뷰 */
+
+#content_container .shop_content_area {
+    width: 100%;
+    min-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    text-align: left;
+    overflow: hidden;
+}
+
+#content_container .shop_info_area {
+    padding: 20px;
+}
+
+#content_container .shop_insert_area{
+    padding: 30px 20px;
+}
+
+#content_container .shop_content_area p {
+    margin: 0;
+
+}
+
+.shop_content_area p  {
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-500);
+}
+
+#content_container .shop_insert_area .info_title { 
+    font-size: 18px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}    
+
+#content_container .shop_content_area h2 {
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+#content_container .shop_info_area h2 {
+    margin-top: 20px ;
+}
+
+#content_container .shop_content_area .shop_name_text{
+    font-size: 32px;
+    font-family: 'NanumSquare_EB';
+    color: var(--bs-gray-900);
+    margin-bottom: 10px;
+}
+
+#content_container .shop_content_area .shop_record_text{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-300);    
+}
+
+.shop_content_area .shop_record_text span{
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: #FFAD0A;
+}
+
+.accordion {
+    --bs-accordion-color: var(--bs-gray-900);
+    --bs-accordion-border-width: 0;
+    --bs-accordion-btn-padding-x: 0;
+    --bs-accordion-btn-padding-y: 0;
+}    
+
+.accordion-button {
+    padding: 20px;
+}
+
+#content_container .shop_content_area .shop_img_box {
+    width: 10vw;
+    overflow: hidden;
+    border-radius: 15px;
+    padding: 0;
+}
+
+#content_container .shop_content_area .shop_img_box img {
+    width: 100%;
+    height: 10vw;
+    object-fit: cover;
+}
+
+#content_container .shop_guide_area .guide_title {
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+    margin: 10px 0px;
+}
+
+#content_container .shop_guide_area .guide_content {
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+
+#content_container .shop_room_area .room_area {
+    width: 100%;
+    height: 260px;
+    display: flex;
+    justify-items: center;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid var(--bs-gray-300); 
+    margin: 20px 0px;
+}
+
+#content_container .shop_room_area .room_image_area {
+    width: 210px;
+    height: 210px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#content_container .shop_room_area .room_image_area img{
+    width: 210px;
+    height: 210px; 
+    object-fit: cover;
+}
+
+
+#content_container .shop_room_area .room_text_area {
+    width: 575px;
+    height: 210px;
+    margin-left: 25px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+}
+
+#content_container .shop_room_area .room_info_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+#content_container .shop_room_area .room_info_area p {
+    margin: 0;
+    font-size: 12px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-500); 
+}
+
+#content_container .shop_room_area .room_info_area .room_price_area{
+    text-align: right;
+}
+
+#content_container .shop_room_area .room_name{
+    font-size: 20px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900); 
+}
+
+#content_container .shop_room_area .sub_title{
+    font-size: 14px !important;
+    color: var(--bs-gray-900) !important; 
+}
+
+#content_container .shop_room_area .room_price_area p{
+    font-size: 20px;
+    color: var(--bs-gray-900); 
+}
+
+#content_container .shop_room_area .room_price_area p span{
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+}
+
+#content_container .room_add_btn {
+    font-family: 'NanumSquare_B';
+    padding: 10px 15px;
+}
+
+
+#content_container .shop_content_area .room_top_area {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 시설 등록 */
+
+.shop_insert_area .info_content {
+    margin-bottom: 30px;
+}
+
+.shop_insert_area .info_content:last-child {
+    margin-bottom: 0px;
+}
+
+#content_container .info_content .info_err {
+    margin-top: 10px ;
+}
+
+.shop_insert_area .shop_text_input {
+    width: 40%;
+    min-width: 360px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+}
+
+.shop_insert_area .shop_textarea {
+    width: 60%;
+    min-width: 360px;
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 15px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+    resize: none;
+}
+
+.shop_insert_area .info_content .category_btn{
+    border-radius: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+
+.shop_insert_area .info_content .region_select{
+    width: 30%;
+    min-width: 200px;
+}
+
+.shop_insert_area .address_area{
+    margin-top: 10px;
+}
+
+.shop_insert_area .address_input{
+    width: 20%;
+    min-width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+    margin-bottom: 5px;
+}
+
+.shop_insert_area .area_top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop_insert_area .guide_area .guide_content{
+    width: 100%;
+    border: 1px solid var(--bs-gray-300);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0px;
+}
+
+.shop_insert_area .guide_area p {
+    font-size: 14px;
+    font-family: 'NanumSquare_B';
+    color: var(--bs-gray-900);
+}
+
+.shop_insert_area .guide_area input {
+    width: 100%;
+    min-width: 360px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+    margin-bottom: 10px;
+}
+
+.shop_insert_area .guide_area textarea {
+    width: 100%;
+    min-width: 360px;
+    height: 85px;
+    border-radius: 10px;
+    border: 1px solid var(--bs-gray-500);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900); 
+    resize: none;
+}
+
+.shop_insert_area .file_area input {
+    margin-bottom: 10px;
+}
+
+.content_area form .submit_btn {
+    width: 100px;
+    height: 60px;
+    background-color: var(--bs-main_color);
+    font-size: 16px;
+    font-family: 'NanumSquare_B';
+    color: #fff;
+    border-radius: 15px;
+    border: 0;
+}
+
+/* 수정 */
+
+.save_area {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px 3px;
+    padding: 0;
+    display: inline-block;
+}
+
+.save_area img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.save_area button{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bs-gray-900);
+    opacity: 80%;
+    color: white;
+    border: 0;
+    outline: none;
+}
+
+
+/* 버튼 */
+
+.controller_area {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+  background: #3D4C53;
+  width : 140px;
+  height : 50px;
+  overflow: hidden;
+  text-align : center;
+  transition : .2s;
+  cursor : pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+  font-family: 'NanumSquare_B';
+}
+.btnTwo {
+  position : relative;
+  width : 200px;
+  height : 100px;
+  margin-top: -100px;
+  padding-top: 2px;
+  left : -250px;
+  transition : .3s;
+}
+
+.btnUpate {
+    background : #26A69A;
+}
+
+.btnDelete {
+    background : #dc3545;
+}
+
+.btnText {
+  color : white;
+  transition : .3s;
+  margin-top: 12px;
+}
+.btnText2 {
+  margin-top : 63px;
+  margin-right : -130px;
+  color : #FFF;
+}
+.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
+  left: -130px;
+}
+.button:hover .btnText{ /*When hovering over .button change .btnText*/
+  margin-left : 65px;
+}
+.button:active { /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
+}

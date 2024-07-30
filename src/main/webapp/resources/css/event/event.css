@@ -1,0 +1,182 @@
+@import '../default_style.css';
+@charset "UTF-8";
+
+
+#content_container {
+    margin-top: 75px;
+    padding: 50px 0px;
+ }
+
+#listForPadding {
+   margin-top: 30px;
+   margin-bottom: 50px;
+} 
+ 
+ 
+.eventList {
+   width: 300px;
+   text-decoration: none;
+   color: var(--bs-gray-900);
+   margin-bottom: 20px;   
+}
+
+.event-container {
+   width: 280px;
+   height: 300px;
+   margin: 0 auto;
+   border: 1px solid var(--bs-gray-500);
+   border-radius: 10px;
+   overflow: hidden;
+} 
+
+.eventListImage {
+    width: 280px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.eventListImage img {
+    width: 278px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event_title {
+   font-weight: bold;
+    font-family: 'NanumSquare_B';
+    font-size: 16px;
+    color: var(--bs-gray-900);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.event_end_date {
+    font-family: 'NanumSquare_B';
+    font-size: 14px;
+    color: var(--bs-gray-500);
+    margin-left: 10px;
+    padding-top: 15px;
+}
+
+
+.event-detail-container {
+   width: 600px;
+   height: 700px;
+   margin: 0 auto;
+   border: 1px solid var(--bs-gray-500);
+   border-radius: 10px;
+   overflow: hidden;
+   margin-top: 20px;
+} 
+
+.event-detail-container p  {
+    font-size: 16px;
+    font-family: 'NanumSquare_R';
+    color: var(--bs-gray-900);
+}
+
+.event-image-view {
+    width: 600px;
+    height: 430px;
+    overflow: hidden;
+}
+
+.event-image-view img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+    
+.event-form {
+   border-radius: 15px;
+   border: 1px solid var(--bs-gray-500);
+   margin-top: 10px;
+   font-family: 'NanumSquare_B';
+   background-color: rgba(128, 128, 0, 0.05);
+   padding-top: 15px;
+}
+
+.event-form label {
+   font-size: 20px;
+}
+
+.event-form-body {
+   margin: 30px 60px;
+}
+
+   .form-check {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 10px; 
+    }
+
+    
+    .form-check-input {
+        margin-right: 3px; 
+    }
+
+    
+.form-check-label {
+    margin-right: 35px; 
+}
+
+#discountAmountContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+
+#discountAmountContainer .btn-check {
+    flex: 1 1 calc(33.333% - 10px); 
+}
+
+#discountAmountContainer .btn {
+    width: 32.5%; 
+    text-align: center; 
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.button-group .btn {
+    flex: 1 1 30%; 
+    margin: 5px; 
+    box-sizing: border-box; 
+}
+
+
+.event-detail-content .event-title {
+   font-family: 'NanumSquare_B';
+    font-size: 16px;
+    color: var(--bs-gray-900);
+}
+
+
+.event-detail-content p {
+   margin: 10px 20px;
+   font-family: 'NanumSquare_B';
+    font-size: 14px;
+    color: var(--bs-gray-500);
+}
+
+.button-group2 {
+   margin: 15px 15px;
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; 
+}
+
+
+.button-group2 .btn {
+    flex: 1; 
+    margin: 0;
+}
