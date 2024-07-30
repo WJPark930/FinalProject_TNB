@@ -1,0 +1,179 @@
+
+--게시판
+
+drop table board cascade constraints;
+
+create table board( 
+   bid int not null,
+   user_id int not null,
+   cate_id int not null,
+   constraint board_pk primary key(bid, user_id, cate_id),
+   passwd varchar2(50) not null,
+   created_at date not null,
+   updated_at date,
+   title varchar2(100) not null,
+   content varchar2(400) not null,
+   image varchar2(200),
+   readcount int,
+   constraint unique_bid unique (bid)
+);
+
+drop sequence board_seq;
+create sequence board_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+    
+
+insert into board (bid, user_id, cate_id, passwd, created_at, updated_at, title, content, image, readcount)
+values (board_seq.nextval, 1, 1, 'password1', sysdate, sysdate, '첫 번째 글 제목', '첫 번째 글 내용입니다.', null, 0);
+
+insert into board (bid, user_id, cate_id, passwd, created_at, updated_at, title, content, image, readcount)
+values (board_seq.nextval, 2, 1, 'password2', sysdate, sysdate, '두 번째 글 제목', '두 번째 글 내용입니다.', null, 0);
+
+insert into board (bid, user_id, cate_id, passwd, created_at, updated_at, title, content, image, readcount)
+values (board_seq.nextval, 1, 2, 'password3', sysdate, sysdate, '세 번째 글 제목', '세 번째 글 내용입니다.', null, 0);
+  
+
+--커뮤니티 카테고리
+drop table comu_category cascade constraints;
+
+create table comu_category(
+   id int not null primary key,
+   comu_cate varchar2(100) not null
+);
+
+drop sequence comu_category_seq;
+create sequence comu_category_seq
+   increment by 1
+   start with 1
+   minvalue 1
+   maxvalue 10000
+   nocache;
+   
+--게시글 추천
+drop table board_recommend cascade constraints;
+
+create table board_recommend(
+   id int not null,
+   user_id int not null,
+   bid int not null,
+   constraint board_recomment_user_id_fk foreign key (user_id) references member(user_id) on delete cascade,
+   constraint pk_board_recommend primary key(id, user_id)
+);
+
+drop sequence comment_recommend_seq;
+
+create sequence comment_recommend_seq
+   increment by 1
+   start with 1
+   minvalue 1
+   maxvalue 10000
+   nocache;
+
+   
+-- 댓글 테이블 삭제
+drop table board_comment cascade constraints;
+
+-- 댓글 테이블 생성
+create table board_comment(
+    id int not null,
+    board_id int not null,
+    user_id int not null,
+    content varchar2(400) not null,
+    created_at date not null,
+    updated_at date not null,
+    constraint pk_board_comment primary key (id, board_id, user_id),
+    constraint uq_board_comment unique (id, user_id),
+    constraint board_comment_board_id_fk foreign key (board_id) references board(bid) on delete cascade,
+    constraint board_comment_user_id_fk foreign key (user_id) references member(user_id) on delete cascade
+);
+
+-- 댓글 시퀀스 삭제
+drop sequence comment_seq;
+
+-- 댓글 시퀀스 생성
+create sequence comment_seq
+    increment by 1
+    start with 1
+    minvalue 1
+    maxvalue 10000
+    nocache;
+
+   
+--댓글 추천
+drop table comment_recommend cascade constraints;
+
+create table comment_recommend(
+    id int not null,
+    user_id int not null,
+   comment_id int not null,
+    constraint pk_comment_recommend primary key (id, user_id)
+);
+
+alter table comment_recommend
+add constraint comment_recommend_user_id_fk foreign key (user_id) references member(user_id) on delete cascade;
+
+
+drop sequence comment_recommend_seq;
+
+create sequence comment_recommend_seq
+   increment by 1
+   start with 1
+   minvalue 1
+   maxvalue 10000
+   nocache;
+   
+ -- 대댓글 테이블 삭제
+drop table nested_comment cascade constraints;
+
+-- 대댓글 테이블 생성
+create table nested_comment(
+    id int not null,
+    comment_id int not null,
+    user_id int not null,
+    content varchar2(400) not null,
+    created_at date not null,
+    updated_at date not null,
+    constraint pk_nested_comment primary key (id, comment_id, user_id),
+    constraint nested_comment_user_id_fk foreign key (user_id) references member(user_id) on delete cascade,
+    constraint nested_comment_comment_id_fk foreign key (comment_id, user_id) references board_comment(id, user_id) on delete cascade
+);
+
+-- 대댓글 시퀀스 삭제
+drop sequence nested_comment_seq;
+
+-- 대댓글 시퀀스 생성
+create sequence nested_comment_seq
+    increment by 1
+    start with 1
+    minvalue 1
+    maxvalue 10000
+    nocache;
+
+    
+--대댓글 추천
+drop table nested_comment_recommend;
+
+create table nested_comment_recommend(
+   id int not null,
+   user_id int not null,
+   nested_comment_id int not null,
+   constraint pk_nested_comment_recommend primary key (id, user_id, nested_comment_id)
+);
+
+alter table nested_comment_recommend add constraint nested_comment_recommend_user_id_fk foreign key (user_id) references member(user_id) on delete cascade;
+alter table nested_comment_recommend add constraint nested_comment_recommend_nested_comment_id_fk foreign key (id,nested_comment_id, user_id) references nested_comment(id, comment_id, user_id) on delete cascade;
+
+drop sequence nested_comment_recommend_seq;
+
+create sequence nested_comment_recommend_seq
+   increment by 1
+   start with 1
+   minvalue 1
+   maxvalue 10000
+   nocache;
+   
+commit;
